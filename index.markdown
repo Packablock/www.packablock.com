@@ -36,4 +36,8 @@ permalink: /
     <h3>⚡ SemVer Drift Detection</h3>
     <p>Analyze version drift, detect regressions, and evaluate incoming updates against compliance policies before dependencies make it to runtime.</p>
   </div>
+  <div class="feature-card">
+    <h3>⚙️ CI/CD Security Gates</h3>
+    <p>Enforce attestation validation in your deployment pipelines. Block builds instantly on untracked dependency changes or compromised historical blocks before they reach production.</p>
+  </div>
 </div>
