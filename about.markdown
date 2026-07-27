@@ -10,7 +10,7 @@ Packablock was founded on a simple premise: **the modern software supply chain i
 
 Every day, developers and automated CI/CD pipelines pull millions of open-source packages from public registries. Traditional tools monitor these dependencies in a passive, "awareness-first" posture—scanning lockfiles after they are committed and alerting security teams when a vulnerability is published in a CVE database. 
 
-However, studies show that over 50% of malicious packages execute their payloads immediately upon installation. Receiving an alert hours or days later means your build environments or developer workstations are already compromised.
+However, [studies show](https://arxiv.org/abs/2005.09535) that over 50% of malicious packages execute their payloads immediately upon installation. Receiving an alert hours or days later means your build environments or developer workstations are already compromised.
 
 Packablock transitions the supply chain to a **preventative, zero-trust security model**. By generating cryptographically signed, sequential timeline logs of dependency modifications, Packablock acts as a continuous validation gate. If a dependency is modified, tampered with, or updated without validation, Packablock blocks the build before it can reach compile time.
 
