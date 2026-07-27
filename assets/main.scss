@@ -52,9 +52,66 @@ body {
   align-items: center;
   gap: 8px;
   
+  // Custom brand accent candlestick indicator inside a terminal cursor block
+  .site-title-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    background-color: rgba(34, 211, 238, 0.1);
+    border: 1px solid rgba(34, 211, 238, 0.25);
+    border-radius: 4px;
+    margin-right: 2px;
+    vertical-align: middle;
+    transition: background-color 0.2s ease, border-color 0.2s ease, transform 0.15s ease;
+
+    .candlestick-svg {
+      width: 16px;
+      height: 16px;
+      display: block;
+
+      line {
+        stroke: #22D3EE;
+        transition: stroke 0.2s ease;
+      }
+
+      circle {
+        fill: #22D3EE;
+        transition: fill 0.2s ease;
+      }
+
+      rect {
+        fill: #0E1B2E;
+        stroke: #22D3EE;
+        stroke-width: 6;
+        transition: fill 0.2s ease, stroke 0.2s ease;
+      }
+    }
+  }
+
   &:hover {
     opacity: 0.9;
     text-decoration: none;
+
+    .site-title-icon {
+      background-color: #22D3EE;
+      border-color: #22D3EE;
+      transform: scale(1.05);
+
+      .candlestick-svg {
+        line {
+          stroke: #0E1B2E;
+        }
+        circle {
+          fill: #0E1B2E;
+        }
+        rect {
+          fill: #FFFFFF;
+          stroke: #0E1B2E;
+        }
+      }
+    }
   }
 }
 
