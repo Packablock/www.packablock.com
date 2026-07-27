@@ -15,7 +15,7 @@ permalink: /
   </div>
   <h1 class="hero-title">Zero-Trust Supply Chain Policy Control</h1>
   <p class="hero-subtitle">
-    Cryptographically secure attestation logs and parallel lockfile tracking to eliminate dependency tampering and split-timeline attacks.
+    Cryptographically secure attestation logs and parallel lockfile tracking to defend against software supply chain attacks and package tampering.
   </p>
   <a href="https://docs.packablock.com" class="btn-primary">
     Explore the Documentation
