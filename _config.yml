@@ -21,7 +21,7 @@
 title: Packablock
 email: support@packablock.com
 description: >-
-  The Zero-Trust Supply Chain Policy Control.
+  The Deterministic Supply Chain Policy Control.
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "https://www.packablock.com" # the base hostname & protocol for your site, e.g. http://example.com
 twitter_username: packablock

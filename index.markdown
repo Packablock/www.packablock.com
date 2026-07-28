@@ -13,7 +13,7 @@ permalink: /
       <circle cx="60" cy="90" r="8" fill="currentColor"/>
     </svg>
   </div>
-  <h1 class="hero-title">Zero-Trust Supply Chain Policy Control</h1>
+  <h1 class="hero-title">Deterministic Supply Chain Policy Control</h1>
   <p class="hero-subtitle">
     Cryptographically secure attestation logs and parallel lockfile tracking to defend against software supply chain attacks and package tampering.
   </p>
