@@ -36,6 +36,7 @@ body {
 .site-header {
   background-color: rgba(14, 27, 46, 0.8) !important;
   backdrop-filter: blur(12px);
+  border-top: none !important;
   border-bottom: 1px solid rgba(34, 211, 238, 0.15) !important;
   position: sticky;
   top: 0;
