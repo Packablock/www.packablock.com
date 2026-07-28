@@ -12,7 +12,7 @@ Every day, developers and automated CI/CD pipelines pull millions of open-source
 
 However, [studies show](https://arxiv.org/abs/2005.09535) that over 50% of malicious packages execute their payloads immediately upon installation. Receiving an alert hours or days later means your build environments or developer workstations are already compromised.
 
-Packablock transitions the supply chain to a **preventative, zero-trust security model**. By generating cryptographically signed, sequential timeline logs of dependency modifications, Packablock acts as a continuous validation gate. If a dependency is modified, tampered with, or updated without validation, Packablock blocks the build before it can reach compile time.
+Packablock transitions the supply chain to a **preventative, deterministic security model**. By generating cryptographically signed, sequential timeline logs of dependency modifications, Packablock acts as a continuous validation gate. If a dependency is modified, tampered with, or updated without validation, Packablock blocks the build before it can reach compile time.
 
 ## Our Mission
 
