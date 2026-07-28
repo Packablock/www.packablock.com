@@ -212,6 +212,33 @@ body {
   }
 }
 
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  background: rgba(34, 211, 238, 0.05);
+  color: $accent-teal !important;
+  font-weight: 700;
+  padding: 12px 28px;
+  border-radius: 8px;
+  text-decoration: none !important;
+  transition: all 0.25s ease;
+  border: 1px solid rgba(34, 211, 238, 0.3);
+  
+  &:hover {
+    transform: translateY(-2px);
+    background: rgba(34, 211, 238, 0.12);
+    border-color: $accent-teal;
+    box-shadow: 0 4px 14px 0 rgba(34, 211, 238, 0.25);
+  }
+}
+
+.hero-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
 .feature-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
