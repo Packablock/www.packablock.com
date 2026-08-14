@@ -4,6 +4,12 @@ title: Welcome
 permalink: /
 ---
 
+<div class="early-access-banner">
+  <span class="banner-badge">Early Access</span>
+  <span class="banner-text">Reserve your slot for the Packablock developer preview.</span>
+  <a href="/signup/" class="banner-link">Apply Now &rarr;</a>
+</div>
+
 <div class="hero-section">
   <div class="hero-logo">
     <svg width="96" height="96" class="w-24 h-24 text-[#22d3ee]" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" fill="none" stroke="none" role="img" aria-label="Packablock mark">
