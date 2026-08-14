@@ -5,9 +5,12 @@ permalink: /
 ---
 
 <div class="early-access-banner">
-  <span class="banner-badge">Early Access</span>
-  <span class="banner-text">Reserve your slot for the Packablock developer preview.</span>
-  <a href="/signup/" class="banner-link">Apply Now &rarr;</a>
+  <div class="banner-badge">Early Access</div>
+  <div class="banner-separator"></div>
+  <div class="banner-content">
+    <span class="banner-text">Reserve your slot for the Packablock developer preview.</span>
+    <a href="/signup/" class="banner-link">Apply Now &rarr;</a>
+  </div>
 </div>
 
 <div class="hero-section">
