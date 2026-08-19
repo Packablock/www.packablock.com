@@ -5,98 +5,70 @@ permalink: /cra-compliance-checklist/
 ---
 
 # Get Your CRA Compliance Checklist
-## Deterministic Guardrails for CI/CD Pipelines
-### The Architectural Checklist for Tamper-Proof Software Supply Chains
+## The Software Manufacturer's Self-Assessment for EU Cyber Resilience Act (CRA)
+### Prepared in alignment with the Eclipse Foundation’s Open Regulatory Compliance (ORC) Working Group
 
-> **Executive Brief**: Traditional software supply chain security relies on awareness—static SBOM snapshots and post-incident CVE alerts that notify you after a compromised artifact has already entered production. Packablock transforms compliance into active prevention by embedding deterministic, cryptographic guardrails directly into your CI/CD pipelines.
+Under the EU Cyber Resilience Act (CRA), products with digital elements classified as **"Default / Standard"** (as well as certain qualifying open-source software under Article 32) can demonstrate conformity via **Conformity Assessment Module A (Internal Production Control / Manufacturer Self-Assessment)**. 
+
+This checklist incorporates guidance and standards from the **Eclipse Foundation’s ORC Working Group** alongside its affiliated compliance initiatives (such as the **OCCTET Project** and the **sCC4CRA / Simplified Common Criteria** framework) to help software manufacturers and open-source stewards comply with the CRA.
 
 <div class="download-checklist-container" style="margin: 30px 0; text-align: center;">
   <a href="{{ '/assets/docs/packablock-security-checklist.pdf' | relative_url }}" class="btn-primary" download>
     <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" style="margin-right: 8px; vertical-align: middle;"><path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3"></path></svg>
-    Download PDF Checklist
+    Download Printable PDF Checklist
   </a>
 </div>
 
 ---
 
-## 🎯 Why Static Checklists Are No Longer Enough
+## 📋 The Five Core Pillars of CRA Self-Assessment
 
-Modern regulatory frameworks (such as the EU Cyber Resilience Act, SLSA Level 3+, and executive cybersecurity mandates) demand continuous, verifiable provenance rather than point-in-time assertions.
-
-* **The Resolution Gap**: Static dependency exports often scrape declared ranges rather than absolute runtime state.
-* **The "Eve" Build-Tampering Attack**: Attackers with runner access or compromised credentials can mutate compiled release binaries while leaving source trees and pull requests looking pristine.
-* **Passive vs. Preventative Posture**: Retroactive notifications alert teams hours or days after execution; deterministic guardrails stop untrusted, unverified builds at the runner boundary.
-
----
-
-## 📋 The Deterministic CI/CD Guardrail Checklist
-
-```text
-           [ Commit / PR ]
-                  │
-                  ▼
-   ┌──────────────────────────────┐
-   │ 1. INGESTION & LOCK GAUNTLET │ ➔ Parse lockfiles, evaluate SemVer boundaries
-   └──────────────┬───────────────┘
-                  │
-                  ▼
-   ┌──────────────────────────────┐
-   │ 2. HERMETIC RUNNER ISOLATION │ ➔ OIDC auth, build binary, compute SHA-256
-   └──────────────┬───────────────┘
-                  │
-                  ▼
-   ┌──────────────────────────────┐
-   │ 3. CRYPTOGRAPHIC LEDGER LINK │ ➔ Append delta, sign block, push out-of-band
-   └──────────────┬───────────────┘
-                  │
-                  ▼
-   ┌──────────────────────────────┐
-   │ 4. DETERMINISTIC ENFORCEMENT │ ➔ Assert O(1) hash chain, verify anchors
-   └──────────────┬───────────────┘
-                  │
-                  ▼
-           [ Deploy / Pack ]
-```
-
-### Phase 1: Ingestion & Dependency Boundary Guardrails
-*Prevent untrusted, floating, or unpinned dependencies from silently entering execution paths.*
-
-* [ ] **Deterministic Lockfile Ingestion**: Lockfile states (`package-lock.json`, `bun.lockb`, Cargo manifests) must be deterministically parsed into an immutable baseline during pipeline initialization.
-* [ ] **SemVer Drift & Wick Monitoring**: Establish bounds between installed pins and upper semantic ceilings to prevent upstream "ghost wick" dependency drift and breaking changes.
-* [ ] **Pre-Execution Challenge Gates**: Require incoming dependencies to validate against an authoritative registry before build scripts or pre/post-install hooks run.
-
-### Phase 2: Hermetic Isolation & Build Attestation
-*Ensure that source code intent strictly matches compiled runtime artifacts.*
-
-* [ ] **Sandboxed Build Runners**: Execute builds within isolated, minimal container environments with restricted memory caps and dropped capabilities (`--no-new-privileges`).
-* [ ] **Ephemeral, Keyless Authentication (OIDC)**: Eliminate long-lived static secrets in runner environments by minting short-lived OpenID Connect (OIDC) JWT tokens tied directly to GitHub JWKS claims.
-* [ ] **Atomic Build Attestation**: Calculate byte-for-byte SHA-256 hashes of compiled binaries immediately upon compilation and bind them cryptographically to the commit SHA and committer identity.
-
-### Phase 3: Out-of-Band Cryptographic Ledger
-*Maintain an un-rewritable audit trail without polluting main development branches.*
-
-* [ ] **Multi-Document YAML State Streams**: Capture every dependency transition as an append-only, human-readable transactional delta block (`packablock.yaml`).
-* [ ] **Zero Main Branch Pollution**: Ensure pipeline enforcers write ledger states strictly out-of-band to a dedicated metadata branch (`sbom-ledger` / `packablock-log`) or an OCI registry artifact layer.
-* [ ] **Constant-Memory (O(1)) Stream Verification**: Implement raw-byte streaming verification to validate block indices, metadata signatures, and chain hashes linearly without loading multi-gigabyte logs into runner memory.
-
-### Phase 4: Continuous Provenance, Time-Travel & Audit Readiness
-*Ensure historic accountability and zero-overhead audit compliance across the software lifecycle.*
-
-* [ ] **Deterministic Time-Travel Verification**: Reconstruct exact byte-for-byte replicas of past configurations at any arbitrary historical timestamp via forward-replay state machines (`pkablk checkout <file> --time <timestamp>`).
-* [ ] **Genesis Rollover (Log Pruning)**: Automatically seal, archive, and rollover historical ledger chains once threshold limits are reached, inheriting terminal hash anchors to maintain millisecond verification speeds.
-* [ ] **Tiered Trust Anchoring**: Enforce pipeline verification policies across standalone offline runs (P2P / degraded trust warnings) and cloud-anchored registries (ALME protocol).
+### Pillar 1: Scope, Product Classification & Support Period
+Ensure the software product is accurately categorized and its operational support boundaries are formally defined:
+* [ ] **Scope Verification**: Confirm whether the software qualifies as a Product with Digital Elements (PDE) having direct or indirect logical or network data connections.
+* [ ] **Risk Tiering**: Establish if the product falls under Default/Standard (eligible for pure self-assessment), Important (Class I / Class II), or Critical.
+* [ ] **Defined Support Period**: Formally document the guaranteed lifetime during which the manufacturer will provide free security updates (minimum expected lifetime).
 
 ---
 
-## 🔬 Matrix: Legacy Compliance vs. Packablock Determinism
+### Pillar 2: Product Security by Design & Default (Annex I, Part I)
+Assess whether cybersecurity controls are built into the architecture from conception to delivery:
 
-| Compliance Vector | Legacy / Static Approach | Packablock Deterministic Guardrail |
-| :--- | :--- | :--- |
-| **SBOM Architecture** | Static SPDX/CycloneDX exports generated post-build. | Transactional Delta Chains: Live multi-document YAML stream tracking every change linearly. |
-| **Storage & Git History** | Heavy JSON blobs committed to main or unindexed S3 buckets. | Out-of-Band Isolation: Dedicated metadata branches (`packablock-log`) or OCI registry layers. |
-| **Runner Verification** | Trust-on-first-use; runners assume installed binaries are safe. | O(1) Raw-Byte Stream Verification: Instant rejection of altered or forged blocks. |
-| **Audit & Provenance** | Speculative git diffs over thousands of manifest lines. | Time-Travel Checkouts: Deterministic state reconstruction at exact historical timestamps. |
-| **Onboarding** | Manual creation and copying of long-lived API tokens. | ALME Protocol: Automatic nonce challenges via `.well-known/sbom-challenge`. |
+| Requirement Area | Checklist Verification Items |
+| :--- | :--- |
+| **No Known Exploitable Flaws** | Evidence that software is shipped free of known, exploitable vulnerabilities. |
+| **Secure by Default** | Default settings are hardened; attack surfaces/unnecessary services/ports are minimized; factory reset or configuration reset mechanisms are available. |
+| **Access Control & Identity** | Robust authentication, authorization, token encryption, and least-privilege access enforcement. |
+| **Data Protection** | Encryption of sensitive data in transit and at rest; protection against unauthorized data modification or corruption. |
+| **Data Minimization** | Verification that the software only processes and retains data strictly necessary for its intended functionality. |
+| **Resilience & Availability** | Protection against denial-of-service (DoS) conditions and mitigation of negative impacts on other network devices. |
+
+---
+
+### Pillar 3: Vulnerability Handling & Supply Chain Obligations (Annex I, Part II)
+Evaluate whether the manufacturer has operationalized ongoing dependency tracking and lifecycle security:
+* [ ] **Software Bill of Materials (SBOM)**: Maintaining a complete, machine-readable inventory of all first- and third-party dependencies (utilizing standards like CycloneDX or SPDX).
+* [ ] **Supply Chain Due Diligence**: Documented process to screen, test, and vet third-party and open-source components for inherited flaws prior to integration.
+* [ ] **Security Testing in CI/CD**: Ongoing vulnerability scanning, static/dynamic analysis (SAST/DAST), code reviews, and penetration testing.
+* [ ] **Coordinated Vulnerability Disclosure (CVD)**: A public policy (e.g., `SECURITY.md`, dedicated contact point) defining how external researchers can privately report security flaws.
+* [ ] **Patch Management**: Capability to rapidly develop, validate, and securely distribute security fixes and patches (kept distinct from functional/feature updates).
+
+---
+
+### Pillar 4: Incident & Vulnerability Reporting Readiness (Article 14)
+Verify the manufacturer’s incident response workflows against mandatory regulatory notification windows:
+* [ ] **24-Hour Early Warning**: Documented escalation procedures to notify the designated CSIRT and ENISA within 24 hours of becoming aware of an actively exploited vulnerability or severe security incident.
+* [ ] **72-Hour Notification**: Follow-up detailed report with impact analysis and mitigation/workaround steps.
+* [ ] **Final Report**: Concluding report delivered within 14 days after a corrective patch or mitigation is available (or 1 month for severe unresolved incidents).
+
+---
+
+### Pillar 5: Technical Documentation & Conformity (Annex VII & Module A)
+Compile the formal Technical File required to affix the CE mark and verify compliance:
+* [ ] **Cybersecurity Risk Assessment**: A formal threat model and risk assessment identifying potential threats across design, deployment, and maintenance.
+* [ ] **User Information & Manuals (Annex II)**: End-user documentation detailing secure installation, recommended security configuration, and decommission/end-of-life procedures.
+* [ ] **EU Declaration of Conformity (DoC)**: A signed legal declaration confirming compliance with all applicable essential requirements of the CRA.
+* [ ] **CE Marking**: Affixing the CE mark to the software packaging, documentation, or digital interface in accordance with Conformity Assessment Module A.
 
 ---
 
