@@ -9,4 +9,25 @@
     {%- include google-analytics.html -%}
   {%- endif -%}
   <link rel="icon" href="{{ "/favicon.svg" | relative_url }}" type="image/svg+xml">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Packablock",
+    "operatingSystem": "Linux, macOS, Windows",
+    "applicationCategory": "DeveloperApplication, SecurityApplication",
+    "description": "Cryptographically secure attestation logs and parallel lockfile tracking to defend against software supply chain attacks.",
+    "offers": {
+      "@type": "Offer",
+      "price": "0.00",
+      "priceCurrency": "USD"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Packablock",
+      "url": "https://www.packablock.com",
+      "logo": "https://www.packablock.com/favicon.svg"
+    }
+  }
+  </script>
 </head>

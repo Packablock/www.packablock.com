@@ -1,6 +1,7 @@
 ---
 layout: default
-title: Early Access Signup
+title: Early Access Developer Preview Signup | Packablock
+description: Apply for the Packablock developer preview to start securing your package supply chains with deterministic CI/CD policy control.
 permalink: /signup/
 ---
 

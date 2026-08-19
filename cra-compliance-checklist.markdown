@@ -1,10 +1,10 @@
 ---
 layout: page
-title: Get Your CRA Compliance Checklist
+title: EU Cyber Resilience Act (CRA) Compliance Checklist | Packablock
+description: Self-assessment checklist for Software Manufacturer Module A conformity under the EU Cyber Resilience Act, aligned with Eclipse Foundation ORC Working Group standards.
 permalink: /cra-compliance-checklist/
 ---
 
-# Get Your CRA Compliance Checklist
 ## The Software Manufacturer's Self-Assessment for EU Cyber Resilience Act (CRA)
 ### Prepared in alignment with the Eclipse Foundation’s Open Regulatory Compliance (ORC) Working Group
 
