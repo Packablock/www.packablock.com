@@ -33,6 +33,7 @@ theme: minima
 # Primary navigation pages
 header_pages:
   - about.markdown
+  - cra-compliance-checklist.markdown
 
 # Exclude from processing.
 # The following items will not be processed, by default.
