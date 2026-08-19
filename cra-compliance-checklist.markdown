@@ -10,6 +10,13 @@ permalink: /cra-compliance-checklist/
 
 > **Executive Brief**: Traditional software supply chain security relies on awareness—static SBOM snapshots and post-incident CVE alerts that notify you after a compromised artifact has already entered production. Packablock transforms compliance into active prevention by embedding deterministic, cryptographic guardrails directly into your CI/CD pipelines.
 
+<div class="download-checklist-container" style="margin: 30px 0; text-align: center;">
+  <a href="{{ '/assets/docs/packablock-security-checklist.pdf' | relative_url }}" class="btn-primary" download>
+    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" style="margin-right: 8px; vertical-align: middle;"><path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3"></path></svg>
+    Download PDF Checklist
+  </a>
+</div>
+
 ---
 
 ## 🎯 Why Static Checklists Are No Longer Enough
