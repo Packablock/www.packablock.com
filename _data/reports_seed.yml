@@ -1,0 +1,216 @@
+- slug: "yaml-in-kubernetes-1-31"
+  title: "What version of YAML is in Kubernetes 1.31?"
+  category: "Cloud Native & Orchestration"
+  host:
+    name: "Kubernetes"
+    version: "v1.31.0"
+    release_date: "2024-08-13"
+    repo_url: "https://github.com/kubernetes/kubernetes"
+    docs_url: "https://kubernetes.io/docs/concepts/overview/working-with-objects/kubernetes-objects/"
+  target:
+    name: "sigs.k8s.io/yaml"
+    version: "v1.4.0"
+    ecosystem: "go"
+    package_name: "sigs.k8s.io/yaml"
+    purl: "pkg:golang/sigs.k8s.io/yaml@v1.4.0"
+    swhid: "swh:1:rev:c3ee12d93e18cfbf67e3dfbe241315b81045dd1a"
+    spec_level: "YAML 1.2 (via JSON Transcoding)"
+    transitive_core: "gopkg.in/yaml.v3 v3.0.1"
+    repo_url: "https://github.com/kubernetes-sigs/yaml"
+  summary: >
+    Kubernetes 1.31 utilizes sigs.k8s.io/yaml v1.4.0 across kubectl, the API server, and kubelet. 
+    It decodes YAML manifests to JSON intermediate representation before schema validation, enforcing YAML 1.2 rules.
+  cvd:
+    has_policy: true
+    policy_url: "https://github.com/kubernetes/kubernetes/blob/master/SECURITY.md"
+    disclosure_program: "Kubernetes Security Response Committee (SRC) Bug Bounty"
+  cra_status:
+    support_tier: "Active Support"
+    end_of_life: false
+    cra_risk_score: "Low (Active upstream SIG Architecture maintenance)"
+  quirks:
+    - title: "Unquoted Boolean Country Codes ('NO' / 'YES')"
+      description: "Under YAML 1.2 (JSON transcoding), 'country: NO' is parsed as the string 'NO' rather than boolean 'false', resolving the infamous YAML 1.1 Norway country code bug."
+      code_bad: |
+        # YAML 1.1 (e.g. PyYAML):
+        country: NO       # Evaluates to boolean: false
+      code_good: |
+        # Kubernetes YAML 1.2 (sigs.k8s.io/yaml):
+        country: NO       # Evaluates to string: "NO"
+    - title: "Duplicate Mapping Keys Rejection"
+      description: "To prevent shadow parameter injection attacks, duplicate keys in the same mapping block are rejected during JSON unmarshalling."
+      code_bad: |
+        spec:
+          replicas: 1
+          replicas: 5     # Shadow key rejected with parse error
+      code_good: |
+        spec:
+          replicas: 5     # Explicit single key assignment required
+
+- slug: "hcl-in-terraform-1-9"
+  title: "What version of HCL is in Terraform 1.9?"
+  category: "Infrastructure as Code"
+  host:
+    name: "Terraform"
+    version: "v1.9.5"
+    release_date: "2024-08-21"
+    repo_url: "https://github.com/hashicorp/terraform"
+    docs_url: "https://developer.hashicorp.com/terraform/language/syntax/configuration"
+  target:
+    name: "github.com/hashicorp/hcl/v2"
+    version: "v2.21.0"
+    ecosystem: "go"
+    package_name: "github.com/hashicorp/hcl/v2"
+    purl: "pkg:golang/github.com/hashicorp/hcl/v2@v2.21.0"
+    swhid: "swh:1:rev:7e66d3a95d7b5fdf68f0ef1185523287661b6cb4"
+    spec_level: "HCL 2.0 (Structural Configuration Language)"
+    transitive_core: "github.com/zclconf/go-cty v1.14.4"
+    repo_url: "https://github.com/hashicorp/hcl"
+  summary: >
+    Terraform 1.9 embeds HCL2 v2.21.0 for configuration parsing, dynamic block evaluation, and expression type checking.
+  cvd:
+    has_policy: true
+    policy_url: "https://www.hashicorp.com/security"
+    disclosure_program: "HashiCorp Vulnerability Disclosure & HackerOne"
+  cra_status:
+    support_tier: "Active Support"
+    end_of_life: false
+    cra_risk_score: "Low (Active commercial & community maintenance)"
+  quirks:
+    - title: "Strict Null vs Empty String Type Differentiation"
+      description: "HCL2 distinguishes between null values and empty strings (\"\") in ternary operations and dynamic blocks."
+      code_bad: |
+        # Undesired default evaluation:
+        name = var.override_name != "" ? var.override_name : "default"
+      code_good: |
+        # HCL2 Idiomatic coalesce:
+        name = coalesce(var.override_name, "default")
+    - title: "Dynamic Block Iterator Scoping"
+      description: "Dynamic blocks create isolated child scoping requiring explicit .value member resolution."
+      code_good: |
+        dynamic "tag" {
+          for_each = var.tags
+          content {
+            key   = tag.key
+            value = tag.value
+          }
+        }
+
+- slug: "openssl-in-nodejs-22"
+  title: "What version of OpenSSL is in Node.js 22 LTS?"
+  category: "Runtimes & Embedded Systems"
+  host:
+    name: "Node.js"
+    version: "v22.6.0"
+    release_date: "2024-08-06"
+    repo_url: "https://github.com/nodejs/node"
+    docs_url: "https://nodejs.org/docs/latest-v22.x/api/crypto.html"
+  target:
+    name: "OpenSSL"
+    version: "3.0.13+quic"
+    ecosystem: "generic"
+    package_name: "openssl"
+    purl: "pkg:generic/openssl@3.0.13"
+    swhid: "swh:1:rev:0a39cb2184918ef85c8f1e967406a445ff402b80"
+    spec_level: "OpenSSL 3.0 (FIPS 140-2 Cryptographic Architecture)"
+    transitive_core: "libcrypto / libssl"
+    repo_url: "https://github.com/openssl/openssl"
+  summary: >
+    Node.js 22 ships with embedded OpenSSL 3.0.13+quic, providing default TLS 1.3 ciphers, modernized provider architecture, and QUIC packet parsing primitives.
+  cvd:
+    has_policy: true
+    policy_url: "https://github.com/nodejs/node/blob/main/SECURITY.md"
+    disclosure_program: "Node.js Security Working Group & HackerOne"
+  cra_status:
+    support_tier: "Active LTS"
+    end_of_life: false
+    cra_risk_score: "Low (OpenSSL 3.0 LTS supported until 2026)"
+  quirks:
+    - title: "OpenSSL 3.0 Provider Architecture"
+      description: "Legacy ciphers (e.g. MD4, RC4, DES) are disabled by default and require explicit legacy provider loading."
+      code_bad: |
+        // Fails in Node.js 22 default provider:
+        const hash = crypto.createHash('md4').update('data').digest('hex');
+      code_good: |
+        // Modern recommended standard:
+        const hash = crypto.createHash('sha256').update('data').digest('hex');
+
+- slug: "pyyaml-in-ansible-2-17"
+  title: "What version of PyYAML is in Ansible Core 2.17?"
+  category: "Automation & Configuration"
+  host:
+    name: "Ansible Core"
+    version: "v2.17.3"
+    release_date: "2024-08-12"
+    repo_url: "https://github.com/ansible/ansible"
+    docs_url: "https://docs.ansible.com/ansible/latest/reference_appendices/YAMLSyntax.html"
+  target:
+    name: "PyYAML"
+    version: "6.0.1"
+    ecosystem: "pypi"
+    package_name: "pyyaml"
+    purl: "pkg:pypi/pyyaml@6.0.1"
+    swhid: "swh:1:rev:5f3c95a08331d279cfba7241285499de75822365"
+    spec_level: "YAML 1.1 (Standard Specification)"
+    transitive_core: "libyaml (C-extension)"
+    repo_url: "https://github.com/yaml/pyyaml"
+  summary: >
+    Ansible Core 2.17 relies on PyYAML 6.0.1 for playbook and inventory parsing, adhering to the older YAML 1.1 specification.
+  cvd:
+    has_policy: true
+    policy_url: "https://github.com/ansible/ansible/blob/devel/SECURITY.md"
+    disclosure_program: "Red Hat Security Response Team"
+  cra_status:
+    support_tier: "Maintenance Only"
+    end_of_life: false
+    cra_risk_score: "Medium (PyYAML development velocity is low; relies on YAML 1.1 quirks)"
+  quirks:
+    - title: "Unquoted Boolean Literals in Playbooks"
+      description: "In YAML 1.1, unquoted 'yes', 'no', 'on', 'off' are coerced into Python booleans True/False."
+      code_bad: |
+        - name: Check state
+          register_flag: yes     # Evaluates to boolean True instead of string "yes"
+      code_good: |
+        - name: Check state
+          register_flag: "yes"   # Explicit string quotes preserve literal value
+
+- slug: "jackson-in-spring-boot-3-3"
+  title: "What version of Jackson is in Spring Boot 3.3?"
+  category: "Enterprise Frameworks"
+  host:
+    name: "Spring Boot"
+    version: "v3.3.3"
+    release_date: "2024-08-22"
+    repo_url: "https://github.com/spring-projects/spring-boot"
+    docs_url: "https://docs.spring.io/spring-boot/reference/features/json.html"
+  target:
+    name: "com.fasterxml.jackson.core/jackson-databind"
+    version: "2.17.2"
+    ecosystem: "maven"
+    package_name: "com.fasterxml.jackson.core:jackson-databind"
+    purl: "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.17.2"
+    swhid: "swh:1:rev:218be75c87ba133a8da38be2831bbd7fcf71d17a"
+    spec_level: "JSON / Java 21 Record Serialization Standard"
+    transitive_core: "jackson-core / jackson-annotations"
+    repo_url: "https://github.com/FasterXML/jackson-databind"
+  summary: >
+    Spring Boot 3.3 manages Jackson Databind 2.17.2 as its default JSON serializer and deserializer with full Java 21 record reflection support.
+  cvd:
+    has_policy: true
+    policy_url: "https://spring.io/security-policy"
+    disclosure_program: "VMware / Broadcom Security Vulnerability Policy"
+  cra_status:
+    support_tier: "Active Support"
+    end_of_life: false
+    cra_risk_score: "Low (Active FasterXML release cycles)"
+  quirks:
+    - title: "Polymorphic Type Handling Defense"
+      description: "Default typing is strictly restricted to prevent unsafe Java deserialization gadget execution."
+      code_good: |
+        // Safe polymorphic handling with explicit subtype mapping:
+        @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "type")
+        @JsonSubTypes({
+            @JsonSubTypes.Type(value = CreditCardPayment.class, name = "credit_card"),
+            @JsonSubTypes.Type(value = WireTransferPayment.class, name = "wire")
+        })
+        public abstract class PaymentMethod {}

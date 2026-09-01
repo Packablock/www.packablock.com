@@ -34,6 +34,13 @@ theme: minima
 header_pages:
   - about.markdown
   - cra-compliance-checklist.markdown
+  - reports.markdown
+
+# Collections
+collections:
+  reports:
+    output: true
+    permalink: /reports/:slug/
 
 # Exclude from processing.
 # The following items will not be processed, by default.
