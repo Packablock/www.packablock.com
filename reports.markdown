@@ -126,13 +126,13 @@ permalink: /reports/
         </a>
       </div>
 
-      <!-- Feed 2: Runtime Crosswalk -->
+      <!-- Feed 2: Runtime SBOM Matrix -->
       <div class="datalake-card">
         <span class="feed-badge">CANONICAL</span>
-        <h3>Runtime Crosswalk</h3>
-        <p>Go, Node.js, Python, and Rust runtimes mapped to underlying cryptographic libraries, parsers, and Package URLs (PURLs).</p>
-        <div class="feed-endpoint">supply-chain/runtime-crosswalk.csv</div>
-        <a href="https://data.packablock.com/supply-chain/runtime-crosswalk.csv" class="feed-action" target="_blank" rel="noopener">
+        <h3>Runtime Engine SBOM Crosswalk</h3>
+        <p>Go, Node.js, Python, and Rust runtimes mapped to underlying cryptographic libraries, parsers, CycloneDX 1.5 JSON snippets, and PURLs.</p>
+        <div class="feed-endpoint">supply-chain/runtime-sbom-matrix.csv</div>
+        <a href="https://data.packablock.com/supply-chain/runtime-sbom-matrix.csv" class="feed-action" target="_blank" rel="noopener">
           Download CSV <span>↗</span>
         </a>
       </div>
@@ -155,6 +155,94 @@ permalink: /reports/
         <p>28 tier-1 residential broadband plan specifications across 9 major ISPs cataloging base fees, promotional roll-offs, and $/Mbps economics.</p>
         <div class="feed-endpoint">telecom/isp-labels.csv</div>
         <a href="https://data.packablock.com/telecom/isp-labels.csv" class="feed-action" target="_blank" rel="noopener">
+          Download CSV <span>↗</span>
+        </a>
+      </div>
+
+      <!-- Feed 5: SEC Form 8-K Incidents -->
+      <div class="datalake-card">
+        <span class="feed-badge">GOVERNANCE</span>
+        <h3>SEC Form 8-K Incident Tracker</h3>
+        <p>Item 1.05 material cyber incident filings under SEC Release 33-11216, disclosure lags, remediation costs, and DOJ delay exemptions.</p>
+        <div class="feed-endpoint">regulatory/sec-8k-incidents.csv</div>
+        <a href="https://data.packablock.com/regulatory/sec-8k-incidents.csv" class="feed-action" target="_blank" rel="noopener">
+          Download CSV <span>↗</span>
+        </a>
+      </div>
+
+      <!-- Feed 6: Corporate FOSS Stewardship -->
+      <div class="datalake-card">
+        <span class="feed-badge">BENCHMARK</span>
+        <h3>FOSS Stewardship Arbitrage</h3>
+        <p>Financial benchmarks comparing $3.5M+ in Big 4 advisory retainer spend against direct upstream open-source foundation grants and attestation.</p>
+        <div class="feed-endpoint">benchmarks/stewardship-arbitrage.csv</div>
+        <a href="https://data.packablock.com/benchmarks/stewardship-arbitrage.csv" class="feed-action" target="_blank" rel="noopener">
+          Download CSV <span>↗</span>
+        </a>
+      </div>
+
+      <!-- Feed 7: Breach Settlements Database -->
+      <div class="datalake-card">
+        <span class="feed-badge">LEGAL INTEL</span>
+        <h3>Cyber Breach Settlements &amp; Fines</h3>
+        <p>Empirical database of $6.1B+ in regulatory enforcement fines, class-action funds, and court-ordered mandatory security CAPEX decrees.</p>
+        <div class="feed-endpoint">benchmarks/breach-settlements.csv</div>
+        <a href="https://data.packablock.com/benchmarks/breach-settlements.csv" class="feed-action" target="_blank" rel="noopener">
+          Download CSV <span>↗</span>
+        </a>
+      </div>
+
+      <!-- Feed 8: Smart Home IoT Trust Mark -->
+      <div class="datalake-card">
+        <span class="feed-badge">TELECOM/IOT</span>
+        <h3>Smart Home &amp; IoT Trust Mark</h3>
+        <p>Consumer and enterprise IoT benchmarks evaluating compliance against FCC U.S. Cyber Trust Mark (FCC 24-26) and NIST IR 8425 baselines.</p>
+        <div class="feed-endpoint">telecom/iot-trust-mark.csv</div>
+        <a href="https://data.packablock.com/telecom/iot-trust-mark.csv" class="feed-action" target="_blank" rel="noopener">
+          Download CSV <span>↗</span>
+        </a>
+      </div>
+
+      <!-- Feed 9: 10-30 Yr IoT Hardware Maintenance TCO -->
+      <div class="datalake-card">
+        <span class="feed-badge">HARDWARE TCO</span>
+        <h3>10–30 Yr IoT Maintenance TCO</h3>
+        <p>Total cost of ownership models across 8 hardware asset classes navigating EU Cyber Resilience Act Article 10(6) extended lifetime obligations.</p>
+        <div class="feed-endpoint">benchmarks/iot-lifecycle-tco.csv</div>
+        <a href="https://data.packablock.com/benchmarks/iot-lifecycle-tco.csv" class="feed-action" target="_blank" rel="noopener">
+          Download CSV <span>↗</span>
+        </a>
+      </div>
+
+      <!-- Feed 10: Executive Cyber Metrics -->
+      <div class="datalake-card">
+        <span class="feed-badge">EXECUTIVE</span>
+        <h3>Executive Cyber Metrics Index</h3>
+        <p>Cross-sector benchmarks across 8 industries tracking dwell times, phishing test failure rates, and cyber insurance loss ratios.</p>
+        <div class="feed-endpoint">benchmarks/executive-cyber-metrics.csv</div>
+        <a href="https://data.packablock.com/benchmarks/executive-cyber-metrics.csv" class="feed-action" target="_blank" rel="noopener">
+          Download CSV <span>↗</span>
+        </a>
+      </div>
+
+      <!-- Feed 11: Zero-SaaS OSS Dependencies -->
+      <div class="datalake-card">
+        <span class="feed-badge">SUPPLY CHAIN</span>
+        <h3>Zero-SaaS OSS License Auditor</h3>
+        <p>29 enterprise software packages analyzed for SPDX licenses, copyleft triggers, OpenSSF Scorecards, and transitive license liability.</p>
+        <div class="feed-endpoint">supply-chain/deps-ossf.csv</div>
+        <a href="https://data.packablock.com/supply-chain/deps-ossf.csv" class="feed-action" target="_blank" rel="noopener">
+          Download CSV <span>↗</span>
+        </a>
+      </div>
+
+      <!-- Feed 12: M&A Tech Haircut Benchmarks -->
+      <div class="datalake-card">
+        <span class="feed-badge">VALUATION</span>
+        <h3>M&amp;A Supply Chain Haircuts</h3>
+        <p>Private equity and M&amp;A buy-side benchmarks for tech debt valuation discounts, escrow holdbacks, and post-merger supply chain remediation.</p>
+        <div class="feed-endpoint">benchmarks/mna-haircut-benchmarks.csv</div>
+        <a href="https://data.packablock.com/benchmarks/mna-haircut-benchmarks.csv" class="feed-action" target="_blank" rel="noopener">
           Download CSV <span>↗</span>
         </a>
       </div>
@@ -219,10 +307,64 @@ permalink: /reports/
           <div class="product-item">
             <div class="item-top">
               <span class="item-id">TEL-01</span>
-              <span class="item-price">$5.00</span>
+              <span class="item-price">$9.00</span>
             </div>
             <div class="item-title">FCC Broadband Nutrition Label Matrix</div>
             <p class="item-desc">Consumer broadband comparison model analyzing 28 tiers across 9 major ISPs with true cost and $/Mbps unit cost calculations.</p>
+          </div>
+
+          <div class="product-item">
+            <div class="item-top">
+              <span class="item-id">SEC-01</span>
+              <span class="item-price">$9.00</span>
+            </div>
+            <div class="item-title">Executive Cybersecurity &amp; Risk Metric Index</div>
+            <p class="item-desc">Cross-sector benchmark index mapping 8 industries against dwell time, cyber loss ratios, and NIST CSF / EU CRA controls.</p>
+          </div>
+
+          <div class="product-item">
+            <div class="item-top">
+              <span class="item-id">SC-03</span>
+              <span class="item-price">$8.00</span>
+            </div>
+            <div class="item-title">Zero-SaaS OSS Dependency &amp; License Auditor</div>
+            <p class="item-desc">Interactive project dependency risk classifier evaluating SPDX licenses, copyleft triggers, and OpenSSF Scorecards.</p>
+          </div>
+
+          <div class="product-item">
+            <div class="item-top">
+              <span class="item-id">STN-01</span>
+              <span class="item-price">$7.00</span>
+            </div>
+            <div class="item-title">Main Street Merchant Wi-Fi &amp; PCI Audit</div>
+            <p class="item-desc">Interactive 20-point retail network security checklist, VLAN isolation tester, and PCI-DSS v4.0 SAQ-A readiness calculator.</p>
+          </div>
+
+          <div class="product-item">
+            <div class="item-top">
+              <span class="item-id">STN-02</span>
+              <span class="item-price">$7.00</span>
+            </div>
+            <div class="item-title">Family Tech Lead Network Defense Kit</div>
+            <p class="item-desc">Home network defense checklist, IoT telemetry isolation matrix, and Pi-hole / AdGuard Home DNS blocklist catalog.</p>
+          </div>
+
+          <div class="product-item">
+            <div class="item-top">
+              <span class="item-id">SEC-02</span>
+              <span class="item-price">$9.00</span>
+            </div>
+            <div class="item-title">SEC Form 8-K Item 1.05 Incident &amp; Materiality Tracker</div>
+            <p class="item-desc">Item 1.05 filing tracker with quantitative materiality scoring model, disclosure lag calculators, and DOJ delay tracking.</p>
+          </div>
+
+          <div class="product-item">
+            <div class="item-top">
+              <span class="item-id">TEL-02</span>
+              <span class="item-price">$7.00</span>
+            </div>
+            <div class="item-title">Smart Home &amp; IoT Trust Mark Tracker</div>
+            <p class="item-desc">FCC 24-26 Cyber Trust Mark eligibility tracker and interactive 15-point NIST IR 8425 consumer pre-procurement audit checklist.</p>
           </div>
         </div>
       </div>
@@ -239,7 +381,7 @@ permalink: /reports/
           <div class="product-item">
             <div class="item-top">
               <span class="item-id">CRA-01</span>
-              <span class="item-price">$99.00</span>
+              <span class="item-price">$149.00</span>
             </div>
             <div class="item-title">EU CRA Financial Reserve &amp; Penalty Liability Model</div>
             <p class="item-desc">4-scenario Monte Carlo financial exposure workbook, 16:9 board-ready presentation deck, and self-assessment conformity checklist.</p>
@@ -251,7 +393,34 @@ permalink: /reports/
               <span class="item-price">$129.00</span>
             </div>
             <div class="item-title">M&amp;A Software Supply Chain Haircut Matrix &amp; Board Deck</div>
-            <p class="item-desc">Pre-acquisition technical debt discounting framework, inherited vulnerability remediation pricing, and executive deal brief.</p>
+            <p class="item-desc">Pre-acquisition technical debt discounting framework, inherited vulnerability remediation pricing, and 12-slide investment committee deck.</p>
+          </div>
+
+          <div class="product-item">
+            <div class="item-top">
+              <span class="item-id">CRA-04</span>
+              <span class="item-price">$79.00</span>
+            </div>
+            <div class="item-title">FOSS Stewardship vs. Big 4 Capital Allocation Model</div>
+            <p class="item-desc">Financial arbitrage model and 12-slide board deck demonstrating 430%+ ROI by directing advisory spend to upstream foundation grants.</p>
+          </div>
+
+          <div class="product-item">
+            <div class="item-top">
+              <span class="item-id">SEC-04</span>
+              <span class="item-price">$99.00</span>
+            </div>
+            <div class="item-title">Cyber Breach Settlement &amp; Penalty Model &amp; Board Deck</div>
+            <p class="item-desc">Analysis of $6.1B+ in enforcement fines, class actions, and court-ordered security decrees with 12-slide board deck and fine estimator.</p>
+          </div>
+
+          <div class="product-item">
+            <div class="item-top">
+              <span class="item-id">CRA-03</span>
+              <span class="item-price">$89.00</span>
+            </div>
+            <div class="item-title">10–30 Yr IoT Hardware Maintenance TCO Model &amp; Deck</div>
+            <p class="item-desc">20-year fleet cash flow projection engine, embedded silicon obsolescence matrix, and 12-slide board deck navigating CRA Art. 10(6).</p>
           </div>
 
           <div class="product-item">
