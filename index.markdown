@@ -5,7 +5,7 @@ description: Defend against software supply chain attacks and package tampering 
 permalink: /
 ---
 
-<div class="early-access-banner">
+<div class="callout-banner early-access-banner">
   <div class="banner-badge">Early Access</div>
   <div class="banner-separator"></div>
   <div class="banner-content">
