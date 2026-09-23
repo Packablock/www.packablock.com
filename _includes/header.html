@@ -24,7 +24,7 @@
   {%- assign is_signup = true -%}
 {%- endif -%}
 
-<header class="site-header" role="banner">
+<header class="site-header" id="top" role="banner">
   <!-- Top Navigation Bar -->
   <div class="header-inner">
     
@@ -314,9 +314,8 @@
           <span class="cta-arrow" aria-hidden="true">&rarr;</span>
         </a>
 
-        <!-- Sitemap Quick-Jump Explorer Dropdown -->
-        <div class="sitemap-explorer-wrap">
-        <button type="button" class="sitemap-explorer-btn" id="sitemap-explorer-btn" aria-haspopup="dialog" aria-expanded="false" aria-controls="sitemap-flyout-panel">
+        <!-- Explore Sitemap Button (Smooth scrolls to #sitemap anchor in footer) -->
+        <a href="#sitemap" class="sitemap-explorer-btn" title="Explore full site hierarchy in footer">
           <svg class="sitemap-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
             <rect x="3" y="3" width="7" height="7" rx="1"/>
             <rect x="14" y="3" width="7" height="7" rx="1"/>
@@ -324,162 +323,8 @@
             <rect x="3" y="14" width="7" height="7" rx="1"/>
           </svg>
           <span>Explore Sitemap</span>
-          <svg class="dropdown-caret" viewBox="0 0 10 6" width="9" height="5" aria-hidden="true"><path d="M1 1L5 5L9 1" stroke="currentColor" stroke-width="1.75" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </button>
-
-        <!-- Sitemap Flyout Tree Panel -->
-        <div class="sitemap-flyout-panel" id="sitemap-flyout-panel" role="region" aria-label="Site Hierarchy Tree">
-          <div class="sitemap-flyout-header">
-            <div>
-              <span class="sitemap-badge">SITEMAP NAVIGATION</span>
-              <h2 class="sitemap-flyout-title">Packablock Workspace Sitemap</h2>
-            </div>
-            <button type="button" class="sitemap-close-btn" id="sitemap-close-btn" aria-label="Close Sitemap Explorer">✕</button>
-          </div>
-
-          <div class="sitemap-grid">
-            
-            <!-- Section 1: Core Navigation -->
-            <div class="sitemap-col">
-              <div class="sitemap-col-title">Primary Pages</div>
-              <ul class="sitemap-link-list">
-                <li>
-                  <a href="{{ "/" | relative_url }}" class="{% if is_home %}is-current{% endif %}">
-                    Overview (Homepage)
-                    {% if is_home %}<span class="current-indicator" aria-label="Current page">● You are here</span>{% endif %}
-                  </a>
-                </li>
-                <li>
-                  <a href="{{ "/about/" | relative_url }}" class="{% if is_about %}is-current{% endif %}">
-                    About &amp; Mission
-                    {% if is_about %}<span class="current-indicator" aria-label="Current page">● You are here</span>{% endif %}
-                  </a>
-                </li>
-                <li>
-                  <a href="{{ "/signup/" | relative_url }}" class="{% if is_signup %}is-current{% endif %}">
-                    Developer Preview Signup
-                    {% if is_signup %}<span class="current-indicator" aria-label="Current page">● You are here</span>{% endif %}
-                  </a>
-                </li>
-              </ul>
-            </div>
-
-            <!-- Section 2: Deep-Dive Reports -->
-            <div class="sitemap-col">
-              <div class="sitemap-col-title">SBOM Deep Dives</div>
-              <ul class="sitemap-link-list">
-                <li>
-                  <a href="{{ "/reports/" | relative_url }}" class="{% if current_url == '/reports/' %}is-current{% endif %}">
-                    All Reports Catalog
-                    {% if current_url == '/reports/' %}<span class="current-indicator" aria-label="Current page">● You are here</span>{% endif %}
-                  </a>
-                </li>
-                <li>
-                  <a href="{{ "/reports/yaml-in-kubernetes-1-31/" | relative_url }}" class="{% if current_url contains 'yaml-in-kubernetes' %}is-current{% endif %}">
-                    Kubernetes 1.31 (YAML 1.2)
-                    {% if current_url contains 'yaml-in-kubernetes' %}<span class="current-indicator" aria-label="Current page">● You are here</span>{% endif %}
-                  </a>
-                </li>
-                <li>
-                  <a href="{{ "/reports/hcl-in-terraform-1-9/" | relative_url }}" class="{% if current_url contains 'hcl-in-terraform' %}is-current{% endif %}">
-                    Terraform 1.9 (hcl/v2)
-                    {% if current_url contains 'hcl-in-terraform' %}<span class="current-indicator" aria-label="Current page">● You are here</span>{% endif %}
-                  </a>
-                </li>
-                <li>
-                  <a href="{{ "/reports/openssl-in-nodejs-22/" | relative_url }}" class="{% if current_url contains 'openssl-in-nodejs' %}is-current{% endif %}">
-                    Node.js 22 (OpenSSL 3.0)
-                    {% if current_url contains 'openssl-in-nodejs' %}<span class="current-indicator" aria-label="Current page">● You are here</span>{% endif %}
-                  </a>
-                </li>
-                <li>
-                  <a href="{{ "/reports/jackson-in-spring-boot-3-3/" | relative_url }}" class="{% if current_url contains 'jackson-in-spring' %}is-current{% endif %}">
-                    Spring Boot 3.3 (Jackson)
-                    {% if current_url contains 'jackson-in-spring' %}<span class="current-indicator" aria-label="Current page">● You are here</span>{% endif %}
-                  </a>
-                </li>
-                <li>
-                  <a href="{{ "/reports/pyyaml-in-ansible-2-17/" | relative_url }}" class="{% if current_url contains 'pyyaml-in-ansible' %}is-current{% endif %}">
-                    Ansible Core 2.17 (PyYAML)
-                    {% if current_url contains 'pyyaml-in-ansible' %}<span class="current-indicator" aria-label="Current page">● You are here</span>{% endif %}
-                  </a>
-                </li>
-              </ul>
-            </div>
-
-            <!-- Section 3: Compliance & Feeds -->
-            <div class="sitemap-col">
-              <div class="sitemap-col-title">Governance &amp; Feeds</div>
-              <ul class="sitemap-link-list">
-                <li>
-                  <a href="{{ "/cra-compliance-checklist/" | relative_url }}" class="{% if is_cra %}is-current{% endif %}">
-                    EU CRA Self-Assessment
-                    {% if is_cra %}<span class="current-indicator" aria-label="Current page">● You are here</span>{% endif %}
-                  </a>
-                </li>
-                <li>
-                  <a href="{{ "/cra-compliance-checklist/#the-five-core-pillars-of-cra-self-assessment" | relative_url }}">
-                    The 5 CRA Compliance Pillars
-                  </a>
-                </li>
-                <li>
-                  <a href="{{ "/assets/docs/packablock-security-checklist.pdf" | relative_url }}" download>
-                    Printable PDF Checklist (Download)
-                  </a>
-                </li>
-                <li>
-                  <a href="{{ "/reports/#datalake" | relative_url }}">
-                    Live Cloudflare Datalake Streams
-                  </a>
-                </li>
-                <li>
-                  <a href="{{ "/reports/#commercial" | relative_url }}">
-                    Executive Readiness Models
-                  </a>
-                </li>
-                <li>
-                  <a href="{{ "/reports/#consultation" | relative_url }}">
-                    Enterprise Consultation
-                  </a>
-                </li>
-                <li>
-                  <a href="https://calendar.app.google/3fGx4S81egLgTruQ6" target="_blank" rel="noopener">
-                    Book a Live Demo ↗
-                  </a>
-                </li>
-              </ul>
-            </div>
-
-            <!-- Section 4: Technical & Community Resources -->
-            <div class="sitemap-col">
-              <div class="sitemap-col-title">Documentation &amp; Code</div>
-              <ul class="sitemap-link-list">
-                <li>
-                  <a href="https://docs.packablock.com" target="_blank" rel="noopener">
-                    Technical Documentation ↗
-                  </a>
-                </li>
-                <li>
-                  <a href="https://github.com/Packablock/packablock-client" target="_blank" rel="noopener">
-                    pkablk CLI Client on GitHub ↗
-                  </a>
-                </li>
-                <li>
-                  <a href="https://github.com/Packablock" target="_blank" rel="noopener">
-                    Packablock GitHub Organization ↗
-                  </a>
-                </li>
-                <li>
-                  <a href="mailto:support@packablock.com">
-                    Security Contact &amp; CVD Disclosure ↗
-                  </a>
-                </li>
-              </ul>
-            </div>
-
-          </div>
-        </div>
-      </div>
+          <svg class="scroll-arrow" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 13.5L12 21m0 0l-7.5-7.5M12 21V3"/></svg>
+        </a>
       </div>
     </div>
   </div>
@@ -571,55 +416,6 @@
     });
   });
 
-  // Sitemap Explorer Flyout Toggle
-  const sitemapBtn = document.getElementById('sitemap-explorer-btn');
-  const sitemapPanel = document.getElementById('sitemap-flyout-panel');
-  const sitemapClose = document.getElementById('sitemap-close-btn');
-
-  function openSitemap() {
-    if (!sitemapBtn || !sitemapPanel) return;
-    sitemapBtn.setAttribute('aria-expanded', 'true');
-    sitemapPanel.classList.add('is-open');
-  }
-
-  function closeSitemap() {
-    if (!sitemapBtn || !sitemapPanel) return;
-    sitemapBtn.setAttribute('aria-expanded', 'false');
-    sitemapPanel.classList.remove('is-open');
-  }
-
-  if (sitemapBtn && sitemapPanel) {
-    sitemapBtn.addEventListener('click', function(e) {
-      e.stopPropagation();
-      const isExpanded = sitemapBtn.getAttribute('aria-expanded') === 'true';
-      if (isExpanded) {
-        closeSitemap();
-      } else {
-        openSitemap();
-      }
-    });
-
-    if (sitemapClose) {
-      sitemapClose.addEventListener('click', function(e) {
-        e.stopPropagation();
-        closeSitemap();
-        sitemapBtn.focus();
-      });
-    }
-
-    document.addEventListener('click', function(e) {
-      if (!sitemapPanel.contains(e.target) && !sitemapBtn.contains(e.target)) {
-        closeSitemap();
-      }
-    });
-
-    document.addEventListener('keydown', function(e) {
-      if (e.key === 'Escape' && sitemapPanel.classList.contains('is-open')) {
-        closeSitemap();
-        sitemapBtn.focus();
-      }
-    });
-  }
 
   // Desktop Dropdown Toggles for Keyboard Access
   const dropdownBtns = document.querySelectorAll('.nav-dropdown-btn');

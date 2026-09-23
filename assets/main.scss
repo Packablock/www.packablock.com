@@ -56,6 +56,10 @@ code {
 }
 
 // 2. Custom CSS styling to make it look extremely premium
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   font-family: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   background-color: $dark-navy;
@@ -807,31 +811,27 @@ body {
   white-space: nowrap;
 }
 
-// Sitemap Explorer Trigger Button & Flyout
-.sitemap-explorer-wrap {
-  position: relative;
-  flex-shrink: 0;
-}
-
+// Explore Sitemap Action Button (Navigates to Footer Sitemap)
 .sitemap-explorer-btn {
   display: inline-flex;
   align-items: center;
   gap: 6px;
   background: rgba(34, 211, 238, 0.08);
   border: 1px solid rgba(34, 211, 238, 0.3);
-  color: #22D3EE;
+  color: #22D3EE !important;
   font-size: 0.8rem;
   font-weight: 700;
   padding: 4px 10px;
   border-radius: 4px;
-  cursor: pointer;
+  text-decoration: none !important;
   font-family: 'IBM Plex Sans', sans-serif;
   transition: all 0.2s ease;
+  white-space: nowrap;
 
   &:hover {
     background: rgba(34, 211, 238, 0.18);
     border-color: #22D3EE;
-    color: #ffffff;
+    color: #ffffff !important;
   }
 
   &:focus-visible {
@@ -842,78 +842,26 @@ body {
   .sitemap-icon {
     opacity: 0.85;
   }
-}
 
-.sitemap-flyout-panel {
-  position: absolute;
-  top: calc(100% + 8px);
-  right: 0;
-  width: 900px;
-  max-width: calc(100vw - 2rem);
-  background: #09121f;
-  border: 1px solid rgba(34, 211, 238, 0.35);
-  border-radius: 12px;
-  box-shadow: 0 25px 60px -10px rgba(0, 0, 0, 0.9), 0 0 25px rgba(34, 211, 238, 0.15);
-  padding: 1.5rem;
-  z-index: 1200;
-  display: none;
+  .scroll-arrow {
+    opacity: 0.75;
+    transition: transform 0.15s ease;
+  }
 
-  &.is-open {
-    display: block;
-    animation: sitemap-pop 0.2s ease;
+  &:hover .scroll-arrow {
+    transform: translateY(2px);
+    opacity: 1;
   }
 }
 
-@keyframes sitemap-pop {
-  from { opacity: 0; transform: translateY(-6px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-.sitemap-flyout-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  margin-bottom: 1.25rem;
-  padding-bottom: 0.75rem;
-  border-bottom: 1px solid rgba(34, 211, 238, 0.2);
-
-  .sitemap-badge {
-    font-size: 0.68rem;
-    font-weight: 800;
-    font-family: 'IBM Plex Mono', monospace;
-    color: #22D3EE;
-    letter-spacing: 0.08em;
-    display: block;
-    margin-bottom: 0.25rem;
-  }
-
-  .sitemap-flyout-title {
-    font-size: 1.15rem;
-    font-weight: 800;
-    color: #ffffff;
-    margin: 0;
-  }
-
-  .sitemap-close-btn {
-    background: transparent;
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    color: #94a3b8;
-    width: 28px;
-    height: 28px;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 0.85rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.15s ease;
-
-    &:hover {
-      color: #ffffff;
-      border-color: #22D3EE;
-      background: rgba(34, 211, 238, 0.1);
-    }
-  }
+.sitemap-badge {
+  font-size: 0.68rem;
+  font-weight: 800;
+  font-family: 'IBM Plex Mono', monospace;
+  color: #22D3EE;
+  letter-spacing: 0.08em;
+  display: block;
+  margin-bottom: 0.25rem;
 }
 
 .sitemap-grid {
@@ -1103,14 +1051,125 @@ body {
 
 .site-footer {
   background-color: darken($dark-navy, 2%) !important;
-  border-top: 1px solid rgba(34, 211, 238, 0.1) !important;
-  padding: 30px 0 !important;
-  color: #9ca3af !important;
+  border-top: 1px solid rgba(34, 211, 238, 0.15) !important;
+  padding: 40px 0 30px !important;
+  color: #cbd5e1 !important;
   margin-top: auto;
   
-  .footer-heading {
-    color: $accent-teal;
-    font-weight: 700;
+  .footer-inner {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+  }
+
+  // Footer Sitemap Directory Section
+  .footer-sitemap {
+    scroll-margin-top: 80px;
+    background: #09121f;
+    border: 1px solid rgba(34, 211, 238, 0.25);
+    border-radius: 12px;
+    padding: 1.75rem 2rem;
+    margin-bottom: 2.5rem;
+    box-shadow: 0 15px 35px -5px rgba(0, 0, 0, 0.6);
+
+    &:focus {
+      outline: none;
+    }
+  }
+
+  .footer-sitemap-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid rgba(34, 211, 238, 0.2);
+
+    .footer-sitemap-title {
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: #ffffff;
+      margin: 0;
+    }
+
+    .sitemap-back-to-top {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      background: rgba(34, 211, 238, 0.08);
+      border: 1px solid rgba(34, 211, 238, 0.25);
+      color: #22D3EE !important;
+      font-size: 0.8rem;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 4px;
+      text-decoration: none !important;
+      transition: all 0.15s ease;
+
+      &:hover {
+        background: rgba(34, 211, 238, 0.18);
+        border-color: #22D3EE;
+        color: #ffffff !important;
+      }
+    }
+  }
+
+  // Footer Bottom Row
+  .footer-bottom-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+
+    .footer-brand-meta {
+      max-width: 600px;
+
+      .footer-heading {
+        color: $accent-teal;
+        font-weight: 700;
+        margin: 0 0 0.25rem;
+        font-size: 1.1rem;
+      }
+
+      .footer-tagline {
+        margin: 0;
+        font-size: 0.875rem;
+        color: #cbd5e1;
+        line-height: 1.5;
+      }
+    }
+
+    .footer-contact-wrap {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+
+      .footer-contact-item {
+        font-size: 0.875rem;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+
+        .contact-label {
+          color: #94a3b8;
+        }
+
+        .footer-contact-link {
+          color: #22D3EE !important;
+          text-decoration: none !important;
+          font-weight: 600;
+
+          &:hover {
+            text-decoration: underline !important;
+            color: #ffffff !important;
+          }
+        }
+      }
+    }
   }
 }
 
