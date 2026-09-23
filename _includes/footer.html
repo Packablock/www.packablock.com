@@ -47,23 +47,23 @@
         <div class="sitemap-col">
           <div class="sitemap-col-title">Primary Pages</div>
           <ul class="sitemap-link-list">
-            <li>
-              <a href="{{ "/" | relative_url }}" class="{% if is_home %}is-current{% endif %}">
+            <li {% if is_home %}class="is-current"{% endif %}>
+              <a href="{{ "/" | relative_url }}" {% if is_home %}aria-current="page"{% endif %}>
                 Overview (Homepage)
-                {% if is_home %}<span class="current-indicator" aria-label="Current page">● You are here</span>{% endif %}
               </a>
+              {% if is_home %}<span class="current-indicator" aria-hidden="true">● You are here</span>{% endif %}
             </li>
-            <li>
-              <a href="{{ "/about/" | relative_url }}" class="{% if is_about %}is-current{% endif %}">
+            <li {% if is_about %}class="is-current"{% endif %}>
+              <a href="{{ "/about/" | relative_url }}" {% if is_about %}aria-current="page"{% endif %}>
                 About &amp; Mission
-                {% if is_about %}<span class="current-indicator" aria-label="Current page">● You are here</span>{% endif %}
               </a>
+              {% if is_about %}<span class="current-indicator" aria-hidden="true">● You are here</span>{% endif %}
             </li>
-            <li>
-              <a href="{{ "/signup/" | relative_url }}" class="{% if is_signup %}is-current{% endif %}">
+            <li {% if is_signup %}class="is-current"{% endif %}>
+              <a href="{{ "/signup/" | relative_url }}" {% if is_signup %}aria-current="page"{% endif %}>
                 Developer Preview Signup
-                {% if is_signup %}<span class="current-indicator" aria-label="Current page">● You are here</span>{% endif %}
               </a>
+              {% if is_signup %}<span class="current-indicator" aria-hidden="true">● You are here</span>{% endif %}
             </li>
             <li>
               <a href="https://calendar.app.google/3fGx4S81egLgTruQ6" target="_blank" rel="noopener">
@@ -77,41 +77,41 @@
         <div class="sitemap-col">
           <div class="sitemap-col-title">SBOM Deep Dives</div>
           <ul class="sitemap-link-list">
-            <li>
-              <a href="{{ "/reports/" | relative_url }}" class="{% if current_url == '/reports/' %}is-current{% endif %}">
+            <li {% if current_url == '/reports/' %}class="is-current"{% endif %}>
+              <a href="{{ "/reports/" | relative_url }}" {% if current_url == '/reports/' %}aria-current="page"{% endif %}>
                 All Reports Catalog
-                {% if current_url == '/reports/' %}<span class="current-indicator" aria-label="Current page">● You are here</span>{% endif %}
               </a>
+              {% if current_url == '/reports/' %}<span class="current-indicator" aria-hidden="true">● You are here</span>{% endif %}
             </li>
-            <li>
-              <a href="{{ "/reports/yaml-in-kubernetes-1-31/" | relative_url }}" class="{% if current_url contains 'yaml-in-kubernetes' %}is-current{% endif %}">
+            <li {% if current_url contains 'yaml-in-kubernetes' %}class="is-current"{% endif %}>
+              <a href="{{ "/reports/yaml-in-kubernetes-1-31/" | relative_url }}" {% if current_url contains 'yaml-in-kubernetes' %}aria-current="page"{% endif %}>
                 Kubernetes 1.31 (YAML 1.2)
-                {% if current_url contains 'yaml-in-kubernetes' %}<span class="current-indicator" aria-label="Current page">● You are here</span>{% endif %}
               </a>
+              {% if current_url contains 'yaml-in-kubernetes' %}<span class="current-indicator" aria-hidden="true">● You are here</span>{% endif %}
             </li>
-            <li>
-              <a href="{{ "/reports/hcl-in-terraform-1-9/" | relative_url }}" class="{% if current_url contains 'hcl-in-terraform' %}is-current{% endif %}">
+            <li {% if current_url contains 'hcl-in-terraform' %}class="is-current"{% endif %}>
+              <a href="{{ "/reports/hcl-in-terraform-1-9/" | relative_url }}" {% if current_url contains 'hcl-in-terraform' %}aria-current="page"{% endif %}>
                 Terraform 1.9 (hcl/v2)
-                {% if current_url contains 'hcl-in-terraform' %}<span class="current-indicator" aria-label="Current page">● You are here</span>{% endif %}
               </a>
+              {% if current_url contains 'hcl-in-terraform' %}<span class="current-indicator" aria-hidden="true">● You are here</span>{% endif %}
             </li>
-            <li>
-              <a href="{{ "/reports/openssl-in-nodejs-22/" | relative_url }}" class="{% if current_url contains 'openssl-in-nodejs' %}is-current{% endif %}">
+            <li {% if current_url contains 'openssl-in-nodejs' %}class="is-current"{% endif %}>
+              <a href="{{ "/reports/openssl-in-nodejs-22/" | relative_url }}" {% if current_url contains 'openssl-in-nodejs' %}aria-current="page"{% endif %}>
                 Node.js 22 (OpenSSL 3.0)
-                {% if current_url contains 'openssl-in-nodejs' %}<span class="current-indicator" aria-label="Current page">● You are here</span>{% endif %}
               </a>
+              {% if current_url contains 'openssl-in-nodejs' %}<span class="current-indicator" aria-hidden="true">● You are here</span>{% endif %}
             </li>
-            <li>
-              <a href="{{ "/reports/jackson-in-spring-boot-3-3/" | relative_url }}" class="{% if current_url contains 'jackson-in-spring' %}is-current{% endif %}">
+            <li {% if current_url contains 'jackson-in-spring' %}class="is-current"{% endif %}>
+              <a href="{{ "/reports/jackson-in-spring-boot-3-3/" | relative_url }}" {% if current_url contains 'jackson-in-spring' %}aria-current="page"{% endif %}>
                 Spring Boot 3.3 (Jackson)
-                {% if current_url contains 'jackson-in-spring' %}<span class="current-indicator" aria-label="Current page">● You are here</span>{% endif %}
               </a>
+              {% if current_url contains 'jackson-in-spring' %}<span class="current-indicator" aria-hidden="true">● You are here</span>{% endif %}
             </li>
-            <li>
-              <a href="{{ "/reports/pyyaml-in-ansible-2-17/" | relative_url }}" class="{% if current_url contains 'pyyaml-in-ansible' %}is-current{% endif %}">
+            <li {% if current_url contains 'pyyaml-in-ansible' %}class="is-current"{% endif %}>
+              <a href="{{ "/reports/pyyaml-in-ansible-2-17/" | relative_url }}" {% if current_url contains 'pyyaml-in-ansible' %}aria-current="page"{% endif %}>
                 Ansible Core 2.17 (PyYAML)
-                {% if current_url contains 'pyyaml-in-ansible' %}<span class="current-indicator" aria-label="Current page">● You are here</span>{% endif %}
               </a>
+              {% if current_url contains 'pyyaml-in-ansible' %}<span class="current-indicator" aria-hidden="true">● You are here</span>{% endif %}
             </li>
           </ul>
         </div>
@@ -120,11 +120,11 @@
         <div class="sitemap-col">
           <div class="sitemap-col-title">Governance &amp; Feeds</div>
           <ul class="sitemap-link-list">
-            <li>
-              <a href="{{ "/cra-compliance-checklist/" | relative_url }}" class="{% if is_cra %}is-current{% endif %}">
+            <li {% if is_cra %}class="is-current"{% endif %}>
+              <a href="{{ "/cra-compliance-checklist/" | relative_url }}" {% if is_cra %}aria-current="page"{% endif %}>
                 EU CRA Self-Assessment
-                {% if is_cra %}<span class="current-indicator" aria-label="Current page">● You are here</span>{% endif %}
               </a>
+              {% if is_cra %}<span class="current-indicator" aria-hidden="true">● You are here</span>{% endif %}
             </li>
             <li>
               <a href="{{ "/cra-compliance-checklist/#the-five-core-pillars-of-cra-self-assessment" | relative_url }}">
