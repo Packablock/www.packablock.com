@@ -2028,77 +2028,126 @@ body {
 }
 
 // ============================================================================
-// About Page Styles (.about-container)
-// Inspired by data.packablock.com with elevated .block-pane surfaces
+// About Page: Editorial Article Styles (.about-article)
+// Left-justified essay layout with softer mid-tone panes (.soft-pane)
 // ============================================================================
-.about-container {
-  max-width: 920px;
+.about-article {
+  max-width: 820px;
   margin: 0 auto;
-  padding: 3rem 1.25rem 5rem;
+  padding: 2.5rem 1.25rem 5rem;
   box-sizing: border-box;
+  text-align: left;
 
-  .about-hero {
-    text-align: center;
-    margin-bottom: 3.5rem;
+  .article-header {
+    text-align: left;
+    margin-bottom: 2.75rem;
 
-    .about-badge {
+    .article-badge {
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      background: rgba(34, 211, 238, 0.1);
-      border: 1px solid rgba(34, 211, 238, 0.3);
+      background: rgba(34, 211, 238, 0.08);
+      border: 1px solid rgba(34, 211, 238, 0.25);
       color: #22D3EE;
-      font-size: 0.8rem;
+      font-size: 0.75rem;
       font-weight: 800;
-      padding: 0.4rem 1rem;
+      padding: 0.35rem 0.85rem;
       border-radius: 999px;
       text-transform: uppercase;
       letter-spacing: 0.08em;
-      margin-bottom: 1.25rem;
-    }
-
-    .about-title {
-      font-size: 2.75rem;
-      font-weight: 900;
-      line-height: 1.15;
-      color: #ffffff;
-      letter-spacing: -0.03em;
       margin-bottom: 1rem;
-      background: linear-gradient(135deg, #ffffff 35%, #22D3EE 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
     }
 
-    .about-lead {
-      color: #cbd5e1;
+    .article-title {
+      font-size: 2.75rem;
+      font-weight: 800;
+      line-height: 1.2;
+      color: #ffffff;
+      letter-spacing: -0.025em;
+      margin: 0 0 1rem;
+      text-align: left;
+    }
+
+    .article-subtitle {
       font-size: 1.15rem;
       line-height: 1.6;
-      max-width: 760px;
-      margin: 0 auto;
+      color: #cbd5e1;
+      margin: 0;
+      text-align: left;
+      font-weight: 400;
     }
   }
 
-  .about-grid {
-    display: flex;
-    flex-direction: column;
-    gap: 2rem;
+  .article-content {
+    .article-section {
+      margin-bottom: 2.75rem;
+
+      h2 {
+        color: #ffffff;
+        font-size: 1.5rem;
+        font-weight: 700;
+        margin: 2.5rem 0 1rem;
+        letter-spacing: -0.015em;
+        text-align: left;
+      }
+
+      p {
+        color: #e2e8f0;
+        font-size: 1.05rem;
+        line-height: 1.75;
+        margin-bottom: 1.25rem;
+
+        &:last-child {
+          margin-bottom: 0;
+        }
+
+        strong {
+          color: #ffffff;
+        }
+
+        &.lead-paragraph {
+          font-size: 1.15rem;
+          line-height: 1.75;
+          color: #f1f5f9;
+        }
+
+        code {
+          background: rgba(0, 0, 0, 0.35) !important;
+          border: 1px solid rgba(34, 211, 238, 0.25) !important;
+          color: #22D3EE !important;
+          padding: 2px 6px !important;
+          font-family: 'IBM Plex Mono', monospace;
+          font-size: 0.9em;
+        }
+      }
+
+      a {
+        color: #22D3EE !important;
+        text-decoration: underline;
+        text-underline-offset: 3px;
+
+        &:hover {
+          color: #a5f3fc !important;
+        }
+      }
+    }
   }
 
-  .about-pane {
-    .pane-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 1.25rem;
-      padding-bottom: 0.75rem;
-      border-bottom: 1px solid rgba(34, 211, 238, 0.2);
+  // ==========================================================================
+  // Packablock Design System: Soft Pane (.soft-pane)
+  // Mid-tone slate navy surface (#182638) softer than dark canvas or white.
+  // ==========================================================================
+  .soft-pane {
+    background: #182638;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 10px;
+    padding: 1.5rem 1.75rem;
+    margin: 1.75rem 0;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+    box-sizing: border-box;
 
-      .pane-title {
-        font-size: 1.35rem;
-        font-weight: 800;
-        color: #ffffff;
-        margin: 0;
-      }
+    &.callout-pane {
+      border-left: 3px solid #22D3EE;
 
       .pane-tag {
         font-size: 0.75rem;
@@ -2106,150 +2155,148 @@ body {
         text-transform: uppercase;
         letter-spacing: 0.06em;
         color: #22D3EE;
-        background: rgba(34, 211, 238, 0.1);
-        border: 1px solid rgba(34, 211, 238, 0.25);
-        padding: 3px 8px;
-        border-radius: 4px;
-      }
-    }
-
-    p {
-      color: #e5e7eb;
-      font-size: 1rem;
-      line-height: 1.65;
-      margin-bottom: 1.25rem;
-
-      &:last-child {
-        margin-bottom: 0;
+        margin-bottom: 0.6rem;
       }
 
-      &.text-subtle {
-        color: #94a3b8;
-        font-size: 0.875rem;
-        margin-top: 0.75rem;
-        margin-bottom: 0;
+      .pane-quote {
+        font-size: 1.05rem;
+        line-height: 1.6;
+        color: #f1f5f9;
+        margin: 0 0 0.75rem;
       }
-    }
 
-    a {
-      color: #22D3EE !important;
-      text-decoration: underline;
-
-      &:hover {
-        color: #a5f3fc !important;
-      }
-    }
-  }
-
-  // Stat / Callout Box
-  .about-stat-box {
-    display: flex;
-    align-items: center;
-    gap: 1.5rem;
-    background: rgba(34, 211, 238, 0.04);
-    border: 1px solid rgba(34, 211, 238, 0.2);
-    border-left: 4px solid #22D3EE;
-    border-radius: 8px;
-    padding: 1.25rem 1.5rem;
-    margin: 1.25rem 0;
-
-    .stat-highlight {
-      font-size: 2.25rem;
-      font-weight: 900;
-      color: #22D3EE;
-      font-family: 'IBM Plex Mono', monospace;
-      line-height: 1;
-      flex-shrink: 0;
-    }
-
-    .stat-detail {
-      font-size: 0.95rem;
-      color: #cbd5e1;
-      line-height: 1.5;
-
-      strong {
-        color: #ffffff;
+      .pane-cite {
         display: block;
-        margin-bottom: 0.25rem;
-      }
-    }
-  }
-
-  // Terminal Preview Pane
-  .about-terminal-pane {
-    background: #040911;
-    border: 1px solid rgba(34, 211, 238, 0.2);
-    border-radius: 8px;
-    margin: 1.5rem 0 1rem;
-    overflow: hidden;
-
-    .terminal-bar {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      padding: 8px 12px;
-      background: rgba(255, 255, 255, 0.03);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-
-      .term-dot {
-        width: 10px;
-        height: 10px;
-        border-radius: 50%;
-        background-color: rgba(255, 255, 255, 0.2);
-
-        &:nth-child(1) { background-color: #ef4444; }
-        &:nth-child(2) { background-color: #f59e0b; }
-        &:nth-child(3) { background-color: #10b981; }
-      }
-
-      .term-title {
-        font-family: 'IBM Plex Mono', monospace;
-        font-size: 0.75rem;
+        font-size: 0.85rem;
         color: #94a3b8;
-        margin-left: 6px;
+        line-height: 1.5;
+
+        a {
+          color: #22D3EE !important;
+          text-decoration: underline;
+          text-underline-offset: 2px;
+        }
       }
     }
 
-    pre {
-      margin: 0;
-      padding: 1.25rem;
-      background: transparent !important;
-      border: none !important;
-      font-family: 'IBM Plex Mono', monospace;
-      font-size: 0.875rem;
-      line-height: 1.6;
-      color: #e5e7eb;
+    &.terminal-pane {
+      background: #141f2e;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 8px;
+      overflow: hidden;
+      padding: 0;
 
-      code {
+      .terminal-bar {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        padding: 8px 12px;
+        background: rgba(255, 255, 255, 0.03);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+
+        .term-dot {
+          width: 9px;
+          height: 9px;
+          border-radius: 50%;
+          background-color: rgba(255, 255, 255, 0.2);
+
+          &:nth-child(1) { background-color: #ef4444; }
+          &:nth-child(2) { background-color: #f59e0b; }
+          &:nth-child(3) { background-color: #10b981; }
+        }
+
+        .term-title {
+          font-family: 'IBM Plex Mono', monospace;
+          font-size: 0.75rem;
+          color: #94a3b8;
+          margin-left: 6px;
+        }
+      }
+
+      pre {
+        margin: 0;
+        padding: 1.25rem;
         background: transparent !important;
         border: none !important;
-        padding: 0 !important;
-        color: inherit !important;
+        font-family: 'IBM Plex Mono', monospace;
+        font-size: 0.85rem;
+        line-height: 1.65;
+        color: #e5e7eb;
+
+        code {
+          background: transparent !important;
+          border: none !important;
+          padding: 0 !important;
+          color: inherit !important;
+        }
+      }
+    }
+
+    &.channels-pane {
+      padding: 1.25rem 1.5rem;
+
+      .channels-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+        gap: 0.85rem;
+
+        .channel-card {
+          display: flex;
+          flex-direction: column;
+          gap: 3px;
+          background: rgba(255, 255, 255, 0.03);
+          border: 1px solid rgba(255, 255, 255, 0.06);
+          border-radius: 6px;
+          padding: 0.85rem 1.15rem;
+          text-decoration: none !important;
+          transition: all 0.2s ease;
+
+          &:hover {
+            background: rgba(255, 255, 255, 0.06);
+            border-color: rgba(34, 211, 238, 0.3);
+            transform: translateY(-1px);
+          }
+
+          .channel-label {
+            font-size: 0.75rem;
+            color: #94a3b8;
+            font-weight: 500;
+          }
+
+          .channel-value {
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: #22D3EE;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+          }
+        }
       }
     }
   }
 
-  // Features Bulleted List
-  .about-features-list {
+  // Article List Items
+  .article-list {
     list-style: none;
     padding-left: 0;
-    margin: 1.25rem 0 0;
+    margin: 1.25rem 0;
 
     li {
       position: relative;
-      padding-left: 1.75rem;
-      margin-bottom: 0.75rem;
+      padding-left: 1.5rem;
+      margin-bottom: 0.85rem;
       color: #cbd5e1;
-      font-size: 0.95rem;
-      line-height: 1.5;
+      font-size: 1rem;
+      line-height: 1.6;
 
       &::before {
-        content: "✦";
+        content: "—";
         position: absolute;
         left: 0;
         top: 0;
         color: #22D3EE;
-        font-size: 0.85rem;
+        font-weight: 700;
       }
 
       strong {
@@ -2258,65 +2305,12 @@ body {
     }
   }
 
-  // Contact / Channels Grid
-  .about-contact-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 1rem;
-    margin-top: 1.25rem;
-
-    .about-contact-card {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-      background: rgba(255, 255, 255, 0.02);
-      border: 1px solid rgba(255, 255, 255, 0.06);
-      border-radius: 8px;
-      padding: 1rem 1.25rem;
-      text-decoration: none !important;
-      transition: all 0.2s ease;
-
-      &:hover {
-        background: rgba(34, 211, 238, 0.04);
-        border-color: rgba(34, 211, 238, 0.3);
-        transform: translateY(-2px);
-      }
-
-      .contact-card-icon {
-        font-size: 1.5rem;
-        flex-shrink: 0;
-      }
-
-      .contact-card-info {
-        display: flex;
-        flex-direction: column;
-        gap: 2px;
-        min-width: 0;
-
-        .contact-card-title {
-          font-size: 0.8rem;
-          color: #94a3b8;
-          font-weight: 500;
-        }
-
-        .contact-card-value {
-          font-size: 0.95rem;
-          font-weight: 700;
-          color: #22D3EE;
-          white-space: nowrap;
-          overflow: hidden;
-          text-overflow: ellipsis;
-        }
-      }
-    }
-  }
-
-  // Footer Attribution Note
-  .about-page-footer {
-    text-align: center;
+  // Article Footer
+  .article-footer {
+    text-align: left;
     margin-top: 3rem;
     padding-top: 1.5rem;
-    border-top: 1px solid rgba(255, 255, 255, 0.06);
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
 
     p {
       color: #94a3b8;
@@ -2331,31 +2325,21 @@ body {
 }
 
 @media (max-width: 768px) {
-  .about-container {
+  .about-article {
     padding: 2rem 1rem 3.5rem;
 
-    .about-hero {
-      .about-title {
+    .article-header {
+      .article-title {
         font-size: 2.15rem;
       }
 
-      .about-lead {
-        font-size: 1rem;
+      .article-subtitle {
+        font-size: 1.05rem;
       }
     }
 
-    .about-stat-box {
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 0.75rem;
-
-      .stat-highlight {
-        font-size: 1.85rem;
-      }
-    }
-
-    .about-pane {
-      padding: 1.25rem 1.25rem;
+    .soft-pane {
+      padding: 1.25rem;
     }
   }
 }
