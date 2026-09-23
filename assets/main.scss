@@ -1078,6 +1078,52 @@ body {
   }
 }
 
+// ============================================================================
+// Packablock Design System: Block Pane (.block-pane / .pab-pane)
+// Re-usable elevated dark surface container for directories, dashboards,
+// code inspectors, and data cards. Sits directly on the dark navy page canvas.
+// ============================================================================
+.block-pane,
+.pab-pane {
+  background: #09121f;
+  border: 1px solid rgba(34, 211, 238, 0.25);
+  border-radius: 12px;
+  padding: 1.75rem 2rem;
+  box-shadow: 0 15px 35px -5px rgba(0, 0, 0, 0.6);
+  box-sizing: border-box;
+  position: relative;
+
+  &:focus {
+    outline: none;
+  }
+
+  // Header lockup within a pane
+  .pane-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid rgba(34, 211, 238, 0.2);
+  }
+
+  .pane-title {
+    font-size: 1.25rem;
+    font-weight: 800;
+    color: #ffffff;
+    margin: 0;
+  }
+
+  // Modifiers
+  &.block-pane-compact {
+    padding: 1rem 1.25rem;
+  }
+
+  &.block-pane-glow {
+    box-shadow: 0 15px 35px -5px rgba(0, 0, 0, 0.6), 0 0 25px rgba(34, 211, 238, 0.12);
+  }
+}
+
 .site-footer {
   background-color: darken($dark-navy, 2%) !important;
   border-top: 1px solid rgba(34, 211, 238, 0.15) !important;
@@ -1094,16 +1140,7 @@ body {
   // Footer Sitemap Directory Section
   .footer-sitemap {
     scroll-margin-top: 80px;
-    background: #09121f;
-    border: 1px solid rgba(34, 211, 238, 0.25);
-    border-radius: 12px;
-    padding: 1.75rem 2rem;
     margin-bottom: 2.5rem;
-    box-shadow: 0 15px 35px -5px rgba(0, 0, 0, 0.6);
-
-    &:focus {
-      outline: none;
-    }
   }
 
   .footer-sitemap-header {
@@ -1120,6 +1157,7 @@ body {
       color: #ffffff;
       margin: 0;
     }
+  }
 
     .sitemap-back-to-top {
       display: inline-flex;
