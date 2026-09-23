@@ -10,6 +10,9 @@
     {%- include header.html -%}
 
     <main class="page-content" aria-label="Content" id="main-content" tabindex="-1">
+      {%- if page.callout_banner or page.url == "/" or page.url == "/index.html" -%}
+        {%- include callout-banner.html -%}
+      {%- endif -%}
       <div class="wrapper">
         {{ content }}
       </div>

@@ -1382,6 +1382,18 @@ body {
 }
 
 // ============================================================================
+// Page Content & Layout Spacing
+// ============================================================================
+.page-content {
+  padding-top: 0 !important;
+  flex: 1;
+
+  > .wrapper:first-child {
+    padding-top: 30px;
+  }
+}
+
+// ============================================================================
 // Packablock Design System: Callout Banner (.callout-banner)
 // High-priority full-width marketing/announcement banner sitting above content.
 // Features tri-stop gradient, luminescent teal underline, and optional star badge.
