@@ -8,26 +8,50 @@
   {%- if jekyll.environment == 'production' and site.google_analytics -%}
     {%- include google-analytics.html -%}
   {%- endif -%}
+  <!-- Favicons & Mobile Icons -->
   <link rel="icon" href="{{ "/favicon.svg" | relative_url }}" type="image/svg+xml">
+  <link rel="icon" type="image/png" sizes="32x32" href="{{ "/assets/images/favicon-32x32.png" | relative_url }}">
+  <link rel="icon" type="image/png" sizes="48x48" href="{{ "/assets/images/favicon-48x48.png" | relative_url }}">
+  <link rel="icon" type="image/png" sizes="192x192" href="{{ "/assets/images/favicon-192x192.png" | relative_url }}">
+  <link rel="apple-touch-icon" sizes="180x180" href="{{ "/assets/images/apple-touch-icon.png" | relative_url }}">
+  <link rel="shortcut icon" href="{{ "/favicon.ico" | relative_url }}">
+
+  <!-- Structured Data: Organization & SoftwareApplication with sameAs -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
-    "@type": "SoftwareApplication",
-    "name": "Packablock",
-    "operatingSystem": "Linux, macOS, Windows",
-    "applicationCategory": "DeveloperApplication, SecurityApplication",
-    "description": "Cryptographically secure attestation logs and parallel lockfile tracking to defend against software supply chain attacks.",
-    "offers": {
-      "@type": "Offer",
-      "price": "0.00",
-      "priceCurrency": "USD"
-    },
-    "publisher": {
-      "@type": "Organization",
-      "name": "Packablock",
-      "url": "https://www.packablock.com",
-      "logo": "https://www.packablock.com/favicon.svg"
-    }
+    "@graph": [
+      {
+        "@type": "Organization",
+        "@id": "https://www.packablock.com/#organization",
+        "name": "Packablock, LLC",
+        "alternateName": "Packablock",
+        "url": "https://www.packablock.com",
+        "logo": "https://www.packablock.com/assets/images/apple-touch-icon.png",
+        "image": "https://www.packablock.com/assets/images/packablock-social-card.png",
+        "description": "The Deterministic Supply Chain Policy Control. Cryptographically secure attestation logs and parallel lockfile tracking.",
+        "sameAs": [
+          "https://github.com/Packablock",
+          "https://www.youtube.com/@packablock",
+          "https://twitter.com/packablock"
+        ]
+      },
+      {
+        "@type": "SoftwareApplication",
+        "name": "Packablock",
+        "operatingSystem": "Linux, macOS, Windows",
+        "applicationCategory": "DeveloperApplication, SecurityApplication",
+        "description": "Cryptographically secure attestation logs and parallel lockfile tracking to defend against software supply chain attacks.",
+        "offers": {
+          "@type": "Offer",
+          "price": "0.00",
+          "priceCurrency": "USD"
+        },
+        "publisher": {
+          "@id": "https://www.packablock.com/#organization"
+        }
+      }
+    ]
   }
   </script>
 </head>

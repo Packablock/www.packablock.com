@@ -1,18 +1,10 @@
 ---
 layout: default
-title: Packablock | Deterministic Supply Chain Policy Control
+title: Deterministic Supply Chain Policy Control
 description: Defend against software supply chain attacks and package tampering with cryptographically secure attestation logs and parallel lockfile tracking.
 permalink: /
+callout_banner: true
 ---
-
-<div class="early-access-banner">
-  <div class="banner-badge">Early Access</div>
-  <div class="banner-separator"></div>
-  <div class="banner-content">
-    <span class="banner-text">Reserve your slot for the Packablock developer preview.</span>
-    <a href="/signup/" class="banner-link">Apply Now &rarr;</a>
-  </div>
-</div>
 
 <div class="hero-section">
   <div class="hero-logo">

@@ -1,26 +1,205 @@
+{%- assign current_url = page.url | default: "" -%}
+{%- assign is_home = false -%}
+{%- if current_url == "/" or current_url == "/index.html" -%}
+  {%- assign is_home = true -%}
+{%- endif -%}
+
+{%- assign is_reports = false -%}
+{%- if current_url contains "/reports" -%}
+  {%- assign is_reports = true -%}
+{%- endif -%}
+
+{%- assign is_cra = false -%}
+{%- if current_url contains "cra-compliance" -%}
+  {%- assign is_cra = true -%}
+{%- endif -%}
+
+{%- assign is_about = false -%}
+{%- if current_url contains "/about" -%}
+  {%- assign is_about = true -%}
+{%- endif -%}
+
+{%- assign is_signup = false -%}
+{%- if current_url contains "/signup" -%}
+  {%- assign is_signup = true -%}
+{%- endif -%}
+
 <footer class="site-footer h-card">
   <data class="u-url" href="{{ "/" | relative_url }}"></data>
 
-  <div class="wrapper">
+  <div class="footer-inner">
 
-    <h2 class="footer-heading">{{ site.title | escape }}</h2>
-
-    <div class="footer-col-wrapper">
-      <div class="footer-col footer-col-1">
-        <ul class="contact-list">
-          <li class="p-name">Contact us</li>
-          {%- if site.email -%}
-          <li><a class="u-email" href="mailto:{{ site.email }}">{{ site.email }}</a></li>
-          {%- endif -%}
-        </ul>
+    <!-- Sitemap Directory Anchor Section (Design System: Block Pane) -->
+    <div id="sitemap" class="block-pane footer-sitemap" role="region" aria-label="Packablock Workspace Sitemap" tabindex="-1">
+      <div class="pane-header footer-sitemap-header">
+        <div>
+          <span class="sitemap-badge">SITEMAP NAVIGATION</span>
+          <h2 class="pane-title footer-sitemap-title">Packablock Workspace Sitemap</h2>
+        </div>
+        <a href="#top" class="sitemap-back-to-top" title="Scroll back to top">
+          Back to Top &uarr;
+        </a>
       </div>
 
-      <div class="footer-col footer-col-2">
+      <div class="sitemap-grid">
+        
+        <!-- Section 1: Core Navigation -->
+        <div class="sitemap-col">
+          <div class="sitemap-col-title">Primary Pages</div>
+          <ul class="sitemap-link-list">
+            <li {% if is_home %}class="is-current"{% endif %}>
+              <a href="{{ "/" | relative_url }}" {% if is_home %}aria-current="page"{% endif %}>
+                Overview (Homepage)
+              </a>
+              {% if is_home %}<span class="current-indicator" aria-hidden="true">● You are here</span>{% endif %}
+            </li>
+            <li {% if is_about %}class="is-current"{% endif %}>
+              <a href="{{ "/about/" | relative_url }}" {% if is_about %}aria-current="page"{% endif %}>
+                About &amp; Mission
+              </a>
+              {% if is_about %}<span class="current-indicator" aria-hidden="true">● You are here</span>{% endif %}
+            </li>
+            <li {% if is_signup %}class="is-current"{% endif %}>
+              <a href="{{ "/signup/" | relative_url }}" {% if is_signup %}aria-current="page"{% endif %}>
+                Developer Preview Signup
+              </a>
+              {% if is_signup %}<span class="current-indicator" aria-hidden="true">● You are here</span>{% endif %}
+            </li>
+            <li>
+              <a href="https://calendar.app.google/3fGx4S81egLgTruQ6" target="_blank" rel="noopener">
+                Book a Demo ↗
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Section 2: Deep-Dive Reports -->
+        <div class="sitemap-col">
+          <div class="sitemap-col-title">SBOM Deep Dives</div>
+          <ul class="sitemap-link-list">
+            <li {% if current_url == '/reports/' %}class="is-current"{% endif %}>
+              <a href="{{ "/reports/" | relative_url }}" {% if current_url == '/reports/' %}aria-current="page"{% endif %}>
+                All Reports Catalog
+              </a>
+              {% if current_url == '/reports/' %}<span class="current-indicator" aria-hidden="true">● You are here</span>{% endif %}
+            </li>
+            <li {% if current_url contains 'yaml-in-kubernetes' %}class="is-current"{% endif %}>
+              <a href="{{ "/reports/yaml-in-kubernetes-1-31/" | relative_url }}" {% if current_url contains 'yaml-in-kubernetes' %}aria-current="page"{% endif %}>
+                Kubernetes 1.31 (YAML 1.2)
+              </a>
+              {% if current_url contains 'yaml-in-kubernetes' %}<span class="current-indicator" aria-hidden="true">● You are here</span>{% endif %}
+            </li>
+            <li {% if current_url contains 'hcl-in-terraform' %}class="is-current"{% endif %}>
+              <a href="{{ "/reports/hcl-in-terraform-1-9/" | relative_url }}" {% if current_url contains 'hcl-in-terraform' %}aria-current="page"{% endif %}>
+                Terraform 1.9 (hcl/v2)
+              </a>
+              {% if current_url contains 'hcl-in-terraform' %}<span class="current-indicator" aria-hidden="true">● You are here</span>{% endif %}
+            </li>
+            <li {% if current_url contains 'openssl-in-nodejs' %}class="is-current"{% endif %}>
+              <a href="{{ "/reports/openssl-in-nodejs-22/" | relative_url }}" {% if current_url contains 'openssl-in-nodejs' %}aria-current="page"{% endif %}>
+                Node.js 22 (OpenSSL 3.0)
+              </a>
+              {% if current_url contains 'openssl-in-nodejs' %}<span class="current-indicator" aria-hidden="true">● You are here</span>{% endif %}
+            </li>
+            <li {% if current_url contains 'jackson-in-spring' %}class="is-current"{% endif %}>
+              <a href="{{ "/reports/jackson-in-spring-boot-3-3/" | relative_url }}" {% if current_url contains 'jackson-in-spring' %}aria-current="page"{% endif %}>
+                Spring Boot 3.3 (Jackson)
+              </a>
+              {% if current_url contains 'jackson-in-spring' %}<span class="current-indicator" aria-hidden="true">● You are here</span>{% endif %}
+            </li>
+            <li {% if current_url contains 'pyyaml-in-ansible' %}class="is-current"{% endif %}>
+              <a href="{{ "/reports/pyyaml-in-ansible-2-17/" | relative_url }}" {% if current_url contains 'pyyaml-in-ansible' %}aria-current="page"{% endif %}>
+                Ansible Core 2.17 (PyYAML)
+              </a>
+              {% if current_url contains 'pyyaml-in-ansible' %}<span class="current-indicator" aria-hidden="true">● You are here</span>{% endif %}
+            </li>
+          </ul>
+        </div>
+
+        <!-- Section 3: Compliance & Feeds -->
+        <div class="sitemap-col">
+          <div class="sitemap-col-title">Governance &amp; Feeds</div>
+          <ul class="sitemap-link-list">
+            <li {% if is_cra %}class="is-current"{% endif %}>
+              <a href="{{ "/cra-compliance-checklist/" | relative_url }}" {% if is_cra %}aria-current="page"{% endif %}>
+                EU CRA Self-Assessment
+              </a>
+              {% if is_cra %}<span class="current-indicator" aria-hidden="true">● You are here</span>{% endif %}
+            </li>
+            <li>
+              <a href="{{ "/cra-compliance-checklist/#the-five-core-pillars-of-cra-self-assessment" | relative_url }}">
+                The 5 CRA Compliance Pillars
+              </a>
+            </li>
+            <li>
+              <a href="{{ "/assets/docs/packablock-security-checklist.pdf" | relative_url }}" download>
+                Printable PDF Checklist (Download)
+              </a>
+            </li>
+            <li>
+              <a href="{{ "/reports/#datalake" | relative_url }}">
+                Live Cloudflare Datalake Streams
+              </a>
+            </li>
+            <li>
+              <a href="{{ "/reports/#commercial" | relative_url }}">
+                Executive Readiness Models
+              </a>
+            </li>
+            <li>
+              <a href="{{ "/reports/#consultation" | relative_url }}">
+                Enterprise Consultation
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Section 4: Technical & Community Resources -->
+        <div class="sitemap-col">
+          <div class="sitemap-col-title">Documentation &amp; Code</div>
+          <ul class="sitemap-link-list">
+            <li>
+              <a href="https://docs.packablock.com" target="_blank" rel="noopener">
+                Technical Documentation ↗
+              </a>
+            </li>
+            <li>
+              <a href="https://github.com/Packablock/packablock-client" target="_blank" rel="noopener">
+                pkablk CLI Client on GitHub ↗
+              </a>
+            </li>
+            <li>
+              <a href="https://github.com/Packablock" target="_blank" rel="noopener">
+                Packablock GitHub Organization ↗
+              </a>
+            </li>
+            <li>
+              <a href="mailto:support@packablock.com">
+                Security Contact &amp; CVD Disclosure ↗
+              </a>
+            </li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Footer Bottom Row -->
+    <div class="footer-bottom-row">
+      <div class="footer-brand-meta">
+        <h3 class="footer-heading">{{ site.title | escape }}</h3>
+        <p class="footer-tagline">{{ site.description | escape }}</p>
+        <p class="footer-copyright">&copy; {{ 'now' | date: "%Y" }} Packablock, LLC. All rights reserved.</p>
+      </div>
+
+      <div class="footer-contact-wrap">
+        {%- if site.email -%}
+        <div class="footer-contact-item">
+          <span class="contact-label">Contact:</span>
+          <a class="u-email footer-contact-link" href="mailto:{{ site.email }}">{{ site.email }}</a>
+        </div>
+        {%- endif -%}
         {%- include social.html -%}
-      </div>
-
-      <div class="footer-col footer-col-3">
-        <p>{{ site.description | escape }}</p>
       </div>
     </div>
 

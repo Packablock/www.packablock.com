@@ -1,40 +1,480 @@
+{%- assign current_url = page.url | default: "" -%}
+{%- assign is_home = false -%}
+{%- if current_url == "/" or current_url == "/index.html" -%}
+  {%- assign is_home = true -%}
+{%- endif -%}
+
+{%- assign is_reports = false -%}
+{%- if current_url contains "/reports" -%}
+  {%- assign is_reports = true -%}
+{%- endif -%}
+
+{%- assign is_cra = false -%}
+{%- if current_url contains "cra-compliance" -%}
+  {%- assign is_cra = true -%}
+{%- endif -%}
+
+{%- assign is_about = false -%}
+{%- if current_url contains "/about" -%}
+  {%- assign is_about = true -%}
+{%- endif -%}
+
+{%- assign is_signup = false -%}
+{%- if current_url contains "/signup" -%}
+  {%- assign is_signup = true -%}
+{%- endif -%}
+
 <header class="site-header" role="banner">
+  <!-- Top Navigation Bar -->
+  <div class="header-inner">
+    
+    <!-- Brand Logo & Identity -->
+    <div class="header-brand-wrap">
+      <a class="site-brand" href="{{ "/" | relative_url }}" aria-label="Packablock Homepage">
+        <span class="site-brand-icon" aria-hidden="true">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" class="candlestick-svg">
+            <line x1="60" y1="24" x2="60" y2="96" stroke-width="7" stroke-linecap="round"/>
+            <rect x="37" y="42" width="46" height="36" rx="9"/>
+            <circle cx="60" cy="24" r="9"/>
+            <circle cx="60" cy="96" r="9"/>
+          </svg>
+        </span>
+        <span class="site-brand-name">{{ site.title | default: "Packablock" }}</span>
+      </a>
+      <span class="brand-tagline">Package Control, Block by Block.</span>
+    </div>
 
-  <div class="wrapper">
-    {%- assign default_paths = site.pages | map: "path" -%}
-    {%- assign page_paths = site.header_pages | default: default_paths -%}
-    <a class="site-title" rel="author" href="{{ "/" | relative_url }}">
-      <span class="site-title-icon">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" class="candlestick-svg">
-          <line x1="60" y1="24" x2="60" y2="96" stroke-width="7" stroke-linecap="round"/>
-          <rect x="37" y="42" width="46" height="36" rx="9"/>
-          <circle cx="60" cy="24" r="9"/>
-          <circle cx="60" cy="96" r="9"/>
+    <!-- Desktop Primary Navigation -->
+    <nav class="primary-nav" aria-label="Primary Navigation">
+      <ul class="nav-menu" role="menubar">
+        
+        <!-- Overview / Home -->
+        <li class="nav-item" role="none">
+          <a class="nav-link {% if is_home %}is-active{% endif %}" href="{{ "/" | relative_url }}" role="menuitem" {% if is_home %}aria-current="page"{% endif %}>
+            Overview
+          </a>
+        </li>
+
+        <!-- Reports & Feeds Dropdown -->
+        <li class="nav-item has-dropdown" role="none">
+          <button type="button" class="nav-link nav-dropdown-btn {% if is_reports %}is-active{% endif %}" aria-haspopup="true" aria-expanded="false" id="nav-reports-btn" {% if is_reports %}aria-current="page"{% endif %}>
+            <span>Reports &amp; Feeds</span>
+            <svg class="dropdown-caret" viewBox="0 0 10 6" width="10" height="6" aria-hidden="true"><path d="M1 1L5 5L9 1" stroke="currentColor" stroke-width="1.75" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+          
+          <div class="nav-dropdown-menu mega-menu" role="menu" aria-labelledby="nav-reports-btn">
+            <div class="mega-menu-grid">
+              
+              <!-- Column 1: SBOM Inspections -->
+              <div class="mega-menu-col">
+                <div class="mega-menu-heading">
+                  <span class="heading-badge">CONCRETE SBOM</span>
+                  <span>Deep-Dive Inspections</span>
+                </div>
+                <ul class="mega-menu-list">
+                  <li>
+                    <a href="{{ "/reports/" | relative_url }}" class="mega-link-featured {% if current_url == '/reports/' %}current-page{% endif %}">
+                      <span class="link-title">All Reports Hub</span>
+                      <span class="link-desc">Browse complete catalog of resolved package reports</span>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="{{ "/reports/yaml-in-kubernetes-1-31/" | relative_url }}" class="mega-link {% if current_url contains 'yaml-in-kubernetes' %}current-page{% endif %}">
+                      <span class="link-label">Kubernetes 1.31</span>
+                      <span class="link-sub">sigs.k8s.io/yaml v1.4.0 (YAML 1.2)</span>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="{{ "/reports/hcl-in-terraform-1-9/" | relative_url }}" class="mega-link {% if current_url contains 'hcl-in-terraform' %}current-page{% endif %}">
+                      <span class="link-label">Terraform 1.9</span>
+                      <span class="link-sub">hcl/v2 v2.21.0 (Spec Engine)</span>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="{{ "/reports/openssl-in-nodejs-22/" | relative_url }}" class="mega-link {% if current_url contains 'openssl-in-nodejs' %}current-page{% endif %}">
+                      <span class="link-label">Node.js 22 LTS</span>
+                      <span class="link-sub">OpenSSL v3.0.14 Crypto Core</span>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="{{ "/reports/jackson-in-spring-boot-3-3/" | relative_url }}" class="mega-link {% if current_url contains 'jackson-in-spring' %}current-page{% endif %}">
+                      <span class="link-label">Spring Boot 3.3</span>
+                      <span class="link-sub">Jackson Databind 2.17.2</span>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="{{ "/reports/pyyaml-in-ansible-2-17/" | relative_url }}" class="mega-link {% if current_url contains 'pyyaml-in-ansible' %}current-page{% endif %}">
+                      <span class="link-label">Ansible Core 2.17</span>
+                      <span class="link-sub">PyYAML 6.0.1 (Parser Quirks)</span>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+
+              <!-- Column 2: Feeds & Regulatory Architecture -->
+              <div class="mega-menu-col">
+                <div class="mega-menu-heading">
+                  <span class="heading-badge">DATA &amp; GOVERNANCE</span>
+                  <span>Feeds &amp; Toolkits</span>
+                </div>
+                <ul class="mega-menu-list">
+                  <li>
+                    <a href="{{ "/reports/#datalake" | relative_url }}" class="mega-link-card">
+                      <span class="link-title">Live Datalake Feeds</span>
+                      <span class="link-desc">Edge-cached Cloudflare PURL streams across npm, PyPI, Go, Maven, Cargo</span>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="{{ "/reports/#commercial" | relative_url }}" class="mega-link-card">
+                      <span class="link-title">Commercial Executive Models</span>
+                      <span class="link-desc">16:9 widescreen workbooks with =IMPORTDATA() automated formulas</span>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="{{ "/reports/#consultation" | relative_url }}" class="mega-link-card">
+                      <span class="link-title">Enterprise Consultation</span>
+                      <span class="link-desc">Bespoke supply chain verification &amp; policy deployment</span>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+
+            </div>
+          </div>
+        </li>
+
+        <!-- CRA Compliance Dropdown -->
+        <li class="nav-item has-dropdown" role="none">
+          <button type="button" class="nav-link nav-dropdown-btn {% if is_cra %}is-active{% endif %}" aria-haspopup="true" aria-expanded="false" id="nav-cra-btn" {% if is_cra %}aria-current="page"{% endif %}>
+            <span>CRA Compliance</span>
+            <svg class="dropdown-caret" viewBox="0 0 10 6" width="10" height="6" aria-hidden="true"><path d="M1 1L5 5L9 1" stroke="currentColor" stroke-width="1.75" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+
+          <div class="nav-dropdown-menu simple-menu" role="menu" aria-labelledby="nav-cra-btn">
+            <div class="dropdown-menu-header">
+              <span class="heading-badge">EU REGULATION</span>
+              <span class="dropdown-header-title">Cyber Resilience Act (CRA)</span>
+            </div>
+            <ul class="dropdown-menu-list">
+              <li>
+                <a href="{{ "/cra-compliance-checklist/" | relative_url }}" class="dropdown-item {% if current_url == '/cra-compliance-checklist/' %}current-page{% endif %}">
+                  <span class="item-title">Module A Self-Assessment</span>
+                  <span class="item-desc">Manufacturer internal production control conforming to Eclipse ORC WG standards</span>
+                </a>
+              </li>
+              <li>
+                <a href="{{ "/cra-compliance-checklist/#the-five-core-pillars-of-cra-self-assessment" | relative_url }}" class="dropdown-item">
+                  <span class="item-title">The 5 Core Compliance Pillars</span>
+                  <span class="item-desc">Scope, Security by Design, SBOM Due Diligence, Incident Warning &amp; Technical Docs</span>
+                </a>
+              </li>
+              <li>
+                <a href="{{ "/assets/docs/packablock-security-checklist.pdf" | relative_url }}" class="dropdown-item" download>
+                  <span class="item-title">Download Printable PDF Checklist</span>
+                  <span class="item-desc">Offline compliance verification checklist for engineering &amp; legal teams</span>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </li>
+
+        <!-- About -->
+        <li class="nav-item" role="none">
+          <a class="nav-link {% if is_about %}is-active{% endif %}" href="{{ "/about/" | relative_url }}" role="menuitem" {% if is_about %}aria-current="page"{% endif %}>
+            About
+          </a>
+        </li>
+
+      </ul>
+    </nav>
+
+    <!-- Header Actions (Docs, GitHub & Mobile Toggle) -->
+    <div class="header-actions">
+      
+      <!-- Docs External Link -->
+      <a href="https://docs.packablock.com" class="header-docs-link" target="_blank" rel="noopener" aria-label="Packablock Documentation" title="Technical Documentation">
+        <span>Docs</span>
+        <svg class="external-icon" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/></svg>
+      </a>
+
+      <!-- GitHub Link -->
+      <a href="https://github.com/Packablock/packablock-client" class="header-github-link" target="_blank" rel="noopener" aria-label="Packablock on GitHub" title="Star Packablock on GitHub">
+        <svg viewBox="0 0 16 16" width="18" height="18" fill="currentColor" aria-hidden="true">
+          <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/>
         </svg>
-      </span>
-      {{ site.title | escape }}
-    </a>
+        <span class="github-label">GitHub</span>
+      </a>
 
-    {%- if page_paths -%}
-      <nav class="site-nav">
-        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
-        <label for="nav-trigger">
-          <span class="menu-icon">
-            <svg viewBox="0 0 18 15" width="18px" height="15px">
-              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
-            </svg>
-          </span>
-        </label>
+      <!-- Mobile Hamburger Toggle -->
+      <button type="button" class="mobile-menu-toggle" aria-expanded="false" aria-controls="mobile-nav-drawer" aria-label="Toggle navigation menu" id="mobile-menu-btn">
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+      </button>
 
-        <div class="trigger">
-          {%- for path in page_paths -%}
-            {%- assign my_page = site.pages | where: "path", path | first -%}
-            {%- if my_page.title and my_page.url != "/" -%}
-            <a class="page-link" href="{{ my_page.url | relative_url }}">{{ my_page.title | escape }}</a>
+    </div>
+
+  </div>
+
+  <!-- Breadcrumb Bar -->
+  <div id="breadcrumb-bar" class="breadcrumb-bar" role="region" aria-label="Breadcrumb Bar">
+    <div class="breadcrumb-bar-inner">
+      
+      <!-- Breadcrumb Trail -->
+      <nav class="breadcrumb-trail" aria-label="Breadcrumb">
+        <ol class="breadcrumb-list" itemscope itemtype="https://schema.org/BreadcrumbList">
+          <li class="breadcrumb-item" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+            <a href="{{ "/" | relative_url }}" itemprop="item" class="breadcrumb-link">
+              <span itemprop="name">Home</span>
+            </a>
+            <meta itemprop="position" content="1" />
+          </li>
+
+          {%- if is_home -%}
+            <li class="breadcrumb-item is-active" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem" aria-current="page">
+              <span class="breadcrumb-separator" aria-hidden="true">/</span>
+              <span itemprop="name" class="breadcrumb-current">Overview</span>
+              <meta itemprop="position" content="2" />
+            </li>
+          {%- elsif is_reports -%}
+            <li class="breadcrumb-item" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+              <span class="breadcrumb-separator" aria-hidden="true">/</span>
+              {%- if current_url == "/reports/" -%}
+                <span itemprop="name" class="breadcrumb-current" aria-current="page">Intelligence &amp; Reports</span>
+              {%- else -%}
+                <a href="{{ "/reports/" | relative_url }}" itemprop="item" class="breadcrumb-link">
+                  <span itemprop="name">Reports</span>
+                </a>
+              {%- endif -%}
+              <meta itemprop="position" content="2" />
+            </li>
+            {%- if current_url != "/reports/" -%}
+              {%- assign report_match = site.data.enriched_reports | where: "slug", page.slug | first -%}
+              <li class="breadcrumb-item is-active" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem" aria-current="page">
+                <span class="breadcrumb-separator" aria-hidden="true">/</span>
+                <span itemprop="name" class="breadcrumb-current">
+                  {%- if report_match -%}
+                    {{ report_match.target.name }} in {{ report_match.host.name }}
+                  {%- else -%}
+                    {{ page.title | default: "Inspection Report" }}
+                  {%- endif -%}
+                </span>
+                <meta itemprop="position" content="3" />
+              </li>
             {%- endif -%}
-          {%- endfor -%}
-        </div>
+          {%- elsif is_cra -%}
+            <li class="breadcrumb-item is-active" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem" aria-current="page">
+              <span class="breadcrumb-separator" aria-hidden="true">/</span>
+              <span itemprop="name" class="breadcrumb-current">EU CRA Compliance Checklist</span>
+              <meta itemprop="position" content="2" />
+            </li>
+          {%- elsif is_about -%}
+            <li class="breadcrumb-item is-active" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem" aria-current="page">
+              <span class="breadcrumb-separator" aria-hidden="true">/</span>
+              <span itemprop="name" class="breadcrumb-current">About Packablock</span>
+              <meta itemprop="position" content="2" />
+            </li>
+          {%- elsif is_signup -%}
+            <li class="breadcrumb-item is-active" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem" aria-current="page">
+              <span class="breadcrumb-separator" aria-hidden="true">/</span>
+              <span itemprop="name" class="breadcrumb-current">Early Access Signup</span>
+              <meta itemprop="position" content="2" />
+            </li>
+          {%- else -%}
+            <li class="breadcrumb-item is-active" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem" aria-current="page">
+              <span class="breadcrumb-separator" aria-hidden="true">/</span>
+              <span itemprop="name" class="breadcrumb-current">{{ page.title }}</span>
+              <meta itemprop="position" content="2" />
+            </li>
+          {%- endif -%}
+        </ol>
       </nav>
-    {%- endif -%}
+
+      <!-- Breadcrumb Actions -->
+      <div class="breadcrumb-actions">
+        
+        <!-- Book a Demo Button -->
+        <a href="https://calendar.app.google/3fGx4S81egLgTruQ6" class="breadcrumb-btn-demo" target="_blank" rel="noopener" title="Schedule a live demo with the Packablock team">
+          <svg class="demo-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+            <line x1="16" y1="2" x2="16" y2="6"/>
+            <line x1="8" y1="2" x2="8" y2="6"/>
+            <line x1="3" y1="10" x2="21" y2="10"/>
+          </svg>
+          <span>Book a Demo</span>
+          <svg class="external-icon" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/></svg>
+        </a>
+
+        <!-- Developer Preview Button (Styled like Explore Sitemap with dark bg) -->
+        <a href="{{ "/signup/" | relative_url }}" class="breadcrumb-btn-cta {% if is_signup %}is-active{% endif %}" {% if is_signup %}aria-current="page"{% endif %}>
+          <span class="cta-bullet" aria-hidden="true">✦</span>
+          <span>Developer Preview</span>
+          <span class="cta-arrow" aria-hidden="true">&rarr;</span>
+        </a>
+
+        <!-- Explore Sitemap Button (Smooth scrolls to #sitemap anchor in footer) -->
+        <a href="#sitemap" class="sitemap-explorer-btn" title="Explore full site hierarchy in footer">
+          <svg class="sitemap-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <rect x="3" y="3" width="7" height="7" rx="1"/>
+            <rect x="14" y="3" width="7" height="7" rx="1"/>
+            <rect x="14" y="14" width="7" height="7" rx="1"/>
+            <rect x="3" y="14" width="7" height="7" rx="1"/>
+          </svg>
+          <span>Explore Sitemap</span>
+          <svg class="scroll-arrow" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 13.5L12 21m0 0l-7.5-7.5M12 21V3"/></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Mobile Navigation Drawer -->
+  <div class="mobile-nav-drawer" id="mobile-nav-drawer" aria-hidden="true">
+    <div class="mobile-nav-inner">
+      <ul class="mobile-nav-list">
+        <li>
+          <a href="{{ "/" | relative_url }}" class="mobile-nav-link {% if is_home %}is-active{% endif %}">Overview</a>
+        </li>
+        <li class="mobile-nav-accordion">
+          <button type="button" class="mobile-accordion-btn {% if is_reports %}is-active{% endif %}" aria-expanded="false">
+            <span>Reports &amp; Feeds</span>
+            <svg class="dropdown-caret" viewBox="0 0 10 6" width="10" height="6" aria-hidden="true"><path d="M1 1L5 5L9 1" stroke="currentColor" stroke-width="1.75" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+          <ul class="mobile-sub-list">
+            <li><a href="{{ "/reports/" | relative_url }}">All Reports Hub</a></li>
+            <li><a href="{{ "/reports/yaml-in-kubernetes-1-31/" | relative_url }}">Kubernetes 1.31 (sigs.k8s.io/yaml)</a></li>
+            <li><a href="{{ "/reports/hcl-in-terraform-1-9/" | relative_url }}">Terraform 1.9 (hcl/v2)</a></li>
+            <li><a href="{{ "/reports/openssl-in-nodejs-22/" | relative_url }}">Node.js 22 LTS (OpenSSL)</a></li>
+            <li><a href="{{ "/reports/jackson-in-spring-boot-3-3/" | relative_url }}">Spring Boot 3.3 (Jackson)</a></li>
+            <li><a href="{{ "/reports/pyyaml-in-ansible-2-17/" | relative_url }}">Ansible Core 2.17 (PyYAML)</a></li>
+            <li><a href="{{ "/reports/#datalake" | relative_url }}">Live Datalake Feeds</a></li>
+            <li><a href="{{ "/reports/#commercial" | relative_url }}">Executive Models</a></li>
+          </ul>
+        </li>
+        <li class="mobile-nav-accordion">
+          <button type="button" class="mobile-accordion-btn {% if is_cra %}is-active{% endif %}" aria-expanded="false">
+            <span>CRA Compliance</span>
+            <svg class="dropdown-caret" viewBox="0 0 10 6" width="10" height="6" aria-hidden="true"><path d="M1 1L5 5L9 1" stroke="currentColor" stroke-width="1.75" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+          <ul class="mobile-sub-list">
+            <li><a href="{{ "/cra-compliance-checklist/" | relative_url }}">Module A Self-Assessment</a></li>
+            <li><a href="{{ "/cra-compliance-checklist/#the-five-core-pillars-of-cra-self-assessment" | relative_url }}">The 5 Core Pillars</a></li>
+            <li><a href="{{ "/assets/docs/packablock-security-checklist.pdf" | relative_url }}" download>Download Printable PDF</a></li>
+          </ul>
+        </li>
+        <li>
+          <a href="https://docs.packablock.com" target="_blank" rel="noopener" class="mobile-nav-link">Docs ↗</a>
+        </li>
+        <li>
+          <a href="{{ "/about/" | relative_url }}" class="mobile-nav-link {% if is_about %}is-active{% endif %}">About</a>
+        </li>
+      </ul>
+
+      <div class="mobile-nav-actions">
+        <a href="https://calendar.app.google/3fGx4S81egLgTruQ6" class="breadcrumb-btn-demo mobile-cta" target="_blank" rel="noopener">
+          📅 Book a Demo ↗
+        </a>
+        <a href="{{ "/signup/" | relative_url }}" class="breadcrumb-btn-cta mobile-cta">Developer Preview &rarr;</a>
+        <a href="https://github.com/Packablock/packablock-client" target="_blank" rel="noopener" class="mobile-github-link">
+          <svg viewBox="0 0 16 16" width="18" height="18" fill="currentColor" aria-hidden="true">
+            <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/>
+          </svg>
+          View on GitHub
+        </a>
+      </div>
+    </div>
   </div>
 </header>
+
+<!-- Accessible Header Navigation & Sitemap JavaScript -->
+<script>
+(function() {
+  // Mobile Hamburger Menu Toggle
+  const mobileToggle = document.getElementById('mobile-menu-btn');
+  const mobileDrawer = document.getElementById('mobile-nav-drawer');
+  if (mobileToggle && mobileDrawer) {
+    mobileToggle.addEventListener('click', function() {
+      const isExpanded = mobileToggle.getAttribute('aria-expanded') === 'true';
+      mobileToggle.setAttribute('aria-expanded', !isExpanded);
+      mobileDrawer.setAttribute('aria-hidden', isExpanded ? 'true' : 'false');
+      mobileDrawer.classList.toggle('is-open', !isExpanded);
+      mobileToggle.classList.toggle('is-active', !isExpanded);
+    });
+  }
+
+  // Mobile Accordion Sub-menus
+  const accordionBtns = document.querySelectorAll('.mobile-accordion-btn');
+  accordionBtns.forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      const isExpanded = btn.getAttribute('aria-expanded') === 'true';
+      btn.setAttribute('aria-expanded', !isExpanded);
+      const subList = btn.nextElementSibling;
+      if (subList) {
+        subList.classList.toggle('is-open', !isExpanded);
+      }
+    });
+  });
+
+
+  // Desktop Dropdown Toggles for Keyboard Access
+  const dropdownBtns = document.querySelectorAll('.nav-dropdown-btn');
+  dropdownBtns.forEach(function(btn) {
+    btn.addEventListener('click', function(e) {
+      e.stopPropagation();
+      const isExpanded = btn.getAttribute('aria-expanded') === 'true';
+      // Close other dropdowns
+      dropdownBtns.forEach(function(otherBtn) {
+        if (otherBtn !== btn) {
+          otherBtn.setAttribute('aria-expanded', 'false');
+          const otherMenu = otherBtn.nextElementSibling;
+          if (otherMenu) otherMenu.classList.remove('is-open');
+        }
+      });
+      btn.setAttribute('aria-expanded', !isExpanded);
+      const menu = btn.nextElementSibling;
+      if (menu) {
+        menu.classList.toggle('is-open', !isExpanded);
+      }
+    });
+  });
+
+  document.addEventListener('click', function() {
+    dropdownBtns.forEach(function(btn) {
+      btn.setAttribute('aria-expanded', 'false');
+      const menu = btn.nextElementSibling;
+      if (menu) menu.classList.remove('is-open');
+    });
+  });
+
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+      dropdownBtns.forEach(function(btn) {
+        if (btn.getAttribute('aria-expanded') === 'true') {
+          btn.setAttribute('aria-expanded', 'false');
+          const menu = btn.nextElementSibling;
+          if (menu) menu.classList.remove('is-open');
+          btn.focus();
+        }
+      });
+    }
+  });
+
+  // Back to Top Smooth Scrolling
+  document.addEventListener('click', function(e) {
+    const backToTop = e.target.closest('.sitemap-back-to-top, [href="#top"]');
+    if (backToTop) {
+      e.preventDefault();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      const topAnchor = document.getElementById('top-anchor') || document.getElementById('top') || document.body;
+      if (topAnchor && topAnchor.focus) {
+        topAnchor.focus({ preventScroll: true });
+      }
+      if (history.pushState) {
+        history.pushState(null, null, '#top');
+      } else {
+        window.location.hash = '#top';
+      }
+    }
+  });
+
+})();
+</script>
