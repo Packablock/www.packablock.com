@@ -1,6 +1,6 @@
 ---
 layout: default
-title: "Dependency Intelligence & Supply Chain Reports | Packablock"
+title: "Dependency Intelligence & Supply Chain Reports"
 description: "Authoritative software supply chain reports, live edge-cached vulnerability feeds, and executive regulatory compliance models."
 permalink: /reports/
 ---

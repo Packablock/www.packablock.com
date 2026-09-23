@@ -1,6 +1,6 @@
 ---
 layout: default
-title: About Packablock | Preventative Software Supply Chain Security
+title: About & Mission
 description: Our mission is to establish preventative, deterministic security models for modern CI/CD pipelines, transitioning away from passive, awareness-first vulnerability monitoring.
 permalink: /about/
 ---

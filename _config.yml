@@ -27,6 +27,21 @@ url: "https://www.packablock.com" # the base hostname & protocol for your site, 
 twitter_username: packablock
 github_username:  Packablock
 
+# Social & SEO Sharing
+image: /assets/images/packablock-social-card.png
+logo: /favicon.svg
+
+twitter:
+  username: packablock
+  card: summary_large_image
+
+social:
+  name: Packablock
+  links:
+    - https://github.com/Packablock
+    - https://www.youtube.com/@packablock
+    - https://twitter.com/packablock
+
 # Build settings
 theme: minima
 
@@ -41,6 +56,17 @@ collections:
   reports:
     output: true
     permalink: /reports/:slug/
+
+# Site-wide Front Matter Defaults
+defaults:
+  - scope:
+      path: ""
+    values:
+      image:
+        path: /assets/images/packablock-social-card.png
+        height: 630
+        width: 1200
+        alt: "Packablock — Package Control, Block by Block."
 
 # Exclude from processing.
 # The following items will not be processed, by default.
