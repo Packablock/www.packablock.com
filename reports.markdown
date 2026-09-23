@@ -246,6 +246,28 @@ permalink: /reports/
           Download CSV <span>↗</span>
         </a>
       </div>
+
+      <!-- Feed 13: ENISA EU Sector Incident Telemetry -->
+      <div class="datalake-card">
+        <span class="feed-badge">NIS2 / ENISA</span>
+        <h3>ENISA EU Sector Incident Telemetry</h3>
+        <p>Official ENISA Threat Landscape 2026 empirical dataset cataloging verified incidents across 8 EU critical sectors, primary attack vectors, and actor attribution.</p>
+        <div class="feed-endpoint">benchmarks/eu-sector-incidents-2026.csv</div>
+        <a href="https://data.packablock.com/benchmarks/eu-sector-incidents-2026.csv" class="feed-action" target="_blank" rel="noopener">
+          Download CSV <span>↗</span>
+        </a>
+      </div>
+
+      <!-- Feed 14: ENISA Threat Landscape 2026 JSON Archive -->
+      <div class="datalake-card">
+        <span class="feed-badge">JSON SCHEMA</span>
+        <h3>ENISA Threat Landscape JSON Archive</h3>
+        <p>Structured JSON graph detailing vector distributions (ransomware, zero-days, supply chain), state-sponsored attribution shares, and NIS2 Article 21 mappings.</p>
+        <div class="feed-endpoint">regulatory/enisa-threat-landscape-2026.json</div>
+        <a href="https://data.packablock.com/regulatory/enisa-threat-landscape-2026.json" class="feed-action" target="_blank" rel="noopener">
+          Download JSON <span>↗</span>
+        </a>
+      </div>
     </div>
 
     <div style="text-align: center; margin-top: 1.5rem;">
@@ -366,6 +388,24 @@ permalink: /reports/
             <div class="item-title">Smart Home &amp; IoT Trust Mark Tracker</div>
             <p class="item-desc">FCC 24-26 Cyber Trust Mark eligibility tracker and interactive 15-point NIST IR 8425 consumer pre-procurement audit checklist.</p>
           </div>
+
+          <div class="product-item">
+            <div class="item-top">
+              <span class="item-id">NIS2-01</span>
+              <span class="item-price">$9.00</span>
+            </div>
+            <div class="item-title">NIS2 Sectorial Threat Benchmark &amp; Risk Matrix</div>
+            <p class="item-desc">Interactive ENISA ETL 2026 explorer mapping 8 critical EU sectors against Article 21 minimum baseline controls and automated board threat briefing cards.</p>
+          </div>
+
+          <div class="product-item">
+            <div class="item-top">
+              <span class="item-id">INS-02</span>
+              <span class="item-price">$9.00</span>
+            </div>
+            <div class="item-title">European Cyber Insurance Renewal Benchmark</div>
+            <p class="item-desc">Underwriting loss-ratio and risk-loading calculator calibrated against ENISA 2026 claims telemetry with multi-carrier broker renewal defense cards.</p>
+          </div>
         </div>
       </div>
 
@@ -421,6 +461,24 @@ permalink: /reports/
             </div>
             <div class="item-title">10–30 Yr IoT Hardware Maintenance TCO Model &amp; Deck</div>
             <p class="item-desc">20-year fleet cash flow projection engine, embedded silicon obsolescence matrix, and 12-slide board deck navigating CRA Art. 10(6).</p>
+          </div>
+
+          <div class="product-item">
+            <div class="item-top">
+              <span class="item-id">NIS2-01</span>
+              <span class="item-price">$89.00</span>
+            </div>
+            <div class="item-title">NIS2 Threat Landscape &amp; Compliance Risk Model &amp; Deck</div>
+            <p class="item-desc">Comprehensive sectorial threat exposure model, 12-slide 16:9 board-ready presentation deck, and Article 21 technical control gap audit.</p>
+          </div>
+
+          <div class="product-item">
+            <div class="item-top">
+              <span class="item-id">INS-02</span>
+              <span class="item-price">$119.00</span>
+            </div>
+            <div class="item-title">European Cyber Insurance Actuarial Model &amp; Board Deck</div>
+            <p class="item-desc">Actuarial renewal model, 12-slide executive presentation, and parametric loss accumulation sizer for CFOs, risk committees, and brokers.</p>
           </div>
 
           <div class="product-item">
