@@ -58,13 +58,14 @@ permalink: /reports/
           <span class="card-category">
             {{ report.category }}
           </span>
-          <span class="card-score" style="color: {% if report.deps_dev_metadata.openssf_score >= 7 %}#10B981{% elsif report.deps_dev_metadata.openssf_score >= 4 %}#F59E0B{% else %}#9ca3af{% endif %};">
-            Scorecard: {{ report.deps_dev_metadata.openssf_score | default: "N/A" }}/10
+          {% assign score = report.threat_intelligence.openssf_scorecard.overall_score | default: report.deps_dev_metadata.openssf_score %}
+          <span class="card-score" style="color: {% if score >= 7 %}#10B981{% elsif score >= 4 %}#F59E0B{% else %}#9ca3af{% endif %};">
+            Scorecard: {{ score | default: "N/A" }}/10
           </span>
         </div>
 
         <h3 class="card-title">
-          {{ report.title }}
+          {{ report.search_query | default: report.title }}
         </h3>
 
         <div class="card-meta-box">
@@ -74,16 +75,16 @@ permalink: /reports/
           </div>
           <div class="meta-row">
             <span class="meta-label">Target:</span>
-            <span class="meta-val">{{ report.target.name }} @ {{ report.target.version }}</span>
+            <span class="meta-val">{{ report.target.primary_library | default: report.target.name }} @ {{ report.target.primary_version | default: report.target.version }}</span>
           </div>
         </div>
 
         <p class="card-summary">
-          {{ report.summary | truncate: 120 }}
+          {{ report.direct_answer_summary | default: report.summary | truncate: 120 }}
         </p>
 
         <div class="card-footer">
-          <span>Lag: {{ report.deps_dev_metadata.dependency_lag_months | default: 0 }} mos</span>
+          <span>{{ report.cra_governance.reachability_classification | default: "Verified Attestation" | truncate: 25 }}</span>
           <span class="card-link-cta">
             View Report <span class="card-link-arrow">→</span>
           </span>

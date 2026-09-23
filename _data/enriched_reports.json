@@ -1,123 +1,407 @@
 [
   {
     "slug": "yaml-in-kubernetes-1-31",
-    "title": "What version of YAML is in Kubernetes 1.31?",
-    "category": "Cloud Native & Orchestration",
+    "search_query": "What version of YAML is in Kubernetes 1.31?",
+    "category": "SBOM Insights",
+    "target_family": "yaml",
+    "resolution_status": "Resolved",
+    "last_updated": "2026-09-23T22:30:30.373152+00:00",
     "host": {
       "name": "Kubernetes",
+      "package_name": "k8s.io/kubernetes",
       "version": "v1.31.0",
+      "purl": "pkg:golang/k8s.io/kubernetes@v1.31.0",
       "release_date": "2024-08-13",
       "repo_url": "https://github.com/kubernetes/kubernetes",
-      "docs_url": "https://kubernetes.io/docs/concepts/overview/working-with-objects/kubernetes-objects/"
+      "docs_url": "https://kubernetes.io/docs/concepts/overview/working-with-objects/kubernetes-objects/",
+      "runtime_ecosystem": "GO"
     },
     "target": {
-      "name": "sigs.k8s.io/yaml",
-      "version": "v1.4.0",
-      "ecosystem": "go",
-      "package_name": "sigs.k8s.io/yaml",
-      "purl": "pkg:golang/sigs.k8s.io/yaml@v1.4.0",
-      "swhid": "swh:1:rev:c3ee12d93e18cfbf67e3dfbe241315b81045dd1a",
-      "spec_level": "YAML 1.2 (via JSON Transcoding)",
-      "transitive_core": "gopkg.in/yaml.v3 v3.0.1",
-      "repo_url": "https://github.com/kubernetes-sigs/yaml"
+      "name": "YAML",
+      "primary_library": "sigs.k8s.io/yaml",
+      "primary_version": "v1.4.0",
+      "primary_purl": "pkg:golang/sigs.k8s.io/yaml@v1.4.0",
+      "primary_dependency_type": "Direct Dependency",
+      "importer_count": 1,
+      "tier": "tier_1_user_entrypoint",
+      "role_classification": "Canonical User Entry Point (kubectl CLI & API Admission)",
+      "entrypoint_trigger": "kubectl apply -f <manifest.yaml> & Admission Webhooks",
+      "specification_standard": "YAML 1.2 via JSON Transcoding",
+      "repo_url": "https://github.com/kubernetes-sigs/yaml",
+      "other_versions": [
+        {
+          "package": "gopkg.in/yaml.v3",
+          "version": "v3.0.1",
+          "purl": "pkg:golang/gopkg.in/yaml.v3@v3.0.1",
+          "dependency_type": "Direct Dependency",
+          "importer_count": 2,
+          "tier": "tier_2_internal_engine",
+          "tier_label": "Internal AST Engine",
+          "role": "Core YAML 1.2 parsing engine with strict duplicate key enforcement",
+          "spec_level": "YAML 1.2 Core"
+        },
+        {
+          "package": "gopkg.in/yaml.v2",
+          "version": "v2.4.0",
+          "purl": "pkg:golang/gopkg.in/yaml.v2@v2.4.0",
+          "dependency_type": "Transitive Dependency",
+          "importer_count": 14,
+          "tier": "tier_3_legacy_compat",
+          "tier_label": "Legacy Compatibility",
+          "role": "Legacy YAML 1.1 parser retained for backwards compatibility across sub-packages",
+          "spec_level": "YAML 1.1 Legacy"
+        }
+      ]
     },
-    "summary": "Kubernetes 1.31 utilizes sigs.k8s.io/yaml v1.4.0 across kubectl, the API server, and kubelet.  It decodes YAML manifests to JSON intermediate representation before schema validation, enforcing YAML 1.2 rules.\n",
-    "cvd": {
-      "has_policy": true,
-      "policy_url": "https://github.com/kubernetes/kubernetes/blob/master/SECURITY.md",
-      "disclosure_program": "Kubernetes Security Response Committee (SRC) Bug Bounty"
-    },
-    "cra_status": {
-      "support_tier": "Active Support",
-      "end_of_life": false,
-      "cra_risk_score": "Low (Active upstream SIG Architecture maintenance)"
-    },
-    "quirks": [
-      {
-        "title": "Unquoted Boolean Country Codes ('NO' / 'YES')",
-        "description": "Under YAML 1.2 (JSON transcoding), 'country: NO' is parsed as the string 'NO' rather than boolean 'false', resolving the infamous YAML 1.1 Norway country code bug.",
-        "code_bad": "# YAML 1.1 (e.g. PyYAML):\ncountry: NO       # Evaluates to boolean: false\n",
-        "code_good": "# Kubernetes YAML 1.2 (sigs.k8s.io/yaml):\ncountry: NO       # Evaluates to string: \"NO\"\n"
-      },
-      {
-        "title": "Duplicate Mapping Keys Rejection",
-        "description": "To prevent shadow parameter injection attacks, duplicate keys in the same mapping block are rejected during JSON unmarshalling.",
-        "code_bad": "spec:\n  replicas: 1\n  replicas: 5     # Shadow key rejected with parse error\n",
-        "code_good": "spec:\n  replicas: 5     # Explicit single key assignment required\n"
-      }
-    ],
-    "deps_dev_metadata": {
-      "published_at": "2023-10-24T17:13:34Z",
-      "dependency_lag_months": 10,
-      "licenses": [
-        "MIT",
+    "direct_answer_summary": "Kubernetes v1.31.0 utilizes sigs.k8s.io/yaml v1.4.0 to parse and convert incoming YAML manifests into JSON across the API server, kubectl, and kubelet. It unmarshals YAML into Go structs using standard JSON schema tags, while pinning gopkg.in/yaml.v3 v3.0.1 for duplicate key rejection.",
+    "transitory_sbom": {
+      "purl": "pkg:golang/k8s.io/kubernetes@v1.31.0",
+      "deps_dev_url": "https://deps.dev/go/k8s.io%2Fkubernetes/v1.31.0",
+      "release_date": "2024-08-13",
+      "ecosystem": "GO Modules (pkg:go)",
+      "dependency_count_direct": 52,
+      "dependency_count_transitive": 360,
+      "total_dependencies": 412,
+      "distinct_licenses_count": 4,
+      "primary_license": "Apache-2.0",
+      "licenses_list": [
+        "Apache-2.0",
         "BSD-3-Clause",
-        "Apache-2.0"
+        "MIT",
+        "MPL-2.0"
       ],
-      "advisory_count": 0,
-      "advisories": [],
-      "openssf_score": 5,
-      "openssf_checks": [
+      "openssf_scorecard_avg": 7.2,
+      "known_cve_count": 2,
+      "host_cve_count": 6,
+      "host_advisories_count": 11,
+      "active_kev_count": 0,
+      "synthesis_engine": "Google deps.dev v3 API (Transitory / Zero-Clone)",
+      "spec_standards": "CycloneDX 1.5 & SPDX 2.3"
+    },
+    "coexistence": {
+      "has_multiple_versions": true,
+      "resolved_tree": [
         {
-          "name": "Token-Permissions",
-          "score": 0
+          "package": "sigs.k8s.io/yaml",
+          "version": "v1.4.0",
+          "role": "Kubernetes YAML-to-JSON manifest converter and admission boundary",
+          "direct_or_transitive": "Direct Dependency",
+          "spec_level": "YAML 1.2 via JSON Transcoding",
+          "purl": "pkg:golang/sigs.k8s.io/yaml@v1.4.0",
+          "importer_count": 1
         },
         {
-          "name": "Code-Review",
-          "score": 10
+          "package": "gopkg.in/yaml.v3",
+          "version": "v3.0.1",
+          "role": "Core YAML 1.2 parsing engine with strict duplicate key enforcement",
+          "direct_or_transitive": "Direct Dependency",
+          "spec_level": "YAML 1.2 Core",
+          "purl": "pkg:golang/gopkg.in/yaml.v3@v3.0.1",
+          "importer_count": 2
         },
         {
-          "name": "Dangerous-Workflow",
-          "score": 10
-        },
-        {
-          "name": "Maintained",
-          "score": 0
-        },
-        {
-          "name": "Packaging",
-          "score": -1
-        },
-        {
-          "name": "Binary-Artifacts",
-          "score": 10
-        },
-        {
-          "name": "Pinned-Dependencies",
-          "score": 0
-        },
-        {
-          "name": "CII-Best-Practices",
-          "score": 0
-        },
-        {
-          "name": "Fuzzing",
-          "score": 0
-        },
-        {
-          "name": "Signed-Releases",
-          "score": -1
-        },
-        {
-          "name": "License",
-          "score": 9
-        },
-        {
-          "name": "Branch-Protection",
-          "score": -1
-        },
-        {
-          "name": "Security-Policy",
-          "score": 10
-        },
-        {
-          "name": "SAST",
-          "score": 0
+          "package": "gopkg.in/yaml.v2",
+          "version": "v2.4.0",
+          "role": "Legacy YAML 1.1 parser retained for backwards compatibility across sub-packages",
+          "direct_or_transitive": "Transitive Dependency",
+          "spec_level": "YAML 1.1 Legacy",
+          "purl": "pkg:golang/gopkg.in/yaml.v2@v2.4.0",
+          "importer_count": 14
         }
       ],
-      "source_repo": "https://github.com/kubernetes-sigs/yaml"
+      "divergence_analysis": "Kubernetes 1.31 resolves YAML parsing through a dual-parser architecture. At the admission control and API boundary, sigs.k8s.io/yaml v1.4.0 acts as a strict bridge by transcoding YAML manifests into intermediate JSON representations before schema deserialization. This enforces YAML 1.2 plain-string semantics and neutralizes the Norway problem. Concurrently, gopkg.in/yaml.v3 v3.0.1 is integrated to provide strict duplicate key rejection, while legacy gopkg.in/yaml.v2 v2.4.0 remains pinned transitively across auxiliary CLI sub-packages, creating subtle parser divergence risks if external CRD operators bypass the standard sigs.k8s.io/yaml pipeline.",
+      "parser_hazards": [
+        {
+          "quirk_id": "YML-TRAP-01",
+          "title": "The Norway Problem (Unquoted Country Code NO Coerced to Boolean False)",
+          "severity": "High",
+          "cwe": "CWE-704",
+          "cwe_url": "https://cwe.mitre.org/data/definitions/704.html",
+          "code_bad": "allowed_countries:\n  - SE\n  - NO  # Evaluates to boolean false in YAML 1.1",
+          "code_good": "allowed_countries:\n  - \"SE\"\n  - \"NO\"  # Preserved as string in sigs.k8s.io/yaml",
+          "impact": "Silent authorization bypass in geographic admission controllers when raw YAML 1.1 unmarshaling is invoked without JSON transcoding."
+        },
+        {
+          "quirk_id": "YML-TRAP-04",
+          "title": "Duplicate Map Keys Silent Overwrite vs Reject",
+          "severity": "Critical",
+          "cwe": "CWE-471",
+          "cwe_url": "https://cwe.mitre.org/data/definitions/471.html",
+          "code_bad": "spec:\n  securityContext:\n    runAsNonRoot: true\n  securityContext:\n    runAsNonRoot: false  # Shadow key overrides in lax parsers",
+          "code_good": "spec:\n  securityContext:\n    runAsNonRoot: true  # Rejected with parse error in sigs.k8s.io/yaml and yaml.v3",
+          "impact": "Admission control validation bypass where trailing duplicate keys overwrite earlier security parameters in permissive parsers."
+        },
+        {
+          "quirk_id": "YML-TRAP-03",
+          "title": "Octal Permission Radix Interpretation via Leading Zero",
+          "severity": "High",
+          "cwe": "CWE-732",
+          "cwe_url": "https://cwe.mitre.org/data/definitions/732.html",
+          "code_bad": "volumes:\n  - name: config\n    configMap:\n      defaultMode: 0755  # Decimal 493 in YAML 1.1 vs 755 in JSON mode",
+          "code_good": "volumes:\n  - name: config\n    configMap:\n      defaultMode: 0o755  # Explicit octal notation",
+          "impact": "Incorrect filesystem permissions applied to mounted volumes in Pod specs when different YAML specifications are cross-compiled."
+        }
+      ]
     },
-    "sbom_snippet": {
+    "cra_governance": {
+      "support_tier": "Active Support",
+      "end_of_life": false,
+      "reachability_classification": "Production Reachable (API server admission & kubelet control loop)",
+      "reachability_rationale": "Evaluated under EU CRA Article 10/11: sigs.k8s.io/yaml is directly reachable in core production binaries; hazardous unquoted type coercions are systematically eliminated through mandatory JSON transcoding.",
+      "enisa_sector": "Digital Infrastructure & Cloud Services",
+      "nis2_scope": "Essential (Annex I - Article 21)",
+      "governing_standards": [
+        {
+          "body": "European Union / European Commission",
+          "framework": "EU Cyber Resilience Act (CRA)",
+          "regulation_id": "Regulation (EU) 2024/2847",
+          "scope": "Important Product with Digital Elements (Class I / Cloud Infrastructure Control Plane)",
+          "url": "https://eur-lex.europa.eu/eli/reg/2024/2847/oj"
+        },
+        {
+          "body": "ENISA / European Commission",
+          "framework": "NIS2 Directive",
+          "regulation_id": "Directive (EU) 2022/2555",
+          "scope": "Digital Infrastructure & Cloud Services (Annex I - Essential Entity)",
+          "url": "https://eur-lex.europa.eu/eli/dir/2022/2555/oj"
+        },
+        {
+          "body": "NIST / US CISA",
+          "framework": "Secure Software Development Framework (SSDF)",
+          "regulation_id": "NIST SP 800-218 v1.1",
+          "scope": "Federal Software Supply Chain Policy & Dependency Provenance",
+          "url": "https://csrc.nist.gov/pubs/sp/800/218/final"
+        }
+      ]
+    },
+    "threat_intelligence": {
+      "known_cve_count": 2,
+      "advisories": [
+        {
+          "cve_id": "CVE-2022-28948",
+          "cve_url": "https://www.cve.org/CVERecord?id=CVE-2022-28948",
+          "in_cisa_kev": false,
+          "epss_score": 0.0014,
+          "epss_percentile": 48.2,
+          "reachability": "Guarded: Crash vector in yaml.v3 alias resolution is neutralized by Kubernetes API server payload size limits and JSON transcoding."
+        },
+        {
+          "cve_id": "CVE-2022-3064",
+          "cve_url": "https://www.cve.org/CVERecord?id=CVE-2022-3064",
+          "in_cisa_kev": false,
+          "epss_score": 0.0021,
+          "epss_percentile": 58.6,
+          "reachability": "Guarded: Uncontrolled memory consumption in yaml.v2 parsing is not reachable in default API server admission pipelines."
+        }
+      ],
+      "openssf_scorecard": {
+        "overall_score": 7.2,
+        "checks": [
+          {
+            "name": "Code-Review",
+            "score": 7
+          },
+          {
+            "name": "Maintained",
+            "score": 10
+          },
+          {
+            "name": "Packaging",
+            "score": -1
+          },
+          {
+            "name": "Dangerous-Workflow",
+            "score": -1
+          },
+          {
+            "name": "Token-Permissions",
+            "score": -1
+          },
+          {
+            "name": "Security-Policy",
+            "score": 10
+          },
+          {
+            "name": "CII-Best-Practices",
+            "score": 5
+          },
+          {
+            "name": "License",
+            "score": 10
+          },
+          {
+            "name": "Branch-Protection",
+            "score": -1
+          },
+          {
+            "name": "Signed-Releases",
+            "score": -1
+          },
+          {
+            "name": "SAST",
+            "score": 0
+          },
+          {
+            "name": "Fuzzing",
+            "score": 10
+          },
+          {
+            "name": "Binary-Artifacts",
+            "score": 10
+          },
+          {
+            "name": "Pinned-Dependencies",
+            "score": 0
+          }
+        ]
+      }
+    },
+    "verified_facts": [
+      {
+        "fact_id": "CWE-704",
+        "authority": "MITRE",
+        "category": "weakness",
+        "title": "CWE-704: Incorrect Type Conversion or Cast",
+        "url": "https://cwe.mitre.org/data/definitions/704.html",
+        "summary": "Implicit coercion of unquoted country code tokens (e.g. NO) into boolean false in YAML 1.1 parsers.",
+        "epss_score": null,
+        "epss_percentile": null,
+        "in_cisa_kev": null,
+        "mitre_rating": "Likelihood: Low/Medium",
+        "scope": "target"
+      },
+      {
+        "fact_id": "CWE-471",
+        "authority": "MITRE",
+        "category": "weakness",
+        "title": "CWE-471: Modification of Assumed-Immutable Data (Duplicate Map Keys)",
+        "url": "https://cwe.mitre.org/data/definitions/471.html",
+        "summary": "Shadow key injection where trailing duplicate dictionary keys overwrite earlier security parameters in lax parsers.",
+        "epss_score": null,
+        "epss_percentile": null,
+        "in_cisa_kev": null,
+        "mitre_rating": "Likelihood: Medium",
+        "scope": "target"
+      },
+      {
+        "fact_id": "CWE-732",
+        "authority": "MITRE",
+        "category": "weakness",
+        "title": "CWE-732: Incorrect Permission Assignment for Critical Resource",
+        "url": "https://cwe.mitre.org/data/definitions/732.html",
+        "summary": "Leading-zero octal permission radix interpretation differences in volume mount defaultMode (0755 vs 0o755).",
+        "epss_score": null,
+        "epss_percentile": null,
+        "in_cisa_kev": null,
+        "mitre_rating": "Top 25: #22 (Score 4.88)",
+        "scope": "target"
+      },
+      {
+        "fact_id": "CVE-2022-28948",
+        "authority": "CVE.org",
+        "category": "vulnerability",
+        "title": "CVE-2022-28948: gopkg.in/yaml.v3 Alias Resolution Crash",
+        "url": "https://www.cve.org/CVERecord?id=CVE-2022-28948",
+        "summary": "Stack exhaustion / crash during untrusted YAML deserialization when resolving deeply nested anchor aliases.",
+        "epss_score": 0.0014,
+        "epss_percentile": 48.2,
+        "in_cisa_kev": false,
+        "mitre_rating": null,
+        "scope": "target"
+      },
+      {
+        "fact_id": "CVE-2022-3064",
+        "authority": "CVE.org",
+        "category": "vulnerability",
+        "title": "CVE-2022-3064: gopkg.in/yaml.v2 Memory Consumption",
+        "url": "https://www.cve.org/CVERecord?id=CVE-2022-3064",
+        "summary": "Excessive memory allocation in legacy yaml.v2 unmarshaler when processing maliciously crafted documents.",
+        "epss_score": 0.0021,
+        "epss_percentile": 58.6,
+        "in_cisa_kev": false,
+        "mitre_rating": null,
+        "scope": "target"
+      },
+      {
+        "fact_id": "CVE-2024-9042",
+        "authority": "CVE.org",
+        "category": "vulnerability",
+        "title": "CVE-2024-9042: Command Injection on Windows Nodes via nodes/proxy",
+        "url": "https://www.cve.org/CVERecord?id=CVE-2024-9042",
+        "summary": "Command injection vulnerability affecting Windows nodes via nodes/proxy subresource allows privileged remote code execution.",
+        "epss_score": 0.01371,
+        "epss_percentile": 70.8,
+        "in_cisa_kev": false,
+        "mitre_rating": null,
+        "scope": "host"
+      },
+      {
+        "fact_id": "CVE-2025-1767",
+        "authority": "CVE.org",
+        "category": "vulnerability",
+        "title": "CVE-2025-1767: GitRepo Volume Inadvertent Local Repository Access",
+        "url": "https://www.cve.org/CVERecord?id=CVE-2025-1767",
+        "summary": "GitRepo volume plugin parameter validation flaw permits unauthorized access to local repositories during volume mounting.",
+        "epss_score": 0.00553,
+        "epss_percentile": 45.1,
+        "in_cisa_kev": false,
+        "mitre_rating": null,
+        "scope": "host"
+      },
+      {
+        "fact_id": "CVE-2025-5187",
+        "authority": "CVE.org",
+        "category": "vulnerability",
+        "title": "CVE-2025-5187: Node Deletion via Malicious OwnerReference Injection",
+        "url": "https://www.cve.org/CVERecord?id=CVE-2025-5187",
+        "summary": "Garbage collector weakness allows compromised node identities to cause cascading deletion of arbitrary Node objects.",
+        "epss_score": 0.00543,
+        "epss_percentile": 44.5,
+        "in_cisa_kev": false,
+        "mitre_rating": null,
+        "scope": "host"
+      },
+      {
+        "fact_id": "CVE-2025-13281",
+        "authority": "CVE.org",
+        "category": "vulnerability",
+        "title": "CVE-2025-13281: Half-Blind SSRF in kube-controller-manager",
+        "url": "https://www.cve.org/CVERecord?id=CVE-2025-13281",
+        "summary": "Half-blind Server-Side Request Forgery vulnerability in kube-controller-manager volume lifecycle controller.",
+        "epss_score": 0.00389,
+        "epss_percentile": 32.8,
+        "in_cisa_kev": false,
+        "mitre_rating": null,
+        "scope": "host"
+      },
+      {
+        "fact_id": "CVE-2025-0426",
+        "authority": "CVE.org",
+        "category": "vulnerability",
+        "title": "CVE-2025-0426: Node Denial of Service via Kubelet Checkpoint API",
+        "url": "https://www.cve.org/CVERecord?id=CVE-2025-0426",
+        "summary": "Resource exhaustion flaw in kubelet checkpointing endpoint enables unauthenticated local callers to crash worker node processes.",
+        "epss_score": 0.00372,
+        "epss_percentile": 31.1,
+        "in_cisa_kev": false,
+        "mitre_rating": null,
+        "scope": "host"
+      },
+      {
+        "fact_id": "CVE-2024-7598",
+        "authority": "CVE.org",
+        "category": "vulnerability",
+        "title": "CVE-2024-7598: Race Condition in kube-apiserver Token Caching",
+        "url": "https://www.cve.org/CVERecord?id=CVE-2024-7598",
+        "summary": "Race condition in kube-apiserver webhook token authenticator cache triggers transient authorization drops under concurrency.",
+        "epss_score": 0.00314,
+        "epss_percentile": 24.6,
+        "in_cisa_kev": false,
+        "mitre_rating": null,
+        "scope": "host"
+      }
+    ],
+    "sbom_snippets": {
       "cyclonedx_component": {
         "type": "library",
         "bom-ref": "pkg:golang/sigs.k8s.io/yaml@v1.4.0",
@@ -161,611 +445,9 @@
             "referenceLocator": "pkg:golang/sigs.k8s.io/yaml@v1.4.0"
           }
         ]
-      }
-    }
-  },
-  {
-    "slug": "hcl-in-terraform-1-9",
-    "title": "What version of HCL is in Terraform 1.9?",
-    "category": "Infrastructure as Code",
-    "host": {
-      "name": "Terraform",
-      "version": "v1.9.5",
-      "release_date": "2024-08-21",
-      "repo_url": "https://github.com/hashicorp/terraform",
-      "docs_url": "https://developer.hashicorp.com/terraform/language/syntax/configuration"
-    },
-    "target": {
-      "name": "github.com/hashicorp/hcl/v2",
-      "version": "v2.21.0",
-      "ecosystem": "go",
-      "package_name": "github.com/hashicorp/hcl/v2",
-      "purl": "pkg:golang/github.com/hashicorp/hcl/v2@v2.21.0",
-      "swhid": "swh:1:rev:7e66d3a95d7b5fdf68f0ef1185523287661b6cb4",
-      "spec_level": "HCL 2.0 (Structural Configuration Language)",
-      "transitive_core": "github.com/zclconf/go-cty v1.14.4",
-      "repo_url": "https://github.com/hashicorp/hcl"
-    },
-    "summary": "Terraform 1.9 embeds HCL2 v2.21.0 for configuration parsing, dynamic block evaluation, and expression type checking.\n",
-    "cvd": {
-      "has_policy": true,
-      "policy_url": "https://www.hashicorp.com/security",
-      "disclosure_program": "HashiCorp Vulnerability Disclosure & HackerOne"
-    },
-    "cra_status": {
-      "support_tier": "Active Support",
-      "end_of_life": false,
-      "cra_risk_score": "Low (Active commercial & community maintenance)"
-    },
-    "quirks": [
-      {
-        "title": "Strict Null vs Empty String Type Differentiation",
-        "description": "HCL2 distinguishes between null values and empty strings (\"\") in ternary operations and dynamic blocks.",
-        "code_bad": "# Undesired default evaluation:\nname = var.override_name != \"\" ? var.override_name : \"default\"\n",
-        "code_good": "# HCL2 Idiomatic coalesce:\nname = coalesce(var.override_name, \"default\")\n"
       },
-      {
-        "title": "Dynamic Block Iterator Scoping",
-        "description": "Dynamic blocks create isolated child scoping requiring explicit .value member resolution.",
-        "code_good": "dynamic \"tag\" {\n  for_each = var.tags\n  content {\n    key   = tag.key\n    value = tag.value\n  }\n}\n"
-      }
-    ],
-    "deps_dev_metadata": {
-      "published_at": "2024-06-19T11:34:52Z",
-      "dependency_lag_months": 2,
-      "licenses": [
-        "MPL-2.0"
-      ],
-      "advisory_count": 0,
-      "advisories": [],
-      "openssf_score": 7.7,
-      "openssf_checks": [
-        {
-          "name": "Dangerous-Workflow",
-          "score": 10
-        },
-        {
-          "name": "Code-Review",
-          "score": 10
-        },
-        {
-          "name": "Maintained",
-          "score": 10
-        },
-        {
-          "name": "Packaging",
-          "score": -1
-        },
-        {
-          "name": "Token-Permissions",
-          "score": 0
-        },
-        {
-          "name": "CII-Best-Practices",
-          "score": 0
-        },
-        {
-          "name": "Binary-Artifacts",
-          "score": 10
-        },
-        {
-          "name": "Pinned-Dependencies",
-          "score": 10
-        },
-        {
-          "name": "Fuzzing",
-          "score": 10
-        },
-        {
-          "name": "License",
-          "score": 10
-        },
-        {
-          "name": "Signed-Releases",
-          "score": -1
-        },
-        {
-          "name": "Security-Policy",
-          "score": 10
-        },
-        {
-          "name": "Branch-Protection",
-          "score": 8
-        },
-        {
-          "name": "SAST",
-          "score": 0
-        }
-      ],
-      "source_repo": "https://github.com/hashicorp/hcl"
+      "packablock_attestation_hint": "pkablk check packablock.yaml"
     },
-    "sbom_snippet": {
-      "cyclonedx_component": {
-        "type": "library",
-        "bom-ref": "pkg:golang/github.com/hashicorp/hcl/v2@v2.21.0",
-        "name": "github.com/hashicorp/hcl/v2",
-        "version": "v2.21.0",
-        "purl": "pkg:golang/github.com/hashicorp/hcl/v2@v2.21.0",
-        "licenses": [
-          {
-            "license": {
-              "id": "MPL-2.0"
-            }
-          }
-        ],
-        "externalReferences": [
-          {
-            "type": "vcs",
-            "url": "https://github.com/hashicorp/hcl"
-          }
-        ]
-      },
-      "spdx_package": {
-        "SPDXID": "SPDXRef-Package-github-com-hashicorp-hcl-v2",
-        "name": "github.com/hashicorp/hcl/v2",
-        "versionInfo": "v2.21.0",
-        "downloadLocation": "https://github.com/hashicorp/hcl",
-        "licenseConcluded": "MPL-2.0",
-        "externalRefs": [
-          {
-            "referenceCategory": "PACKAGE-MANAGER",
-            "referenceType": "purl",
-            "referenceLocator": "pkg:golang/github.com/hashicorp/hcl/v2@v2.21.0"
-          }
-        ]
-      }
-    }
-  },
-  {
-    "slug": "openssl-in-nodejs-22",
-    "title": "What version of OpenSSL is in Node.js 22 LTS?",
-    "category": "Runtimes & Embedded Systems",
-    "host": {
-      "name": "Node.js",
-      "version": "v22.6.0",
-      "release_date": "2024-08-06",
-      "repo_url": "https://github.com/nodejs/node",
-      "docs_url": "https://nodejs.org/docs/latest-v22.x/api/crypto.html"
-    },
-    "target": {
-      "name": "OpenSSL",
-      "version": "3.0.13+quic",
-      "ecosystem": "generic",
-      "package_name": "openssl",
-      "purl": "pkg:generic/openssl@3.0.13",
-      "swhid": "swh:1:rev:0a39cb2184918ef85c8f1e967406a445ff402b80",
-      "spec_level": "OpenSSL 3.0 (FIPS 140-2 Cryptographic Architecture)",
-      "transitive_core": "libcrypto / libssl",
-      "repo_url": "https://github.com/openssl/openssl"
-    },
-    "summary": "Node.js 22 ships with embedded OpenSSL 3.0.13+quic, providing default TLS 1.3 ciphers, modernized provider architecture, and QUIC packet parsing primitives.\n",
-    "cvd": {
-      "has_policy": true,
-      "policy_url": "https://github.com/nodejs/node/blob/main/SECURITY.md",
-      "disclosure_program": "Node.js Security Working Group & HackerOne"
-    },
-    "cra_status": {
-      "support_tier": "Active LTS",
-      "end_of_life": false,
-      "cra_risk_score": "Low (OpenSSL 3.0 LTS supported until 2026)"
-    },
-    "quirks": [
-      {
-        "title": "OpenSSL 3.0 Provider Architecture",
-        "description": "Legacy ciphers (e.g. MD4, RC4, DES) are disabled by default and require explicit legacy provider loading.",
-        "code_bad": "// Fails in Node.js 22 default provider:\nconst hash = crypto.createHash('md4').update('data').digest('hex');\n",
-        "code_good": "// Modern recommended standard:\nconst hash = crypto.createHash('sha256').update('data').digest('hex');\n"
-      }
-    ],
-    "deps_dev_metadata": {
-      "published_at": "2023-10-24T17:13:34Z",
-      "dependency_lag_months": 9,
-      "licenses": [
-        "Apache-2.0",
-        "MIT"
-      ],
-      "advisory_count": 0,
-      "advisories": [],
-      "openssf_score": 6.3,
-      "openssf_checks": [
-        {
-          "name": "Code-Review",
-          "score": 0
-        },
-        {
-          "name": "Packaging",
-          "score": -1
-        },
-        {
-          "name": "Dangerous-Workflow",
-          "score": -1
-        },
-        {
-          "name": "Maintained",
-          "score": 10
-        },
-        {
-          "name": "Token-Permissions",
-          "score": -1
-        },
-        {
-          "name": "CII-Best-Practices",
-          "score": 5
-        },
-        {
-          "name": "SAST",
-          "score": 0
-        },
-        {
-          "name": "License",
-          "score": 10
-        },
-        {
-          "name": "Branch-Protection",
-          "score": -1
-        },
-        {
-          "name": "Binary-Artifacts",
-          "score": 10
-        },
-        {
-          "name": "Security-Policy",
-          "score": 10
-        },
-        {
-          "name": "Signed-Releases",
-          "score": 8
-        },
-        {
-          "name": "Fuzzing",
-          "score": 10
-        },
-        {
-          "name": "Pinned-Dependencies",
-          "score": 0
-        }
-      ],
-      "source_repo": "https://github.com/openssl/openssl"
-    },
-    "sbom_snippet": {
-      "cyclonedx_component": {
-        "type": "library",
-        "bom-ref": "pkg:generic/openssl@3.0.13",
-        "name": "OpenSSL",
-        "version": "3.0.13+quic",
-        "purl": "pkg:generic/openssl@3.0.13",
-        "licenses": [
-          {
-            "license": {
-              "id": "Apache-2.0"
-            }
-          },
-          {
-            "license": {
-              "id": "MIT"
-            }
-          }
-        ],
-        "externalReferences": [
-          {
-            "type": "vcs",
-            "url": "https://github.com/openssl/openssl"
-          }
-        ]
-      },
-      "spdx_package": {
-        "SPDXID": "SPDXRef-Package-OpenSSL",
-        "name": "OpenSSL",
-        "versionInfo": "3.0.13+quic",
-        "downloadLocation": "https://github.com/openssl/openssl",
-        "licenseConcluded": "Apache-2.0 OR MIT",
-        "externalRefs": [
-          {
-            "referenceCategory": "PACKAGE-MANAGER",
-            "referenceType": "purl",
-            "referenceLocator": "pkg:generic/openssl@3.0.13"
-          }
-        ]
-      }
-    }
-  },
-  {
-    "slug": "pyyaml-in-ansible-2-17",
-    "title": "What version of PyYAML is in Ansible Core 2.17?",
-    "category": "Automation & Configuration",
-    "host": {
-      "name": "Ansible Core",
-      "version": "v2.17.3",
-      "release_date": "2024-08-12",
-      "repo_url": "https://github.com/ansible/ansible",
-      "docs_url": "https://docs.ansible.com/ansible/latest/reference_appendices/YAMLSyntax.html"
-    },
-    "target": {
-      "name": "PyYAML",
-      "version": "6.0.1",
-      "ecosystem": "pypi",
-      "package_name": "pyyaml",
-      "purl": "pkg:pypi/pyyaml@6.0.1",
-      "swhid": "swh:1:rev:5f3c95a08331d279cfba7241285499de75822365",
-      "spec_level": "YAML 1.1 (Standard Specification)",
-      "transitive_core": "libyaml (C-extension)",
-      "repo_url": "https://github.com/yaml/pyyaml"
-    },
-    "summary": "Ansible Core 2.17 relies on PyYAML 6.0.1 for playbook and inventory parsing, adhering to the older YAML 1.1 specification.\n",
-    "cvd": {
-      "has_policy": true,
-      "policy_url": "https://github.com/ansible/ansible/blob/devel/SECURITY.md",
-      "disclosure_program": "Red Hat Security Response Team"
-    },
-    "cra_status": {
-      "support_tier": "Maintenance Only",
-      "end_of_life": false,
-      "cra_risk_score": "Medium (PyYAML development velocity is low; relies on YAML 1.1 quirks)"
-    },
-    "quirks": [
-      {
-        "title": "Unquoted Boolean Literals in Playbooks",
-        "description": "In YAML 1.1, unquoted 'yes', 'no', 'on', 'off' are coerced into Python booleans True/False.",
-        "code_bad": "- name: Check state\n  register_flag: yes     # Evaluates to boolean True instead of string \"yes\"\n",
-        "code_good": "- name: Check state\n  register_flag: \"yes\"   # Explicit string quotes preserve literal value\n"
-      }
-    ],
-    "deps_dev_metadata": {
-      "published_at": "2023-08-28T18:43:28Z",
-      "dependency_lag_months": 11,
-      "licenses": [
-        "MIT"
-      ],
-      "advisory_count": 0,
-      "advisories": [],
-      "openssf_score": 5,
-      "openssf_checks": [
-        {
-          "name": "Code-Review",
-          "score": 2
-        },
-        {
-          "name": "Maintained",
-          "score": 1
-        },
-        {
-          "name": "Security-Policy",
-          "score": 10
-        },
-        {
-          "name": "CII-Best-Practices",
-          "score": 0
-        },
-        {
-          "name": "Packaging",
-          "score": -1
-        },
-        {
-          "name": "Dangerous-Workflow",
-          "score": 10
-        },
-        {
-          "name": "Token-Permissions",
-          "score": 0
-        },
-        {
-          "name": "Binary-Artifacts",
-          "score": 10
-        },
-        {
-          "name": "Pinned-Dependencies",
-          "score": 0
-        },
-        {
-          "name": "License",
-          "score": 10
-        },
-        {
-          "name": "Fuzzing",
-          "score": 10
-        },
-        {
-          "name": "Signed-Releases",
-          "score": -1
-        },
-        {
-          "name": "Branch-Protection",
-          "score": -1
-        },
-        {
-          "name": "SAST",
-          "score": 0
-        }
-      ],
-      "source_repo": "https://github.com/yaml/pyyaml"
-    },
-    "sbom_snippet": {
-      "cyclonedx_component": {
-        "type": "library",
-        "bom-ref": "pkg:pypi/pyyaml@6.0.1",
-        "name": "PyYAML",
-        "version": "6.0.1",
-        "purl": "pkg:pypi/pyyaml@6.0.1",
-        "licenses": [
-          {
-            "license": {
-              "id": "MIT"
-            }
-          }
-        ],
-        "externalReferences": [
-          {
-            "type": "vcs",
-            "url": "https://github.com/yaml/pyyaml"
-          }
-        ]
-      },
-      "spdx_package": {
-        "SPDXID": "SPDXRef-Package-PyYAML",
-        "name": "PyYAML",
-        "versionInfo": "6.0.1",
-        "downloadLocation": "https://github.com/yaml/pyyaml",
-        "licenseConcluded": "MIT",
-        "externalRefs": [
-          {
-            "referenceCategory": "PACKAGE-MANAGER",
-            "referenceType": "purl",
-            "referenceLocator": "pkg:pypi/pyyaml@6.0.1"
-          }
-        ]
-      }
-    }
-  },
-  {
-    "slug": "jackson-in-spring-boot-3-3",
-    "title": "What version of Jackson is in Spring Boot 3.3?",
-    "category": "Enterprise Frameworks",
-    "host": {
-      "name": "Spring Boot",
-      "version": "v3.3.3",
-      "release_date": "2024-08-22",
-      "repo_url": "https://github.com/spring-projects/spring-boot",
-      "docs_url": "https://docs.spring.io/spring-boot/reference/features/json.html"
-    },
-    "target": {
-      "name": "com.fasterxml.jackson.core/jackson-databind",
-      "version": "2.17.2",
-      "ecosystem": "maven",
-      "package_name": "com.fasterxml.jackson.core:jackson-databind",
-      "purl": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.17.2",
-      "swhid": "swh:1:rev:218be75c87ba133a8da38be2831bbd7fcf71d17a",
-      "spec_level": "JSON / Java 21 Record Serialization Standard",
-      "transitive_core": "jackson-core / jackson-annotations",
-      "repo_url": "https://github.com/FasterXML/jackson-databind"
-    },
-    "summary": "Spring Boot 3.3 manages Jackson Databind 2.17.2 as its default JSON serializer and deserializer with full Java 21 record reflection support.\n",
-    "cvd": {
-      "has_policy": true,
-      "policy_url": "https://spring.io/security-policy",
-      "disclosure_program": "VMware / Broadcom Security Vulnerability Policy"
-    },
-    "cra_status": {
-      "support_tier": "Active Support",
-      "end_of_life": false,
-      "cra_risk_score": "Low (Active FasterXML release cycles)"
-    },
-    "quirks": [
-      {
-        "title": "Polymorphic Type Handling Defense",
-        "description": "Default typing is strictly restricted to prevent unsafe Java deserialization gadget execution.",
-        "code_good": "// Safe polymorphic handling with explicit subtype mapping:\n@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = \"type\")\n@JsonSubTypes({\n    @JsonSubTypes.Type(value = CreditCardPayment.class, name = \"credit_card\"),\n    @JsonSubTypes.Type(value = WireTransferPayment.class, name = \"wire\")\n})\npublic abstract class PaymentMethod {}\n"
-      }
-    ],
-    "deps_dev_metadata": {
-      "published_at": "2024-07-05T17:15:54Z",
-      "dependency_lag_months": 2,
-      "licenses": [
-        "Apache-2.0"
-      ],
-      "advisory_count": 5,
-      "advisories": [
-        "GHSA-3pjw-73gf-8qr5",
-        "GHSA-5jmj-h7xm-6q6v",
-        "GHSA-hgj6-7826-r7m5",
-        "GHSA-j3rv-43j4-c7qm",
-        "GHSA-rmj7-2vxq-3g9f"
-      ],
-      "openssf_score": 7.8,
-      "openssf_checks": [
-        {
-          "name": "Maintained",
-          "score": 10
-        },
-        {
-          "name": "Security-Policy",
-          "score": 10
-        },
-        {
-          "name": "Code-Review",
-          "score": 0
-        },
-        {
-          "name": "Dangerous-Workflow",
-          "score": 10
-        },
-        {
-          "name": "CII-Best-Practices",
-          "score": 0
-        },
-        {
-          "name": "Token-Permissions",
-          "score": 10
-        },
-        {
-          "name": "Binary-Artifacts",
-          "score": 10
-        },
-        {
-          "name": "Pinned-Dependencies",
-          "score": 10
-        },
-        {
-          "name": "License",
-          "score": 10
-        },
-        {
-          "name": "Fuzzing",
-          "score": 10
-        },
-        {
-          "name": "Signed-Releases",
-          "score": -1
-        },
-        {
-          "name": "Branch-Protection",
-          "score": 3
-        },
-        {
-          "name": "SAST",
-          "score": 7
-        },
-        {
-          "name": "Packaging",
-          "score": 10
-        }
-      ],
-      "source_repo": "https://github.com/fasterxml/jackson-databind"
-    },
-    "sbom_snippet": {
-      "cyclonedx_component": {
-        "type": "library",
-        "bom-ref": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.17.2",
-        "name": "com.fasterxml.jackson.core/jackson-databind",
-        "version": "2.17.2",
-        "purl": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.17.2",
-        "licenses": [
-          {
-            "license": {
-              "id": "Apache-2.0"
-            }
-          }
-        ],
-        "externalReferences": [
-          {
-            "type": "vcs",
-            "url": "https://github.com/fasterxml/jackson-databind"
-          }
-        ]
-      },
-      "spdx_package": {
-        "SPDXID": "SPDXRef-Package-com-fasterxml-jackson-core-jackson-databind",
-        "name": "com.fasterxml.jackson.core/jackson-databind",
-        "versionInfo": "2.17.2",
-        "downloadLocation": "https://github.com/fasterxml/jackson-databind",
-        "licenseConcluded": "Apache-2.0",
-        "externalRefs": [
-          {
-            "referenceCategory": "PACKAGE-MANAGER",
-            "referenceType": "purl",
-            "referenceLocator": "pkg:maven/com.fasterxml.jackson.core/jackson-databind@2.17.2"
-          }
-        ]
-      }
-    }
+    "cache_hash": "05c2db2c26458f592d056c1c7dc565f03d49d3aba5f2328557bf8817fa19662a"
   }
 ]

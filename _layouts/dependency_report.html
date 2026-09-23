@@ -5,181 +5,463 @@ layout: default
 {% assign report = site.data.enriched_reports | where: "slug", page.slug | first %}
 
 {% if report %}
-<div class="dependency-report-container" style="max-width: 960px; margin: 0 auto; padding: 2rem 1rem;">
+<style>
+  @media (max-width: 768px) {
+    .pab-report-sheet {
+      padding: 1.75rem 1.25rem !important;
+    }
+    .pab-report-sheet h1 {
+      font-size: 1.75rem !important;
+    }
+  }
+</style>
+<div class="dependency-report-container" style="max-width: 1040px; margin: 0 auto; padding: 2rem 1rem 4rem 1rem;">
 
-
-  <!-- Category & Live Tag -->
-  <div style="display: flex; gap: 0.75rem; align-items: center; margin-bottom: 1rem; flex-wrap: wrap;">
-    <span style="background: rgba(34, 211, 238, 0.1); border: 1px solid rgba(34, 211, 238, 0.3); color: #22D3EE; font-size: 0.75rem; font-weight: 700; padding: 0.25rem 0.6rem; border-radius: 4px; text-transform: uppercase; letter-spacing: 0.05em;">
-      {{ report.category }}
-    </span>
-    <span style="background: rgba(16, 185, 129, 0.1); border: 1px solid rgba(16, 185, 129, 0.3); color: #10B981; font-size: 0.75rem; font-weight: 700; padding: 0.25rem 0.6rem; border-radius: 4px; text-transform: uppercase; letter-spacing: 0.05em;">
-      ✓ Deps.dev Verified
-    </span>
+  <!-- Breadcrumb Navigation -->
+  <div style="margin-bottom: 1.25rem;">
+    <a href="{{ site.baseurl }}/reports" style="color: #38bdf8; text-decoration: none; font-size: 0.85rem; font-weight: 600; display: inline-flex; align-items: center; gap: 0.35rem;">
+      <span>←</span> Back to Supply Chain Reports
+    </a>
   </div>
 
-  <!-- Main Headline -->
-  <h1 style="font-size: 2.25rem; font-weight: 900; line-height: 1.2; margin-bottom: 1.5rem; color: #ffffff; letter-spacing: -0.02em;">
-    {{ report.title }}
-  </h1>
+  <!-- Soft Pane Background Document Panel (#182638) -->
+  <article class="pab-report-sheet" style="background: #182638; border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 12px; box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3); padding: 3rem 3.5rem; color: #e2e8f0; line-height: 1.6;">
 
-  <!-- 1. Direct Answer Hero Card -->
-  <div class="report-hero-card" style="background: rgba(14, 27, 46, 0.95); border: 1px solid rgba(34, 211, 238, 0.3); border-radius: 12px; padding: 2rem; margin-bottom: 2.5rem; box-shadow: 0 20px 40px -15px rgba(0,0,0,0.5); position: relative; overflow: hidden;">
-    <div style="position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, #22D3EE, #0E9AA8);"></div>
-    
-    <div style="font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.1em; color: #22D3EE; font-weight: 800; margin-bottom: 0.75rem;">
-      ✦ Direct Inspection Result
-    </div>
-
-    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.5rem; margin-bottom: 1.5rem; background: rgba(0,0,0,0.3); border-radius: 8px; padding: 1.25rem; border: 1px solid rgba(255,255,255,0.06);">
-      <div>
-        <div style="font-size: 0.75rem; color: #9ca3af; text-transform: uppercase; font-weight: 600;">Resolved Concrete Library</div>
-        <div style="font-size: 1.3rem; font-weight: 800; color: #22D3EE; font-family: 'IBM Plex Mono', monospace; margin-top: 0.25rem;">
-          {{ report.target.name }} <span style="color: #ffffff;">@ {{ report.target.version }}</span>
-        </div>
+    <!-- Document Top Folio / Header Rule -->
+    <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(34, 211, 238, 0.3); padding-bottom: 0.85rem; margin-bottom: 1.75rem; flex-wrap: wrap; gap: 0.75rem;">
+      <div style="display: flex; align-items: center; gap: 0.75rem;">
+        <span style="font-size: 0.72rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.08em; color: #22D3EE;">
+          Packablock Supply Chain Intelligence Report
+        </span>
+        <span style="font-size: 0.68rem; font-weight: 700; padding: 0.15rem 0.5rem; border-radius: 4px; background: rgba(34, 211, 238, 0.12); color: #22D3EE; border: 1px solid rgba(34, 211, 238, 0.3); text-transform: uppercase;">
+          {{ report.category }}
+        </span>
       </div>
-      <div>
-        <div style="font-size: 0.75rem; color: #9ca3af; text-transform: uppercase; font-weight: 600;">Spec Level & Mechanism</div>
-        <div style="font-size: 1.15rem; font-weight: 700; color: #ffffff; margin-top: 0.25rem;">
-          {{ report.target.spec_level }}
-        </div>
-      </div>
-      <div>
-        <div style="font-size: 0.75rem; color: #9ca3af; text-transform: uppercase; font-weight: 600;">Host Environment Release</div>
-        <div style="font-size: 1.15rem; font-weight: 700; color: #ffffff; margin-top: 0.25rem;">
-          {{ report.host.name }} {{ report.host.version }} <span style="font-size: 0.8rem; color: #9ca3af; font-weight: 400;">({{ report.host.release_date }})</span>
-        </div>
+      <div style="font-family: 'IBM Plex Mono', monospace; font-size: 0.74rem; font-weight: 600; color: #94a3b8;">
+        REF: {{ report.slug | upcase }} · UPDATED: {{ report.last_updated | slice: 0, 10 }}
       </div>
     </div>
 
-    <p style="font-size: 1.05rem; line-height: 1.6; color: #e5e7eb; margin: 0;">
-      {{ report.summary }}
-    </p>
-  </div>
+    <!-- Main Headline / Search Query -->
+    <h1 style="font-size: 2.25rem; font-weight: 900; line-height: 1.22; margin-bottom: 0.85rem; color: #ffffff; letter-spacing: -0.025em;">
+      {{ report.search_query | default: report.title }}
+    </h1>
 
-  <!-- 2. Supply Chain & SBOM Identifiers -->
-  <div style="margin-bottom: 2.5rem;">
-    <h2 style="font-size: 1.35rem; font-weight: 800; color: #ffffff; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
-      <span>🏷️</span> Package Identifiers & SBOM Mapping
-    </h2>
-    <div style="background: rgba(14, 27, 46, 0.6); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 8px; padding: 1.25rem; font-family: 'IBM Plex Mono', monospace; font-size: 0.85rem;">
-      <div style="display: flex; justify-content: space-between; align-items: center; padding-bottom: 0.75rem; border-bottom: 1px solid rgba(255,255,255,0.06); margin-bottom: 0.75rem; flex-wrap: wrap; gap: 0.5rem;">
-        <span style="color: #9ca3af; font-weight: 600;">Package URL (PURL):</span>
-        <code style="color: #22D3EE; background: transparent !important; border: none !important; word-break: break-all;">{{ report.target.purl }}</code>
+    <!-- Host Component Metadata Bar -->
+    <div style="display: flex; gap: 0.75rem; align-items: center; margin-bottom: 2rem; flex-wrap: wrap; font-size: 0.85rem;">
+      <span style="font-weight: 800; color: #ffffff; display: inline-flex; align-items: center; gap: 0.35rem;">
+        <span>☸️</span> {{ report.host.name }} {{ report.host.version }}
+      </span>
+      <span style="color: rgba(255, 255, 255, 0.2);">•</span>
+      <span style="color: #cbd5e1; font-weight: 500;">
+        Ecosystem: <strong style="color: #22D3EE;">{{ report.host.runtime_ecosystem | default: report.transitory_sbom.ecosystem }}</strong>
+      </span>
+      <span style="color: rgba(255, 255, 255, 0.2);">•</span>
+      <span style="font-family: 'IBM Plex Mono', monospace; font-size: 0.78rem; color: #94a3b8;">
+        {{ report.host.purl }}
+      </span>
+    </div>
+
+    <!-- Executive Summary Callout Box -->
+    <div style="background: rgba(14, 27, 46, 0.85); border: 1px solid rgba(34, 211, 238, 0.3); border-left: 4px solid #22D3EE; border-radius: 6px; padding: 1.25rem 1.5rem; margin-bottom: 2.25rem;">
+      <div style="font-size: 0.72rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.08em; color: #22D3EE; margin-bottom: 0.4rem;">
+        Summary
       </div>
-      {% if report.target.swhid %}
-      <div style="display: flex; justify-content: space-between; align-items: center; padding-bottom: 0.75rem; border-bottom: 1px solid rgba(255,255,255,0.06); margin-bottom: 0.75rem; flex-wrap: wrap; gap: 0.5rem;">
-        <span style="color: #9ca3af; font-weight: 600;">Software Heritage ID (SWHID):</span>
-        <code style="color: #a5f3fc; background: transparent !important; border: none !important; word-break: break-all;">{{ report.target.swhid }}</code>
+      <p style="font-size: 1.02rem; line-height: 1.65; color: #f1f5f9; margin: 0; font-weight: 400;">
+        {{ report.direct_answer_summary | default: report.summary }}
+      </p>
+    </div>
+
+    <!-- 1. Dependency Relationship -->
+    <div style="margin-bottom: 2.75rem;">
+      <div style="border-bottom: 1px solid rgba(255, 255, 255, 0.1); padding-bottom: 0.5rem; margin-bottom: 1.25rem;">
+        <h2 style="font-size: 1.35rem; font-weight: 800; color: #ffffff; margin: 0; display: flex; align-items: center; gap: 0.5rem;">
+          <span>🔗</span> Dependency Relationship
+        </h2>
+      </div>
+
+      <!-- Undetermined Notice (if applicable) -->
+      {% if report.resolution_status == "Undetermined" or report.target.primary_library == "Undetermined" or report.target.tier == "undetermined" or report.target.resolution_status == "Undetermined" %}
+      <div style="background: rgba(245, 158, 11, 0.12); border: 1px solid rgba(245, 158, 11, 0.35); border-radius: 6px; padding: 0.85rem 1.15rem; margin-bottom: 1.25rem; display: flex; align-items: center; gap: 0.6rem; color: #fbbf24; font-size: 0.88rem;">
+        <span style="font-size: 1.1rem;">⚠️</span>
+        <span><strong>Resolution Status: Undetermined</strong> — Multiple candidate packages cataloged from manifests. Primary entry point pending inference.</span>
       </div>
       {% endif %}
-      {% if report.target.transitive_core %}
-      <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.5rem;">
-        <span style="color: #9ca3af; font-weight: 600;">Transitive Core Parser:</span>
-        <span style="color: #ffffff; font-weight: 600;">{{ report.target.transitive_core }}</span>
+
+      <!-- Dependency Relationships Table -->
+      {% assign dep_rows = report.coexistence.resolved_tree %}
+      {% unless dep_rows and dep_rows.size > 0 %}
+        {% assign dep_rows = report.target.other_versions %}
+      {% endunless %}
+
+      {% if dep_rows and dep_rows.size > 0 %}
+      <div style="background: rgba(14, 27, 46, 0.6); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 8px; overflow-x: auto;">
+        <table style="width: 100%; border-collapse: collapse; font-size: 0.88rem; text-align: left;">
+          <thead>
+            <tr style="background: rgba(0, 0, 0, 0.4); border-bottom: 1px solid rgba(255, 255, 255, 0.1); color: #94a3b8;">
+              <th style="padding: 0.85rem 1.15rem; font-weight: 800; text-transform: uppercase; font-size: 0.72rem; letter-spacing: 0.05em;">Package</th>
+              <th style="padding: 0.85rem 1.15rem; font-weight: 800; text-transform: uppercase; font-size: 0.72rem; letter-spacing: 0.05em;">Version</th>
+              <th style="padding: 0.85rem 1.15rem; font-weight: 800; text-transform: uppercase; font-size: 0.72rem; letter-spacing: 0.05em;">Relationship</th>
+              <th style="padding: 0.85rem 1.15rem; font-weight: 800; text-transform: uppercase; font-size: 0.72rem; letter-spacing: 0.05em;">Ingestion Scope</th>
+              <th style="padding: 0.85rem 1.15rem; font-weight: 800; text-transform: uppercase; font-size: 0.72rem; letter-spacing: 0.05em;">Package URL (PURL)</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for dep in dep_rows %}
+            {% assign is_primary = false %}
+            {% if report.resolution_status != "Undetermined" and report.target.primary_library and dep.package == report.target.primary_library %}
+              {% assign is_primary = true %}
+            {% endif %}
+            <tr style="border-bottom: 1px solid rgba(255, 255, 255, 0.05); {% if is_primary %}background: rgba(34, 211, 238, 0.05);{% endif %}">
+              <td style="padding: 0.85rem 1.15rem; font-family: 'IBM Plex Mono', monospace; font-weight: 700; color: #ffffff;">
+                {{ dep.package }}
+                {% if is_primary %}
+                <span style="font-size: 0.65rem; font-weight: 800; padding: 0.15rem 0.45rem; border-radius: 4px; background: rgba(34, 211, 238, 0.2); color: #22D3EE; border: 1px solid rgba(34, 211, 238, 0.4); margin-left: 0.45rem; vertical-align: middle;">
+                  Target
+                </span>
+                {% endif %}
+              </td>
+              <td style="padding: 0.85rem 1.15rem; font-family: 'IBM Plex Mono', monospace; font-weight: 700; color: #22D3EE;">
+                {{ dep.version }}
+              </td>
+              <td style="padding: 0.85rem 1.15rem;">
+                {% assign d_type = dep.direct_or_transitive | default: dep.dependency_type | default: "Direct Dependency" %}
+                {% if d_type contains "Transitive" %}
+                <span style="font-size: 0.68rem; font-weight: 700; padding: 0.15rem 0.5rem; border-radius: 4px; background: rgba(245, 158, 11, 0.15); color: #F59E0B; border: 1px solid rgba(245, 158, 11, 0.35); white-space: nowrap;">
+                  {{ d_type }}
+                </span>
+                {% else %}
+                <span style="font-size: 0.68rem; font-weight: 700; padding: 0.15rem 0.5rem; border-radius: 4px; background: rgba(16, 185, 129, 0.15); color: #10B981; border: 1px solid rgba(16, 185, 129, 0.35); white-space: nowrap;">
+                  {{ d_type }}
+                </span>
+                {% endif %}
+              </td>
+              <td style="padding: 0.85rem 1.15rem; font-size: 0.84rem; color: #cbd5e1;">
+                {% if is_primary %}
+                  <span style="color: #38bdf8; font-weight: 600;">↳ Direct root manifest dependency</span>
+                {% elsif d_type contains "Transitive" %}
+                  {% if dep.importer_count %}
+                  ↳ Imported transitively by <strong style="color: #ffffff;">{{ dep.importer_count }}</strong> sub-dependencies
+                  {% else %}
+                  ↳ Transitive sub-dependency
+                  {% endif %}
+                {% else %}
+                  {% if dep.importer_count %}
+                  ↳ Imported directly by <strong style="color: #ffffff;">{{ dep.importer_count }}</strong> internal module{% if dep.importer_count > 1 %}s{% endif %}
+                  {% else %}
+                  ↳ Direct dependency
+                  {% endif %}
+                {% endif %}
+              </td>
+              <td style="padding: 0.85rem 1.15rem; font-family: 'IBM Plex Mono', monospace; font-size: 0.76rem; color: #94a3b8;">
+                {{ dep.purl }}
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
       </div>
       {% endif %}
-    </div>
-  </div>
 
-  <!-- 3. Security, CVD & CRA Health Matrix -->
-  <div style="margin-bottom: 2.5rem;">
-    <h2 style="font-size: 1.35rem; font-weight: 800; color: #ffffff; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
-      <span>🛡️</span> Supply Chain Security & Regulatory Health
-    </h2>
-
-    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1rem;">
-      <!-- OpenSSF Scorecard -->
-      <div style="background: rgba(14, 27, 46, 0.6); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 8px; padding: 1.25rem;">
-        <div style="font-size: 0.75rem; color: #9ca3af; text-transform: uppercase; font-weight: 700;">OpenSSF Scorecard</div>
-        <div style="font-size: 1.5rem; font-weight: 900; color: {% if report.deps_dev_metadata.openssf_score >= 7 %}#10B981{% elsif report.deps_dev_metadata.openssf_score >= 4 %}#F59E0B{% else %}#EF4444{% endif %}; margin: 0.25rem 0;">
-          {{ report.deps_dev_metadata.openssf_score | default: "N/A" }} <span style="font-size: 0.85rem; color: #9ca3af;">/ 10</span>
+      <!-- Coexistence & Divergence Analysis -->
+      {% if report.coexistence.divergence_analysis %}
+      <div style="background: rgba(14, 27, 46, 0.7); border: 1px solid rgba(255, 255, 255, 0.08); border-left: 4px solid #38bdf8; border-radius: 6px; padding: 1.25rem 1.5rem; margin-top: 1.25rem;">
+        <div style="font-size: 0.72rem; font-weight: 800; color: #38bdf8; text-transform: uppercase; margin-bottom: 0.4rem; letter-spacing: 0.08em;">
+          Analysis
         </div>
-        <div style="font-size: 0.8rem; color: #9ca3af;">
-          Evaluates automated branch protection, code review, dangerous workflows, and SAST.
-        </div>
-      </div>
-
-      <!-- Dependency Lag Metric -->
-      <div style="background: rgba(14, 27, 46, 0.6); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 8px; padding: 1.25rem;">
-        <div style="font-size: 0.75rem; color: #9ca3af; text-transform: uppercase; font-weight: 700;">Dependency Release Lag</div>
-        <div style="font-size: 1.5rem; font-weight: 900; color: #22D3EE; margin: 0.25rem 0;">
-          {{ report.deps_dev_metadata.dependency_lag_months | default: 0 }} <span style="font-size: 0.85rem; color: #9ca3af;">months delta</span>
-        </div>
-        <div style="font-size: 0.8rem; color: #9ca3af;">
-          Age of component release relative to {{ report.host.name }} release date.
-        </div>
-      </div>
-
-      <!-- Vulnerability Advisories (OSV) -->
-      <div style="background: rgba(14, 27, 46, 0.6); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 8px; padding: 1.25rem;">
-        <div style="font-size: 0.75rem; color: #9ca3af; text-transform: uppercase; font-weight: 700;">Live CVE Vulnerability Count</div>
-        <div style="font-size: 1.5rem; font-weight: 900; color: {% if report.deps_dev_metadata.advisory_count == 0 %}#10B981{% else %}#EF4444{% endif %}; margin: 0.25rem 0;">
-          {{ report.deps_dev_metadata.advisory_count }} <span style="font-size: 0.85rem; color: #9ca3af;">active CVEs</span>
-        </div>
-        <div style="font-size: 0.8rem; color: #9ca3af;">
-          Aggregated across OSV, GitHub Advisory Database, and NVD.
-        </div>
-      </div>
-
-      <!-- EU Cyber Resilience Act (CRA) Status -->
-      <div style="background: rgba(14, 27, 46, 0.6); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 8px; padding: 1.25rem;">
-        <div style="font-size: 0.75rem; color: #9ca3af; text-transform: uppercase; font-weight: 700;">EU CRA Compliance Status</div>
-        <div style="font-size: 1.2rem; font-weight: 800; color: {% if report.cra_status.end_of_life %}#EF4444{% else %}#10B981{% endif %}; margin: 0.25rem 0;">
-          {{ report.cra_status.support_tier }}
-        </div>
-        <div style="font-size: 0.8rem; color: #9ca3af;">
-          {{ report.cra_status.cra_risk_score }}
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- 4. Behavioral Quirks & Code Comparison -->
-  {% if report.quirks and report.quirks.size > 0 %}
-  <div style="margin-bottom: 2.5rem;">
-    <h2 style="font-size: 1.35rem; font-weight: 800; color: #ffffff; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
-      <span>⚡</span> Behavioral Quirks & Parsing Differences
-    </h2>
-
-    <div style="display: flex; flex-direction: column; gap: 1.5rem;">
-      {% for quirk in report.quirks %}
-      <div style="background: rgba(14, 27, 46, 0.7); border: 1px solid rgba(34, 211, 238, 0.2); border-radius: 8px; padding: 1.5rem;">
-        <h3 style="font-size: 1.1rem; font-weight: 700; color: #22D3EE; margin-top: 0; margin-bottom: 0.5rem;">
-          {{ quirk.title }}
-        </h3>
-        <p style="font-size: 0.9rem; color: #e5e7eb; margin-bottom: 1rem; line-height: 1.5;">
-          {{ quirk.description }}
+        <p style="font-size: 0.95rem; line-height: 1.65; color: #e2e8f0; margin: 0;">
+          {{ report.coexistence.divergence_analysis }}
         </p>
+      </div>
+      {% endif %}
+    </div>
 
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1rem;">
-          {% if quirk.code_bad %}
-          <div>
-            <div style="font-size: 0.75rem; color: #EF4444; font-weight: 700; margin-bottom: 0.25rem; text-transform: uppercase;">✕ Legacy / Ambiguous Behavior</div>
-            <pre style="margin: 0; padding: 0.75rem; font-size: 0.85rem;"><code>{{ quirk.code_bad }}</code></pre>
+    <!-- 2. Transitory SBOM Baseline -->
+    {% if report.transitory_sbom %}
+    <div style="margin-bottom: 2.75rem;">
+      <div style="display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1px solid rgba(255, 255, 255, 0.1); padding-bottom: 0.5rem; margin-bottom: 0.75rem; flex-wrap: wrap; gap: 0.5rem;">
+        <h2 style="font-size: 1.35rem; font-weight: 800; color: #ffffff; margin: 0; display: flex; align-items: center; gap: 0.5rem;">
+          <span>📦</span> Transitory SBOM Baseline (deps.dev)
+        </h2>
+        <span style="font-size: 0.8rem; font-family: 'IBM Plex Mono', monospace; color: #94a3b8;">
+          {{ report.transitory_sbom.purl }}
+        </span>
+      </div>
+
+      <p style="font-size: 0.95rem; line-height: 1.6; color: #cbd5e1; margin-bottom: 1.25rem;">
+        Deterministic baseline metadata collected on-demand from the upstream Google <code>deps.dev</code> v3 package graph without repository checkout.
+      </p>
+
+      <!-- Transitory Metrics Grid -->
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1rem; background: rgba(14, 27, 46, 0.75); border-radius: 8px; padding: 1.25rem; border: 1px solid rgba(255, 255, 255, 0.08);">
+        <div>
+          <div style="font-size: 0.72rem; color: #94a3b8; text-transform: uppercase; font-weight: 800; letter-spacing: 0.05em; display: flex; align-items: center; justify-content: space-between;">
+            <span>Total Upstream Deps</span>
+            <a href="{{ report.transitory_sbom.deps_dev_url | default: 'https://deps.dev' }}" target="_blank" rel="noopener" style="color: #22D3EE; text-decoration: none; font-size: 0.7rem; font-weight: 700; display: inline-flex; align-items: center; gap: 0.2rem;" title="View package profile on deps.dev">
+              deps.dev ↗
+            </a>
           </div>
-          {% endif %}
-          {% if quirk.code_good %}
-          <div>
-            <div style="font-size: 0.75rem; color: #10B981; font-weight: 700; margin-bottom: 0.25rem; text-transform: uppercase;">✓ Resolved / Strict Standard</div>
-            <pre style="margin: 0; padding: 0.75rem; font-size: 0.85rem;"><code>{{ quirk.code_good }}</code></pre>
+          <div style="font-size: 1.45rem; font-weight: 800; font-family: 'IBM Plex Mono', monospace; margin-top: 0.2rem;">
+            <a href="{{ report.transitory_sbom.deps_dev_url | default: 'https://deps.dev' }}" target="_blank" rel="noopener" style="color: #22D3EE; text-decoration: none; border-bottom: 1px dotted rgba(34, 211, 238, 0.4);" title="View package profile on deps.dev">
+              {{ report.transitory_sbom.total_dependencies }}
+            </a>
           </div>
-          {% endif %}
+          <div style="font-size: 0.78rem; color: #cbd5e1; margin-top: 0.15rem;">
+            {{ report.transitory_sbom.dependency_count_direct }} direct · {{ report.transitory_sbom.dependency_count_transitive }} transitive
+          </div>
+        </div>
+
+        <div>
+          <div style="font-size: 0.72rem; color: #94a3b8; text-transform: uppercase; font-weight: 800; letter-spacing: 0.05em;">Release Date</div>
+          <div style="font-size: 1.25rem; font-weight: 800; color: #ffffff; font-family: 'IBM Plex Mono', monospace; margin-top: 0.2rem;">
+            {{ report.transitory_sbom.release_date }}
+          </div>
+          <div style="font-size: 0.78rem; color: #cbd5e1; margin-top: 0.15rem;">
+            {{ report.transitory_sbom.ecosystem }}
+          </div>
+        </div>
+
+        <div>
+          <div style="font-size: 0.72rem; color: #94a3b8; text-transform: uppercase; font-weight: 800; letter-spacing: 0.05em;">Software Licenses</div>
+          <div style="font-size: 1.25rem; font-weight: 800; color: #10B981; font-family: 'IBM Plex Mono', monospace; margin-top: 0.2rem;">
+            {{ report.transitory_sbom.distinct_licenses_count }} Distinct
+          </div>
+          <div style="font-size: 0.78rem; color: #cbd5e1; margin-top: 0.15rem;">
+            Primary: {{ report.transitory_sbom.primary_license }}
+          </div>
+        </div>
+
+        <div>
+          <div style="font-size: 0.72rem; color: #94a3b8; text-transform: uppercase; font-weight: 800; letter-spacing: 0.05em;">Graph OpenSSF Avg</div>
+          <div style="font-size: 1.25rem; font-weight: 800; color: #10B981; font-family: 'IBM Plex Mono', monospace; margin-top: 0.2rem;">
+            {{ report.transitory_sbom.openssf_scorecard_avg }} <span style="font-size: 0.8rem; color: #94a3b8; font-weight: 500;">/ 10</span>
+          </div>
+          <div style="font-size: 0.78rem; color: #cbd5e1; margin-top: 0.15rem;">
+            Supply Chain Posture
+          </div>
+        </div>
+
+        <div>
+          <div style="font-size: 0.72rem; color: #94a3b8; text-transform: uppercase; font-weight: 800; letter-spacing: 0.05em;">Vulnerabilities Evaluated</div>
+          <div style="font-size: 1.15rem; font-weight: 800; color: #ffffff; font-family: 'IBM Plex Mono', monospace; margin-top: 0.2rem;">
+            {{ report.transitory_sbom.known_cve_count }} Target · {{ report.transitory_sbom.host_cve_count | default: 6 }} Host
+          </div>
+          <div style="font-size: 0.78rem; color: #10B981; font-weight: 600; margin-top: 0.15rem;">
+            {{ report.transitory_sbom.active_kev_count | default: 0 }} Active CISA KEV
+          </div>
         </div>
       </div>
-      {% endfor %}
     </div>
-  </div>
-  {% endif %}
+    {% endif %}
 
-  <!-- 5. Packablock Zero-Trust CTA -->
-  <div style="background: linear-gradient(135deg, rgba(14, 154, 168, 0.15) 0%, rgba(14, 27, 46, 0.9) 100%); border: 1px solid rgba(34, 211, 238, 0.4); border-radius: 12px; padding: 2rem; text-align: center; margin-top: 3rem;">
-    <h3 style="font-size: 1.35rem; font-weight: 800; color: #ffffff; margin-bottom: 0.75rem;">
-      Lock Down Your Own Supply Chain with Packablock
+    <!-- 3. Supply Chain Governance -->
+    {% if report.cra_governance %}
+    <div style="margin-bottom: 2.75rem;">
+      <div style="border-bottom: 1px solid rgba(255, 255, 255, 0.1); padding-bottom: 0.5rem; margin-bottom: 0.75rem;">
+        <h2 style="font-size: 1.35rem; font-weight: 800; color: #ffffff; margin: 0; display: flex; align-items: center; gap: 0.5rem;">
+          <span>🏛️</span> Supply Chain Governance
+        </h2>
+      </div>
+      <p style="font-size: 0.95rem; color: #cbd5e1; margin-bottom: 1.25rem; line-height: 1.5;">
+        {{ report.host.name }} {{ report.host.version | remove: "v" | split: "." | slice: 0, 2 | join: "." }} is regulated by the following European Union and United States supply chain directives and security frameworks:
+      </p>
+
+      <!-- Table of Directives -->
+      {% if report.cra_governance.governing_standards and report.cra_governance.governing_standards.size > 0 %}
+      <div style="background: rgba(14, 27, 46, 0.6); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 8px; overflow-x: auto;">
+        <table style="width: 100%; border-collapse: collapse; font-size: 0.86rem; text-align: left;">
+          <thead>
+            <tr style="background: rgba(0, 0, 0, 0.4); border-bottom: 1px solid rgba(255, 255, 255, 0.1); color: #94a3b8;">
+              <th style="padding: 0.85rem 1.15rem; font-weight: 800; text-transform: uppercase; font-size: 0.72rem; letter-spacing: 0.05em;">Regulatory Body</th>
+              <th style="padding: 0.85rem 1.15rem; font-weight: 800; text-transform: uppercase; font-size: 0.72rem; letter-spacing: 0.05em;">Directive / Framework</th>
+              <th style="padding: 0.85rem 1.15rem; font-weight: 800; text-transform: uppercase; font-size: 0.72rem; letter-spacing: 0.05em;">Official Identifier</th>
+              <th style="padding: 0.85rem 1.15rem; font-weight: 800; text-transform: uppercase; font-size: 0.72rem; letter-spacing: 0.05em;">Statutory Scope & Classification</th>
+              <th style="padding: 0.85rem 1.15rem; font-weight: 800; text-transform: uppercase; font-size: 0.72rem; letter-spacing: 0.05em;">Official Directive</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for std in report.cra_governance.governing_standards %}
+            <tr style="border-bottom: 1px solid rgba(255, 255, 255, 0.05); color: #e2e8f0;">
+              <td style="padding: 0.85rem 1.15rem; color: #94a3b8; font-weight: 600;">
+                {{ std.body }}
+              </td>
+              <td style="padding: 0.85rem 1.15rem; font-weight: 800; color: #ffffff;">
+                {{ std.framework }}
+              </td>
+              <td style="padding: 0.85rem 1.15rem; font-family: 'IBM Plex Mono', monospace; font-size: 0.78rem;">
+                <span style="background: rgba(251, 191, 36, 0.1); color: #fbbf24; font-weight: 700; padding: 0.2rem 0.5rem; border-radius: 4px; border: 1px solid rgba(251, 191, 36, 0.25);">
+                  {{ std.regulation_id }}
+                </span>
+              </td>
+              <td style="padding: 0.85rem 1.15rem; font-size: 0.84rem; color: #cbd5e1;">
+                {{ std.scope }}
+              </td>
+              <td style="padding: 0.85rem 1.15rem; font-family: 'IBM Plex Mono', monospace; font-size: 0.8rem;">
+                <a href="{{ std.url }}" target="_blank" rel="noopener" style="color: #22D3EE; font-weight: 700; text-decoration: none; border-bottom: 1px dotted rgba(34, 211, 238, 0.4); display: inline-flex; align-items: center; gap: 0.25rem;" title="View official legal text">
+                  Directive Text <span style="font-size: 0.65rem;">↗</span>
+                </a>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+      {% endif %}
+    </div>
+    {% endif %}
+
+    <!-- 4. Verified Facts & Authoritative Advisories -->
+    {% if report.verified_facts and report.verified_facts.size > 0 %}
+    {% assign target_facts = report.verified_facts | where: "scope", "target" %}
+    {% if target_facts.size == 0 %}
+      {% assign target_facts = report.verified_facts %}
+    {% endif %}
+    {% assign host_facts = report.verified_facts | where: "scope", "host" %}
+
+    <div style="margin-bottom: 2.75rem;">
+      <div style="border-bottom: 1px solid rgba(255, 255, 255, 0.1); padding-bottom: 0.5rem; margin-bottom: 0.75rem;">
+        <h2 style="font-size: 1.35rem; font-weight: 800; color: #ffffff; margin: 0; display: flex; align-items: center; gap: 0.5rem;">
+          <span>📑</span> Authoritative Verified Facts & Advisories
+        </h2>
+      </div>
+      <p style="font-size: 0.95rem; color: #cbd5e1; margin-bottom: 1.5rem; line-height: 1.5;">
+        Authoritative weakness definitions, CVE records, and predictive EPSS weaponization telemetry partitioned by target dependency and host container environment.
+      </p>
+
+      <!-- 4A. Target Dependency Facts & Advisories -->
+      <div style="margin-bottom: 2.25rem;">
+        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.85rem; flex-wrap: wrap; gap: 0.5rem; border-bottom: 1px solid rgba(255, 255, 255, 0.1); padding-bottom: 0.5rem;">
+          <h3 style="font-size: 1.05rem; font-weight: 800; color: #22D3EE; margin: 0; display: flex; align-items: center; gap: 0.5rem;">
+            <span>📦</span> Target Package Advisories & Weaknesses: {{ report.target.primary_library }}
+          </h3>
+          <span style="font-size: 0.72rem; font-weight: 700; color: #cbd5e1; background: rgba(0, 0, 0, 0.35); padding: 0.2rem 0.55rem; border-radius: 4px; border: 1px solid rgba(255, 255, 255, 0.08); font-family: 'IBM Plex Mono', monospace;">
+            {{ target_facts.size }} Verified Records
+          </span>
+        </div>
+
+        <div style="display: flex; flex-direction: column; gap: 0.85rem;">
+          {% for fact in target_facts %}
+          <div style="background: rgba(14, 27, 46, 0.75); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 8px; padding: 1.15rem 1.35rem; display: flex; flex-direction: column; gap: 0.45rem;">
+            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.5rem;">
+              <div style="display: flex; align-items: center; gap: 0.65rem; flex-wrap: wrap;">
+                {% if fact.authority == 'MITRE' %}
+                <span style="font-size: 0.7rem; font-weight: 800; padding: 0.2rem 0.55rem; border-radius: 4px; background: rgba(34, 211, 238, 0.15); color: #22D3EE; border: 1px solid rgba(34, 211, 238, 0.35); text-transform: uppercase;">MITRE CWE</span>
+                {% elsif fact.authority == 'CVE.org' %}
+                <span style="font-size: 0.7rem; font-weight: 800; padding: 0.2rem 0.55rem; border-radius: 4px; background: rgba(168, 85, 247, 0.15); color: #c084fc; border: 1px solid rgba(168, 85, 247, 0.35); text-transform: uppercase;">CVE.ORG</span>
+                {% else %}
+                <span style="font-size: 0.7rem; font-weight: 800; padding: 0.2rem 0.55rem; border-radius: 4px; background: rgba(255, 255, 255, 0.1); color: #ffffff;">{{ fact.authority }}</span>
+                {% endif %}
+                <span style="font-family: 'IBM Plex Mono', monospace; font-size: 0.88rem; font-weight: 800; color: #ffffff;">{{ fact.fact_id }}</span>
+
+                {% if fact.mitre_rating %}
+                <span style="font-size: 0.7rem; font-weight: 700; padding: 0.15rem 0.5rem; border-radius: 4px; {% if fact.mitre_rating contains 'Top 25' %}background: rgba(245, 158, 11, 0.15); color: #fbbf24; border: 1px solid rgba(245, 158, 11, 0.35);{% else %}background: rgba(34, 211, 238, 0.12); color: #a5f3fc; border: 1px solid rgba(34, 211, 238, 0.3);{% endif %} font-family: 'IBM Plex Mono', monospace;" title="Official MITRE Weakness Severity & Likelihood Rating">
+                  {{ fact.mitre_rating }}
+                </span>
+                {% endif %}
+
+                {% assign adv_match = report.threat_intelligence.advisories | where: "cve_id", fact.fact_id | first %}
+                {% assign fact_epss = fact.epss_score | default: adv_match.epss_score %}
+                {% assign fact_pctl = fact.epss_percentile | default: adv_match.epss_percentile %}
+                {% if fact_epss %}
+                <span style="font-size: 0.7rem; font-weight: 700; padding: 0.15rem 0.5rem; border-radius: 4px; background: rgba(34, 211, 238, 0.12); color: #22D3EE; border: 1px solid rgba(34, 211, 238, 0.3); font-family: 'IBM Plex Mono', monospace;" title="FIRST.org Exploit Prediction Scoring System probability">
+                  EPSS: {{ fact_epss | times: 100 | round: 2 }}% ({{ fact_pctl }}th pctl)
+                </span>
+                {% endif %}
+                {% if fact.in_cisa_kev or adv_match.in_cisa_kev %}
+                <span style="font-size: 0.7rem; font-weight: 800; padding: 0.15rem 0.5rem; border-radius: 4px; background: rgba(239, 68, 68, 0.15); color: #EF4444; border: 1px solid rgba(239, 68, 68, 0.3);">
+                  CISA KEV
+                </span>
+                {% endif %}
+              </div>
+              <a href="{{ fact.url }}" target="_blank" rel="noopener" style="font-size: 0.78rem; font-weight: 700; color: #22D3EE; text-decoration: none; display: inline-flex; align-items: center; gap: 0.3rem;" title="View official reference at {{ fact.authority }}">
+                Official Reference <span style="font-size: 0.65rem;">↗</span>
+              </a>
+            </div>
+            <div style="font-size: 0.98rem; font-weight: 800; color: #ffffff; margin-top: 0.15rem;">
+              {{ fact.title }}
+            </div>
+            <p style="font-size: 0.88rem; color: #cbd5e1; margin: 0; line-height: 1.55;">
+              {{ fact.summary }}
+            </p>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+
+      <!-- 4B. Host Application Advisories -->
+      {% if host_facts.size > 0 %}
+      <div style="margin-top: 2rem;">
+        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.85rem; flex-wrap: wrap; gap: 0.5rem; border-bottom: 1px solid rgba(255, 255, 255, 0.1); padding-bottom: 0.5rem;">
+          <div>
+            <h3 style="font-size: 1.05rem; font-weight: 800; color: #ffffff; margin: 0; display: flex; align-items: center; gap: 0.5rem;">
+              <span>☸️</span> Host Application Advisories: {{ report.host.name }} {{ report.host.version }}
+            </h3>
+            <div style="font-size: 0.78rem; color: #94a3b8; margin-top: 0.2rem;">
+              Deduplicated from {{ report.transitory_sbom.host_advisories_count | default: host_facts.size }} advisory records indexed by Google deps.dev and OSV · {{ report.transitory_sbom.active_kev_count | default: 0 }} Active CISA KEV
+            </div>
+          </div>
+          <span style="font-size: 0.72rem; font-weight: 700; color: #10B981; background: rgba(16, 185, 129, 0.12); padding: 0.2rem 0.55rem; border-radius: 4px; border: 1px solid rgba(16, 185, 129, 0.3); font-family: 'IBM Plex Mono', monospace;">
+            {{ host_facts.size }} Distinct CVEs Monitored
+          </span>
+        </div>
+
+        <div style="display: flex; flex-direction: column; gap: 0.85rem;">
+          {% for fact in host_facts %}
+          <div style="background: rgba(14, 27, 46, 0.75); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 8px; padding: 1.15rem 1.35rem; display: flex; flex-direction: column; gap: 0.45rem;">
+            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.5rem;">
+              <div style="display: flex; align-items: center; gap: 0.65rem; flex-wrap: wrap;">
+                <span style="font-size: 0.7rem; font-weight: 800; padding: 0.2rem 0.55rem; border-radius: 4px; background: rgba(168, 85, 247, 0.15); color: #c084fc; border: 1px solid rgba(168, 85, 247, 0.35); text-transform: uppercase;">CVE.ORG</span>
+                <span style="font-family: 'IBM Plex Mono', monospace; font-size: 0.88rem; font-weight: 800; color: #ffffff;">{{ fact.fact_id }}</span>
+
+                {% if fact.epss_score %}
+                <span style="font-size: 0.7rem; font-weight: 700; padding: 0.15rem 0.5rem; border-radius: 4px; background: rgba(34, 211, 238, 0.12); color: #22D3EE; border: 1px solid rgba(34, 211, 238, 0.3); font-family: 'IBM Plex Mono', monospace;" title="FIRST.org Exploit Prediction Scoring System probability">
+                  EPSS: {{ fact.epss_score | times: 100 | round: 2 }}% ({{ fact.epss_percentile }}th pctl)
+                </span>
+                {% endif %}
+                {% if fact.in_cisa_kev %}
+                <span style="font-size: 0.7rem; font-weight: 800; padding: 0.15rem 0.5rem; border-radius: 4px; background: rgba(239, 68, 68, 0.15); color: #EF4444; border: 1px solid rgba(239, 68, 68, 0.3);">
+                  CISA KEV
+                </span>
+                {% else %}
+                <span style="font-size: 0.7rem; font-weight: 600; padding: 0.15rem 0.5rem; border-radius: 4px; background: rgba(16, 185, 129, 0.1); color: #10B981; border: 1px solid rgba(16, 185, 129, 0.25);">
+                  Not Weaponized
+                </span>
+                {% endif %}
+              </div>
+              <a href="{{ fact.url }}" target="_blank" rel="noopener" style="font-size: 0.78rem; font-weight: 700; color: #22D3EE; text-decoration: none; display: inline-flex; align-items: center; gap: 0.3rem;" title="View official reference at {{ fact.authority }}">
+                Official Reference <span style="font-size: 0.65rem;">↗</span>
+              </a>
+            </div>
+            <div style="font-size: 0.98rem; font-weight: 800; color: #ffffff; margin-top: 0.15rem;">
+              {{ fact.title }}
+            </div>
+            <p style="font-size: 0.88rem; color: #cbd5e1; margin: 0; line-height: 1.55;">
+              {{ fact.summary }}
+            </p>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+      {% endif %}
+
+    </div>
+    {% endif %}
+
+    <!-- Document Footnote -->
+    <div style="border-top: 1px solid rgba(255, 255, 255, 0.1); padding-top: 1.25rem; margin-top: 3rem; font-size: 0.78rem; color: #94a3b8;">
+      <span>Baseline dependency metadata indexed from Google deps.dev v3 API and FIRST.org EPSS telemetry.</span>
+    </div>
+
+  </article>
+
+  <!-- Outside CTA Banner on Dark Navy Canvas -->
+  <div style="background: linear-gradient(135deg, rgba(14, 154, 168, 0.25) 0%, rgba(14, 27, 46, 0.95) 100%); border: 1px solid rgba(34, 211, 238, 0.4); border-radius: 12px; padding: 2.5rem; text-align: center; margin-top: 2.5rem;">
+    <h3 style="font-size: 1.4rem; font-weight: 800; color: #ffffff; margin-bottom: 0.75rem;">
+      Lock Down Your {{ report.host.name | default: "Software" }} Supply Chain with Packablock
     </h3>
-    <p style="font-size: 0.95rem; color: #e5e7eb; max-width: 680px; margin: 0 auto 1.5rem; line-height: 1.6;">
-      Don't guess which dependencies and transitive libraries run in your production containers. 
-      Packablock creates a cryptographically signed, zero-trust ledger for every lockfile modification in your CI/CD pipeline.
+    <p style="font-size: 0.95rem; color: #e2e8f0; max-width: 680px; margin: 0 auto 1.5rem; line-height: 1.6;">
+      Don't guess which dependencies or runtime engines are running in your environment.
+      Packablock creates an immutable cryptographic ledger (`packablock.yaml`) for every dependency lockfile modification.
     </p>
     <a href="{{ site.baseurl }}/signup" style="display: inline-block; background: #22D3EE; color: #0E1B2E; font-weight: 800; font-size: 0.9rem; padding: 0.75rem 1.75rem; border-radius: 6px; text-decoration: none; text-transform: uppercase; letter-spacing: 0.05em; transition: opacity 0.2s;">
       Start Free Supply Chain Attestation →

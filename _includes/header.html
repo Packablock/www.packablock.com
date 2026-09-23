@@ -253,8 +253,25 @@
               <li class="breadcrumb-item is-active" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem" aria-current="page">
                 <span class="breadcrumb-separator" aria-hidden="true">/</span>
                 <span itemprop="name" class="breadcrumb-current">
-                  {%- if report_match -%}
-                    {{ report_match.target.name }} in {{ report_match.host.name }}
+                  {%- if page.short_title -%}
+                    {{ page.short_title }}
+                  {%- elsif report_match -%}
+                    {%- assign t_family = report_match.target_family | default: report_match.target.name | downcase -%}
+                    {%- if t_family == "yaml" -%}
+                      YAML in {{ report_match.host.name }}
+                    {%- elsif t_family == "openssl" -%}
+                      OpenSSL in {{ report_match.host.name }}
+                    {%- elsif t_family == "hcl" -%}
+                      HCL in {{ report_match.host.name }}
+                    {%- elsif t_family == "pyyaml" -%}
+                      PyYAML in {{ report_match.host.name }}
+                    {%- elsif t_family == "jackson" -%}
+                      Jackson in {{ report_match.host.name }}
+                    {%- elsif report_match.target.name -%}
+                      {{ report_match.target.name }} in {{ report_match.host.name }}
+                    {%- else -%}
+                      {{ page.title | default: "Inspection Report" }}
+                    {%- endif -%}
                   {%- else -%}
                     {{ page.title | default: "Inspection Report" }}
                   {%- endif -%}
