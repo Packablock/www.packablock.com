@@ -24,7 +24,7 @@
   {%- assign is_signup = true -%}
 {%- endif -%}
 
-<header class="site-header" id="top" role="banner">
+<header class="site-header" role="banner">
   <!-- Top Navigation Bar -->
   <div class="header-inner">
     
@@ -457,6 +457,21 @@
           btn.focus();
         }
       });
+  // Back to Top Smooth Scrolling
+  document.addEventListener('click', function(e) {
+    const backToTop = e.target.closest('.sitemap-back-to-top, [href="#top"]');
+    if (backToTop) {
+      e.preventDefault();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      const topAnchor = document.getElementById('top-anchor') || document.getElementById('top') || document.body;
+      if (topAnchor && topAnchor.focus) {
+        topAnchor.focus({ preventScroll: true });
+      }
+      if (history.pushState) {
+        history.pushState(null, null, '#top');
+      } else {
+        window.location.hash = '#top';
+      }
     }
   });
 
