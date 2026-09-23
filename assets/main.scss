@@ -701,6 +701,58 @@ body {
   }
 }
 
+// Book a Demo Button (Styled with sleek dark background matching Explore Sitemap & Developer Preview)
+.breadcrumb-btn-demo {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(34, 211, 238, 0.08);
+  border: 1px solid rgba(34, 211, 238, 0.35);
+  color: #f1f5f9 !important;
+  font-size: 0.8rem;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 4px;
+  text-decoration: none !important;
+  font-family: 'IBM Plex Sans', sans-serif;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+
+  .demo-icon {
+    color: #22D3EE;
+    opacity: 0.95;
+    flex-shrink: 0;
+  }
+
+  .external-icon {
+    opacity: 0.75;
+    margin-left: 1px;
+    flex-shrink: 0;
+  }
+
+  &:hover {
+    background: rgba(34, 211, 238, 0.18);
+    border-color: #22D3EE;
+    color: #ffffff !important;
+
+    .demo-icon {
+      color: #ffffff;
+    }
+  }
+
+  &:focus-visible {
+    outline: 2px solid #22D3EE;
+    outline-offset: 2px;
+  }
+
+  &.mobile-cta {
+    width: 100%;
+    justify-content: center;
+    padding: 10px;
+    font-size: 0.9rem;
+  }
+}
+
 .breadcrumb-trail {
   display: flex;
   align-items: center;
