@@ -5,7 +5,7 @@ description: Our mission is to establish preventative, deterministic security mo
 permalink: /about/
 ---
 
-<article class="about-article">
+<article class="about-article article-layout">
   
   <!-- Header: Left-Justified -->
   <header class="article-header">
