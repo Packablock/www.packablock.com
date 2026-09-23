@@ -7,14 +7,6 @@ layout: default
 {% if report %}
 <div class="dependency-report-container" style="max-width: 960px; margin: 0 auto; padding: 2rem 1rem;">
 
-  <!-- Breadcrumbs -->
-  <nav class="report-breadcrumbs" style="font-size: 0.85rem; margin-bottom: 1.5rem; color: #9ca3af;">
-    <a href="{{ site.baseurl }}/" style="color: #22D3EE; text-decoration: none;">Home</a>
-    <span style="margin: 0 0.5rem; opacity: 0.5;">/</span>
-    <a href="{{ site.baseurl }}/reports" style="color: #22D3EE; text-decoration: none;">Dependency Reports</a>
-    <span style="margin: 0 0.5rem; opacity: 0.5;">/</span>
-    <span style="color: #e5e7eb;">{{ report.target.name }} in {{ report.host.name }}</span>
-  </nav>
 
   <!-- Category & Live Tag -->
   <div style="display: flex; gap: 0.75rem; align-items: center; margin-bottom: 1rem; flex-wrap: wrap;">
