@@ -178,14 +178,6 @@
           </div>
         </li>
 
-        <!-- Documentation -->
-        <li class="nav-item" role="none">
-          <a class="nav-link" href="https://docs.packablock.com" target="_blank" rel="noopener" role="menuitem">
-            <span>Docs</span>
-            <svg class="external-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/></svg>
-          </a>
-        </li>
-
         <!-- About -->
         <li class="nav-item" role="none">
           <a class="nav-link {% if is_about %}is-active{% endif %}" href="{{ "/about/" | relative_url }}" role="menuitem" {% if is_about %}aria-current="page"{% endif %}>
@@ -196,9 +188,15 @@
       </ul>
     </nav>
 
-    <!-- Header Actions (GitHub & Mobile Toggle) -->
+    <!-- Header Actions (Docs, GitHub & Mobile Toggle) -->
     <div class="header-actions">
       
+      <!-- Docs External Link -->
+      <a href="https://docs.packablock.com" class="header-docs-link" target="_blank" rel="noopener" aria-label="Packablock Documentation" title="Technical Documentation">
+        <span>Docs</span>
+        <svg class="external-icon" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/></svg>
+      </a>
+
       <!-- GitHub Link -->
       <a href="https://github.com/Packablock/packablock-client" class="header-github-link" target="_blank" rel="noopener" aria-label="Packablock on GitHub" title="Star Packablock on GitHub">
         <svg viewBox="0 0 16 16" width="18" height="18" fill="currentColor" aria-hidden="true">
