@@ -5,7 +5,7 @@
     "category": "SBOM Insights",
     "target_family": "yaml",
     "resolution_status": "Resolved",
-    "last_updated": "2026-09-24T22:33:06.723635+00:00",
+    "last_updated": "2026-09-24T22:43:10.252209+00:00",
     "host": {
       "name": "Kubernetes",
       "package_name": "k8s.io/kubernetes",
@@ -491,7 +491,7 @@
     "category": "SBOM Insights",
     "target_family": "openssl",
     "resolution_status": "Resolved",
-    "last_updated": "2026-09-24T22:33:08.203693+00:00",
+    "last_updated": "2026-09-24T22:43:11.612123+00:00",
     "host": {
       "name": "Node.js",
       "package_name": "nodejs/node",
@@ -938,5 +938,438 @@
       "packablock_attestation_hint": "pkablk check packablock.yaml"
     },
     "cache_hash": "46cf22a20e95c7e122dcb07a90be2aa3bfdad5dcb8d79a0475c1eaa96cf322d4"
+  },
+  {
+    "slug": "openssl-in-python-3-12",
+    "search_query": "What version of OpenSSL is in Python 3.12?",
+    "category": "SBOM Insights",
+    "target_family": "openssl",
+    "resolution_status": "Resolved",
+    "last_updated": "2026-09-24T22:43:13.696797+00:00",
+    "host": {
+      "name": "Python",
+      "package_name": "python/cpython",
+      "version": "v3.12.5",
+      "purl": "pkg:generic/python/cpython@v3.12.5",
+      "release_date": "2024-08-13",
+      "repo_url": "https://github.com/python/cpython",
+      "docs_url": "https://docs.python.org/3.12/library/ssl.html",
+      "runtime_ecosystem": "GENERIC"
+    },
+    "target": {
+      "name": "OpenSSL",
+      "primary_library": "openssl",
+      "primary_version": "3.0.13",
+      "primary_purl": "pkg:generic/openssl@3.0.13",
+      "primary_dependency_type": "Direct Dependency",
+      "importer_count": 1,
+      "linkage_type": "dynamically_linked",
+      "linkage_summary": "Dynamic host ABI boundary (Linux) / Statically bundled (macOS & Windows)",
+      "tier": "tier_1_user_entrypoint",
+      "role_classification": "Canonical Cryptographic Engine & TLS Runtime (ssl & hashlib)",
+      "entrypoint_trigger": "import ssl / HTTPSConnection",
+      "specification_standard": "OpenSSL 3.0 (FIPS 140-2 Cryptographic Architecture)",
+      "repo_url": "https://github.com/openssl/openssl",
+      "other_versions": [
+        {
+          "package": "libssl.so.3",
+          "version": "3.0.x",
+          "purl": "pkg:generic/libssl.so.3@3.0.x",
+          "dependency_type": "Direct Dependency",
+          "importer_count": 1,
+          "linkage_type": "dynamically_linked",
+          "linkage_summary": "Dynamic host ABI boundary",
+          "tier": "tier_2_internal_engine",
+          "tier_label": "System TLS Shared Object",
+          "role": "Linux distribution shared library dynamically resolved by standard library _ssl module at runtime",
+          "spec_level": "System Shared Object (ELF / glibc)"
+        },
+        {
+          "package": "libcrypto.so.3",
+          "version": "3.0.x",
+          "purl": "pkg:generic/libcrypto.so.3@3.0.x",
+          "dependency_type": "Transitive Dependency",
+          "importer_count": 1,
+          "linkage_type": "dynamically_linked",
+          "linkage_summary": "Dynamic host ABI boundary",
+          "tier": "tier_3_legacy_compat",
+          "tier_label": "System Primitive Crypto Shared Object",
+          "role": "Cryptographic primitive shared library resolving hashing, symmetric ciphers, and EVP contexts for _hashlib and _ssl",
+          "spec_level": "System Shared Object (ELF / glibc)"
+        }
+      ]
+    },
+    "direct_answer_summary": "Python v3.12.5 (CPython) utilizes OpenSSL 3.0.13 as its canonical cryptographic and TLS engine via the standard library _ssl and _hashlib C-extensions. On Linux, Python links dynamically against the host system's libssl.so.3 and libcrypto.so.3, while official macOS and Windows installer binaries statically bundle OpenSSL 3.0.",
+    "transitory_sbom": {
+      "purl": "pkg:generic/python/cpython@v3.12.5",
+      "deps_dev_url": "https://deps.dev/project/github/python%2Fcpython",
+      "release_date": "2024-08-06",
+      "ecosystem": "Python CPython Runtime (pkg:generic/cpython)",
+      "dependency_count_direct": 14,
+      "dependency_count_transitive": 32,
+      "total_dependencies": 46,
+      "distinct_licenses_count": 5,
+      "primary_license": "Python-2.0.1",
+      "licenses_list": [
+        "Python-2.0.1",
+        "Apache-2.0",
+        "OpenSSL",
+        "BSD-3-Clause",
+        "MIT"
+      ],
+      "openssf_scorecard_avg": 7.8,
+      "known_cve_count": 5,
+      "host_cve_count": 2,
+      "host_advisories_count": 4,
+      "active_kev_count": 0,
+      "synthesis_engine": "Google deps.dev v3 API (Transitory / Zero-Clone)",
+      "spec_standards": "CycloneDX 1.5 & SPDX 2.3",
+      "api_endpoint_url": "https://api.deps.dev/v3/projects/github.com%2Fpython%2Fcpython",
+      "sbom_download_url": null,
+      "upstream_manifest_url": null,
+      "github_release_url": "https://github.com/python/cpython/releases/tag/v3.12.5",
+      "sbom_found": false,
+      "sbom_status": "Synthesized (No Upstream SBOM Found)",
+      "provenance_note": "No authoritative upstream SBOM published for Python v3.12.5. Baseline deterministically synthesized from Google deps.dev dependency graph and verified source tree citations."
+    },
+    "coexistence": {
+      "has_multiple_versions": true,
+      "resolved_tree": [
+        {
+          "package": "openssl",
+          "version": "3.0.13",
+          "role": "Canonical cryptographic runtime engine providing TLS 1.3, X.509 certificate validation, and EVP primitives via _ssl C-extension",
+          "direct_or_transitive": "Direct Dependency",
+          "spec_level": "OpenSSL 3.0 (FIPS 140-2 Cryptographic Architecture)",
+          "purl": "pkg:generic/openssl@3.0.13",
+          "importer_count": 1,
+          "linkage_type": "dynamically_linked",
+          "linkage_summary": "Dynamic host ABI boundary (Linux) / Statically bundled (macOS & Windows)"
+        },
+        {
+          "package": "libssl.so.3",
+          "version": "3.0.x",
+          "role": "Linux distribution shared library dynamically resolved by standard library _ssl module at runtime",
+          "direct_or_transitive": "Direct Dependency",
+          "spec_level": "System Shared Object (ELF / glibc)",
+          "purl": "pkg:generic/libssl.so.3@3.0.x",
+          "importer_count": 1,
+          "linkage_type": "dynamically_linked",
+          "linkage_summary": "Dynamic host ABI boundary"
+        },
+        {
+          "package": "libcrypto.so.3",
+          "version": "3.0.x",
+          "role": "Cryptographic primitive shared library resolving hashing, symmetric ciphers, and EVP contexts for _hashlib and _ssl",
+          "direct_or_transitive": "Transitive Dependency",
+          "spec_level": "System Shared Object (ELF / glibc)",
+          "purl": "pkg:generic/libcrypto.so.3@3.0.x",
+          "importer_count": 1,
+          "linkage_type": "dynamically_linked",
+          "linkage_summary": "Dynamic host ABI boundary"
+        }
+      ],
+      "divergence_analysis": "Python 3.12 (CPython) links OpenSSL through a hybrid distribution model. On Linux platforms (including official Debian/Ubuntu and manylinux container images), CPython compiles its standard library `_ssl` and `_hashlib` C-extensions to link dynamically against the host operating system's OpenSSL 3.0 shared objects (`libssl.so.3` and `libcrypto.so.3`). Conversely, official Windows and macOS installers bundle statically compiled OpenSSL 3.0 binaries. This divergence creates significant supply chain posture differences: Linux container workloads inherit host distribution patch releases immediately without rebuilding Python, whereas binary PyPI wheels bundling isolated OpenSSL copies require explicit rebuilding via `auditwheel` to remediate upstream CVEs.",
+      "parser_hazards": [
+        {
+          "quirk_id": "SSL-TRAP-03",
+          "title": "Python C-Extension Dynamic OpenSSL Linkage vs Bundled Wheel Collision",
+          "severity": "Critical",
+          "cwe": "CWE-1104",
+          "cwe_url": "https://cwe.mitre.org/data/definitions/1104.html",
+          "code_bad": "# Binary wheel statically bundling OpenSSL 1.1 or custom symbols\nimport cryptography  # Links bundled libcrypto\nimport ssl           # Links host libssl.so.3",
+          "code_good": "# Ensure compiled wheels match runtime host OpenSSL ABI or audit symbol isolation via auditwheel:\n# auditwheel repair --plat manylinux_2_34_x86_64 ...",
+          "impact": "Fatal symbol collisions and segmentation faults when binary extension modules load incompatible OpenSSL shared objects into the same CPython address space."
+        },
+        {
+          "quirk_id": "SSL-TRAP-04",
+          "title": "SSLContext Certificate Store Race Condition in Multithreaded Runtimes",
+          "severity": "High",
+          "cwe": "CWE-362",
+          "cwe_url": "https://cwe.mitre.org/data/definitions/362.html",
+          "code_bad": "# Multithreaded Python service modifying SSLContext certificate store dynamically\ncontext.load_verify_locations(cafile=dynamic_ca_path)",
+          "code_good": "# Initialize immutable SSLContext instances at module/application startup before spawning worker threads:\nDEFAULT_SSL_CONTEXT = ssl.create_default_context()",
+          "impact": "Memory corruption and transient TLS handshake verification failures (CVE-2024-0397) when mutating SSLContext certificate stores during concurrent thread execution."
+        }
+      ],
+      "citations": [
+        {
+          "statement": "Python standard library ssl module provides access to Transport Layer Security encryption and peer authentication facilities for network sockets using OpenSSL.",
+          "authority": "Python Software Foundation",
+          "document_title": "Python 3.12 ssl Module Documentation",
+          "url": "https://docs.python.org/3.12/library/ssl.html",
+          "quote": "This module provides access to Transport Layer Security (often known as 'Secure Sockets Layer') encryption and peer verification facilities for network sockets, using the OpenSSL library."
+        },
+        {
+          "statement": "Python PEP 644 mandates OpenSSL 1.1.1 or newer for CPython 3.10+, requiring OpenSSL 3.0+ compatibility across modern Linux distributions.",
+          "authority": "Python PEP Index",
+          "document_title": "PEP 644 - Require OpenSSL 1.1.1 or newer",
+          "url": "https://peps.python.org/pep-0644/",
+          "quote": "CPython 3.10 and newer require OpenSSL 1.1.1 or newer. Support for older OpenSSL releases has been removed."
+        }
+      ]
+    },
+    "cra_governance": {
+      "support_tier": "Active Bugfix & Security Support",
+      "end_of_life": false,
+      "reachability_classification": "Production Reachable (TLS networking & cryptographic primitives)",
+      "reachability_rationale": "Evaluated under EU CRA Article 10/11: CPython's standard library _ssl module dynamically binds host OpenSSL 3.0 runtime primitives across all standard urllib, requests, and asyncio HTTPS workloads.",
+      "enisa_sector": "Digital Infrastructure & Cloud Services",
+      "nis2_scope": "Essential (Annex I - Article 21)",
+      "governing_standards": [
+        {
+          "body": "European Union / European Commission",
+          "framework": "EU Cyber Resilience Act (CRA)",
+          "regulation_id": "Regulation (EU) 2024/2847",
+          "scope": "Important Product with Digital Elements (Class I / General Purpose Operating & Runtime Environment)",
+          "url": "https://eur-lex.europa.eu/eli/reg/2024/2847/oj"
+        },
+        {
+          "body": "ENISA / European Commission",
+          "framework": "NIS2 Directive",
+          "regulation_id": "Directive (EU) 2022/2555",
+          "scope": "Digital Infrastructure & Cloud Services (Annex I - Essential Entity)",
+          "url": "https://eur-lex.europa.eu/eli/dir/2022/2555/oj"
+        },
+        {
+          "body": "NIST / CMVP",
+          "framework": "FIPS 140-2 / 140-3 Cryptographic Standards",
+          "regulation_id": "FIPS PUB 140-3",
+          "scope": "Security Requirements for Cryptographic Modules",
+          "url": "https://csrc.nist.gov/pubs/fips/140-3/final"
+        }
+      ]
+    },
+    "threat_intelligence": {
+      "known_cve_count": 5,
+      "advisories": [
+        {
+          "cve_id": "CVE-2024-0397",
+          "cve_url": "https://www.cve.org/CVERecord?id=CVE-2024-0397",
+          "in_cisa_kev": false,
+          "epss_score": 0.0081,
+          "epss_percentile": 55.0,
+          "reachability": "Production Reachable: Affects multithreaded Python applications dynamically modifying SSLContext certificate stores."
+        },
+        {
+          "cve_id": "CVE-2023-40217",
+          "cve_url": "https://www.cve.org/CVERecord?id=CVE-2023-40217",
+          "in_cisa_kev": false,
+          "epss_score": 0.00797,
+          "epss_percentile": 54.6,
+          "reachability": "Guarded: TLS handshake bypass on client sockets is mitigated by default certificate verification and post-handshake close semantics."
+        },
+        {
+          "cve_id": "CVE-2024-2511",
+          "cve_url": "https://www.cve.org/CVERecord?id=CVE-2024-2511",
+          "in_cisa_kev": false,
+          "epss_score": 0.52421,
+          "epss_percentile": 98.9,
+          "reachability": "Guarded: Affects underlying host libssl.so.3 during TLS 1.3 session ticket renegotiation in non-standard server setups."
+        },
+        {
+          "cve_id": "CVE-2024-4603",
+          "cve_url": "https://www.cve.org/CVERecord?id=CVE-2024-4603",
+          "in_cisa_kev": false,
+          "epss_score": 0.01131,
+          "epss_percentile": 65.0,
+          "reachability": "Guarded: DSA parameters are rarely utilized in modern Python TLS client/server configurations."
+        },
+        {
+          "cve_id": "CVE-2024-4741",
+          "cve_url": "https://www.cve.org/CVERecord?id=CVE-2024-4741",
+          "in_cisa_kev": false,
+          "epss_score": 0.02925,
+          "epss_percentile": 86.5,
+          "reachability": "Guarded: CPython socket wrappers manage SSL buffer allocation lifecycles safely."
+        }
+      ],
+      "openssf_scorecard": {
+        "overall_score": 7.9,
+        "checks": [
+          {
+            "name": "Code-Review",
+            "score": 7
+          },
+          {
+            "name": "Maintained",
+            "score": 10
+          },
+          {
+            "name": "Security-Policy",
+            "score": 10
+          },
+          {
+            "name": "Packaging",
+            "score": -1
+          },
+          {
+            "name": "Dangerous-Workflow",
+            "score": 10
+          },
+          {
+            "name": "CII-Best-Practices",
+            "score": 5
+          },
+          {
+            "name": "License",
+            "score": 9
+          },
+          {
+            "name": "Token-Permissions",
+            "score": 10
+          },
+          {
+            "name": "Signed-Releases",
+            "score": -1
+          },
+          {
+            "name": "Branch-Protection",
+            "score": 3
+          },
+          {
+            "name": "Binary-Artifacts",
+            "score": 6
+          },
+          {
+            "name": "Pinned-Dependencies",
+            "score": 9
+          },
+          {
+            "name": "Fuzzing",
+            "score": 10
+          },
+          {
+            "name": "SAST",
+            "score": 4
+          }
+        ]
+      }
+    },
+    "verified_facts": [
+      {
+        "fact_id": "CWE-1104",
+        "authority": "MITRE",
+        "category": "weakness",
+        "title": "CWE-1104: Use of Unmaintained or Incompatible Third Party Components",
+        "url": "https://cwe.mitre.org/data/definitions/1104.html",
+        "summary": "ABI mismatch and symbol conflicts between CPython host libssl.so.3 and binary wheels statically bundling disparate OpenSSL builds.",
+        "epss_score": null,
+        "epss_percentile": null,
+        "in_cisa_kev": null,
+        "mitre_rating": "Likelihood: Medium",
+        "scope": "target"
+      },
+      {
+        "fact_id": "CWE-362",
+        "authority": "MITRE",
+        "category": "weakness",
+        "title": "CWE-362: Concurrent Execution using Shared Resource with Improper Synchronization ('Race Condition')",
+        "url": "https://cwe.mitre.org/data/definitions/362.html",
+        "summary": "Memory race condition in ssl.SSLContext certificate store methods during concurrent multithreaded TLS handshakes.",
+        "epss_score": null,
+        "epss_percentile": null,
+        "in_cisa_kev": null,
+        "mitre_rating": "Top 25: #21 (Score 5.01)",
+        "scope": "target"
+      },
+      {
+        "fact_id": "CVE-2024-0397",
+        "authority": "CVE.org",
+        "category": "vulnerability",
+        "title": "CVE-2024-0397: Memory Race Condition in ssl.SSLContext Certificate Store",
+        "url": "https://www.cve.org/CVERecord?id=CVE-2024-0397",
+        "summary": "Race condition in CPython ssl module certificate store manipulation leading to memory corruption or crashes under multithreaded load.",
+        "epss_score": 0.0081,
+        "epss_percentile": 55.0,
+        "in_cisa_kev": false,
+        "mitre_rating": null,
+        "scope": "host"
+      },
+      {
+        "fact_id": "CVE-2023-40217",
+        "authority": "CVE.org",
+        "category": "vulnerability",
+        "title": "CVE-2023-40217: Python TLS Pre-Handshake Socket Close Bypass",
+        "url": "https://www.cve.org/CVERecord?id=CVE-2023-40217",
+        "summary": "TLS handshake bypass vulnerability in ssl socket handling where closing before handshake completion could leak unencrypted buffers.",
+        "epss_score": 0.00797,
+        "epss_percentile": 54.6,
+        "in_cisa_kev": false,
+        "mitre_rating": null,
+        "scope": "host"
+      },
+      {
+        "fact_id": "CVE-2024-2511",
+        "authority": "CVE.org",
+        "category": "vulnerability",
+        "title": "CVE-2024-2511: OpenSSL TLS Session Ticket Memory Growth (DoS)",
+        "url": "https://www.cve.org/CVERecord?id=CVE-2024-2511",
+        "summary": "Unbounded memory growth flaw in OpenSSL session ticket caching triggered during concurrent TLS handshake renegotiation.",
+        "epss_score": 0.52421,
+        "epss_percentile": 98.9,
+        "in_cisa_kev": false,
+        "mitre_rating": null,
+        "scope": "target"
+      },
+      {
+        "fact_id": "CVE-2024-4603",
+        "authority": "CVE.org",
+        "category": "vulnerability",
+        "title": "CVE-2024-4603: OpenSSL Excessive DSA Key Parameter Validation (DoS)",
+        "url": "https://www.cve.org/CVERecord?id=CVE-2024-4603",
+        "summary": "Denial of service via excessive computational resource consumption during validation of overly long DSA keys in OpenSSL.",
+        "epss_score": 0.01131,
+        "epss_percentile": 65.0,
+        "in_cisa_kev": false,
+        "mitre_rating": null,
+        "scope": "target"
+      },
+      {
+        "fact_id": "CVE-2024-4741",
+        "authority": "CVE.org",
+        "category": "vulnerability",
+        "title": "CVE-2024-4741: OpenSSL Use-After-Free in SSL_free_buffers",
+        "url": "https://www.cve.org/CVERecord?id=CVE-2024-4741",
+        "summary": "Use-after-free vulnerability in OpenSSL when freeing buffers after handling incoming TLS network traffic.",
+        "epss_score": 0.02925,
+        "epss_percentile": 86.5,
+        "in_cisa_kev": false,
+        "mitre_rating": null,
+        "scope": "target"
+      }
+    ],
+    "sbom_snippets": {
+      "cyclonedx_component": {
+        "type": "library",
+        "bom-ref": "pkg:generic/openssl@3.0.13",
+        "name": "openssl",
+        "version": "3.0.13",
+        "purl": "pkg:generic/openssl@3.0.13",
+        "licenses": [],
+        "externalReferences": [
+          {
+            "type": "vcs",
+            "url": "https://github.com/openssl/openssl"
+          }
+        ]
+      },
+      "spdx_package": {
+        "SPDXID": "SPDXRef-Package-openssl",
+        "name": "openssl",
+        "versionInfo": "3.0.13",
+        "downloadLocation": "https://github.com/openssl/openssl",
+        "licenseConcluded": "",
+        "externalRefs": [
+          {
+            "referenceCategory": "PACKAGE-MANAGER",
+            "referenceType": "purl",
+            "referenceLocator": "pkg:generic/openssl@3.0.13"
+          }
+        ]
+      },
+      "packablock_attestation_hint": "pkablk check packablock.yaml"
+    },
+    "cache_hash": "9ebdbf552591894303e1d6c939f44c8e665913af238957d2eba8ee9158b7181c"
   }
 ]
