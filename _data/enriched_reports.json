@@ -5,7 +5,7 @@
     "category": "SBOM Insights",
     "target_family": "yaml",
     "resolution_status": "Resolved",
-    "last_updated": "2026-09-24T22:06:41.736537+00:00",
+    "last_updated": "2026-09-24T22:19:36.428763+00:00",
     "host": {
       "name": "Kubernetes",
       "package_name": "k8s.io/kubernetes",
@@ -216,16 +216,16 @@
           "cve_id": "CVE-2022-28948",
           "cve_url": "https://www.cve.org/CVERecord?id=CVE-2022-28948",
           "in_cisa_kev": false,
-          "epss_score": 0.0014,
-          "epss_percentile": 48.2,
+          "epss_score": 0.03965,
+          "epss_percentile": 90.1,
           "reachability": "Guarded: Crash vector in yaml.v3 alias resolution is neutralized by Kubernetes API server payload size limits and JSON transcoding."
         },
         {
           "cve_id": "CVE-2022-3064",
           "cve_url": "https://www.cve.org/CVERecord?id=CVE-2022-3064",
           "in_cisa_kev": false,
-          "epss_score": 0.0021,
-          "epss_percentile": 58.6,
+          "epss_score": 0.017,
+          "epss_percentile": 76.2,
           "reachability": "Guarded: Uncontrolled memory consumption in yaml.v2 parsing is not reachable in default API server admission pipelines."
         }
       ],
@@ -338,8 +338,8 @@
         "title": "CVE-2022-28948: gopkg.in/yaml.v3 Alias Resolution Crash",
         "url": "https://www.cve.org/CVERecord?id=CVE-2022-28948",
         "summary": "Stack exhaustion / crash during untrusted YAML deserialization when resolving deeply nested anchor aliases.",
-        "epss_score": 0.0014,
-        "epss_percentile": 48.2,
+        "epss_score": 0.03965,
+        "epss_percentile": 90.1,
         "in_cisa_kev": false,
         "mitre_rating": null,
         "scope": "target"
@@ -351,8 +351,8 @@
         "title": "CVE-2022-3064: gopkg.in/yaml.v2 Memory Consumption",
         "url": "https://www.cve.org/CVERecord?id=CVE-2022-3064",
         "summary": "Excessive memory allocation in legacy yaml.v2 unmarshaler when processing maliciously crafted documents.",
-        "epss_score": 0.0021,
-        "epss_percentile": 58.6,
+        "epss_score": 0.017,
+        "epss_percentile": 76.2,
         "in_cisa_kev": false,
         "mitre_rating": null,
         "scope": "target"
@@ -491,7 +491,7 @@
     "category": "SBOM Insights",
     "target_family": "openssl",
     "resolution_status": "Resolved",
-    "last_updated": "2026-09-24T22:06:41.916904+00:00",
+    "last_updated": "2026-09-24T22:19:36.868460+00:00",
     "host": {
       "name": "Node.js",
       "package_name": "nodejs/node",
@@ -704,24 +704,24 @@
           "cve_id": "CVE-2024-2511",
           "cve_url": "https://www.cve.org/CVERecord?id=CVE-2024-2511",
           "in_cisa_kev": false,
-          "epss_score": 0.00045,
-          "epss_percentile": 15.2,
+          "epss_score": 0.52421,
+          "epss_percentile": 98.9,
           "reachability": "Guarded: Node.js session resumption limits and default TLS renegotiation policies mitigate unbounded memory buildup."
         },
         {
           "cve_id": "CVE-2024-4603",
           "cve_url": "https://www.cve.org/CVERecord?id=CVE-2024-4603",
           "in_cisa_kev": false,
-          "epss_score": 0.00048,
-          "epss_percentile": 16.5,
+          "epss_score": 0.01131,
+          "epss_percentile": 65.0,
           "reachability": "Guarded: DSA is disabled by default in modern Node.js TLS configurations."
         },
         {
           "cve_id": "CVE-2024-4741",
           "cve_url": "https://www.cve.org/CVERecord?id=CVE-2024-4741",
           "in_cisa_kev": false,
-          "epss_score": 0.00052,
-          "epss_percentile": 18.1,
+          "epss_score": 0.02925,
+          "epss_percentile": 86.5,
           "reachability": "Production Reachable: Affects applications enabling buffer releasing under high-concurrency TLS termination."
         }
       ],
@@ -834,8 +834,8 @@
         "title": "CVE-2024-2511: OpenSSL TLS Session Ticket Memory Growth (DoS)",
         "url": "https://www.cve.org/CVERecord?id=CVE-2024-2511",
         "summary": "Unbounded memory growth flaw in OpenSSL session ticket caching triggered during concurrent TLS handshake renegotiation.",
-        "epss_score": 0.00045,
-        "epss_percentile": 15.2,
+        "epss_score": 0.52421,
+        "epss_percentile": 98.9,
         "in_cisa_kev": false,
         "mitre_rating": null,
         "scope": "target"
@@ -847,8 +847,8 @@
         "title": "CVE-2024-4603: OpenSSL Excessive DSA Key Parameter Validation (DoS)",
         "url": "https://www.cve.org/CVERecord?id=CVE-2024-4603",
         "summary": "Denial of service via excessive computational resource consumption during validation of overly long DSA keys in OpenSSL.",
-        "epss_score": 0.00048,
-        "epss_percentile": 16.5,
+        "epss_score": 0.01131,
+        "epss_percentile": 65.0,
         "in_cisa_kev": false,
         "mitre_rating": null,
         "scope": "target"
@@ -860,8 +860,8 @@
         "title": "CVE-2024-4741: OpenSSL Use-After-Free in SSL_free_buffers",
         "url": "https://www.cve.org/CVERecord?id=CVE-2024-4741",
         "summary": "Use-after-free vulnerability in OpenSSL when freeing buffers after handling incoming TLS network traffic.",
-        "epss_score": 0.00052,
-        "epss_percentile": 18.1,
+        "epss_score": 0.02925,
+        "epss_percentile": 86.5,
         "in_cisa_kev": false,
         "mitre_rating": null,
         "scope": "target"
