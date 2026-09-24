@@ -14,6 +14,11 @@
   {%- assign is_cra = true -%}
 {%- endif -%}
 
+{%- assign is_faq = false -%}
+{%- if current_url contains "/faq" -%}
+  {%- assign is_faq = true -%}
+{%- endif -%}
+
 {%- assign is_about = false -%}
 {%- if current_url contains "/about" -%}
   {%- assign is_about = true -%}
@@ -58,6 +63,12 @@
                 About &amp; Mission
               </a>
               {% if is_about %}<span class="current-indicator" aria-hidden="true">● You are here</span>{% endif %}
+            </li>
+            <li {% if is_faq %}class="is-current"{% endif %}>
+              <a href="{{ "/faq/" | relative_url }}" {% if is_faq %}aria-current="page"{% endif %}>
+                Frequently Asked Questions (FAQ)
+              </a>
+              {% if is_faq %}<span class="current-indicator" aria-hidden="true">● You are here</span>{% endif %}
             </li>
             <li {% if is_signup %}class="is-current"{% endif %}>
               <a href="{{ "/signup/" | relative_url }}" {% if is_signup %}aria-current="page"{% endif %}>

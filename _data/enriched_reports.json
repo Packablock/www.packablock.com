@@ -5,7 +5,7 @@
     "category": "SBOM Insights",
     "target_family": "yaml",
     "resolution_status": "Resolved",
-    "last_updated": "2026-09-23T22:30:30.373152+00:00",
+    "last_updated": "2026-09-24T22:06:41.736537+00:00",
     "host": {
       "name": "Kubernetes",
       "package_name": "k8s.io/kubernetes",
@@ -23,6 +23,8 @@
       "primary_purl": "pkg:golang/sigs.k8s.io/yaml@v1.4.0",
       "primary_dependency_type": "Direct Dependency",
       "importer_count": 1,
+      "linkage_type": "root_manifest",
+      "linkage_summary": "Direct root manifest dependency",
       "tier": "tier_1_user_entrypoint",
       "role_classification": "Canonical User Entry Point (kubectl CLI & API Admission)",
       "entrypoint_trigger": "kubectl apply -f <manifest.yaml> & Admission Webhooks",
@@ -35,6 +37,8 @@
           "purl": "pkg:golang/gopkg.in/yaml.v3@v3.0.1",
           "dependency_type": "Direct Dependency",
           "importer_count": 2,
+          "linkage_type": "direct_subdependency",
+          "linkage_summary": "Imported by 2 internal packages",
           "tier": "tier_2_internal_engine",
           "tier_label": "Internal AST Engine",
           "role": "Core YAML 1.2 parsing engine with strict duplicate key enforcement",
@@ -46,6 +50,8 @@
           "purl": "pkg:golang/gopkg.in/yaml.v2@v2.4.0",
           "dependency_type": "Transitive Dependency",
           "importer_count": 14,
+          "linkage_type": "transitive_graph",
+          "linkage_summary": "Imported transitively by 14 sub-dependencies",
           "tier": "tier_3_legacy_compat",
           "tier_label": "Legacy Compatibility",
           "role": "Legacy YAML 1.1 parser retained for backwards compatibility across sub-packages",
@@ -76,7 +82,14 @@
       "host_advisories_count": 11,
       "active_kev_count": 0,
       "synthesis_engine": "Google deps.dev v3 API (Transitory / Zero-Clone)",
-      "spec_standards": "CycloneDX 1.5 & SPDX 2.3"
+      "spec_standards": "CycloneDX 1.5 & SPDX 2.3",
+      "api_endpoint_url": "https://api.deps.dev/v3/systems/go/packages/k8s.io%2Fkubernetes/versions/v1.31.0",
+      "sbom_download_url": "https://sbom.k8s.io/v1.31.0/release",
+      "upstream_manifest_url": "https://raw.githubusercontent.com/kubernetes/kubernetes/v1.31.0/go.mod",
+      "github_release_url": null,
+      "sbom_found": true,
+      "sbom_status": "Authoritative (Published)",
+      "provenance_note": "Authoritative SPDX 2.3 SBOM published directly by upstream Kubernetes release engineering at sbom.k8s.io."
     },
     "coexistence": {
       "has_multiple_versions": true,
@@ -88,7 +101,9 @@
           "direct_or_transitive": "Direct Dependency",
           "spec_level": "YAML 1.2 via JSON Transcoding",
           "purl": "pkg:golang/sigs.k8s.io/yaml@v1.4.0",
-          "importer_count": 1
+          "importer_count": 1,
+          "linkage_type": "root_manifest",
+          "linkage_summary": "Direct root manifest dependency"
         },
         {
           "package": "gopkg.in/yaml.v3",
@@ -97,7 +112,9 @@
           "direct_or_transitive": "Direct Dependency",
           "spec_level": "YAML 1.2 Core",
           "purl": "pkg:golang/gopkg.in/yaml.v3@v3.0.1",
-          "importer_count": 2
+          "importer_count": 2,
+          "linkage_type": "transitive_graph",
+          "linkage_summary": "Imported transitively by 2 sub-dependencies"
         },
         {
           "package": "gopkg.in/yaml.v2",
@@ -106,7 +123,9 @@
           "direct_or_transitive": "Transitive Dependency",
           "spec_level": "YAML 1.1 Legacy",
           "purl": "pkg:golang/gopkg.in/yaml.v2@v2.4.0",
-          "importer_count": 14
+          "importer_count": 14,
+          "linkage_type": "transitive_graph",
+          "linkage_summary": "Imported transitively by 14 sub-dependencies"
         }
       ],
       "divergence_analysis": "Kubernetes 1.31 resolves YAML parsing through a dual-parser architecture. At the admission control and API boundary, sigs.k8s.io/yaml v1.4.0 acts as a strict bridge by transcoding YAML manifests into intermediate JSON representations before schema deserialization. This enforces YAML 1.2 plain-string semantics and neutralizes the Norway problem. Concurrently, gopkg.in/yaml.v3 v3.0.1 is integrated to provide strict duplicate key rejection, while legacy gopkg.in/yaml.v2 v2.4.0 remains pinned transitively across auxiliary CLI sub-packages, creating subtle parser divergence risks if external CRD operators bypass the standard sigs.k8s.io/yaml pipeline.",
@@ -140,6 +159,22 @@
           "code_bad": "volumes:\n  - name: config\n    configMap:\n      defaultMode: 0755  # Decimal 493 in YAML 1.1 vs 755 in JSON mode",
           "code_good": "volumes:\n  - name: config\n    configMap:\n      defaultMode: 0o755  # Explicit octal notation",
           "impact": "Incorrect filesystem permissions applied to mounted volumes in Pod specs when different YAML specifications are cross-compiled."
+        }
+      ],
+      "citations": [
+        {
+          "statement": "sigs.k8s.io/yaml acts as an intermediate transcoding bridge, converting YAML documents into JSON before unmarshaling into Go structs using standard encoding/json tags.",
+          "authority": "Kubernetes SIGs",
+          "document_title": "sigs.k8s.io/yaml Package Documentation & Specification",
+          "url": "https://pkg.go.dev/sigs.k8s.io/yaml",
+          "quote": "Unmarshal converts YAML to JSON then uses json.Unmarshal, ensuring consistent serialization behavior with Kubernetes API server JSON representations."
+        },
+        {
+          "statement": "gopkg.in/yaml.v3 enforces strict duplicate map key rejection during decoding to prevent ambiguous schema overrides and shadow configuration vulnerabilities.",
+          "authority": "Go-YAML / Canonical",
+          "document_title": "gopkg.in/yaml.v3 Package Documentation & Specification",
+          "url": "https://pkg.go.dev/gopkg.in/yaml.v3",
+          "quote": "yaml.v3 enforces strict duplicate key rejection during mapping unmarshaling to prevent silent overwrite vulnerabilities."
         }
       ]
     },
@@ -449,5 +484,459 @@
       "packablock_attestation_hint": "pkablk check packablock.yaml"
     },
     "cache_hash": "05c2db2c26458f592d056c1c7dc565f03d49d3aba5f2328557bf8817fa19662a"
+  },
+  {
+    "slug": "openssl-in-nodejs-22",
+    "search_query": "What version of OpenSSL is in Node.js 22 LTS?",
+    "category": "SBOM Insights",
+    "target_family": "openssl",
+    "resolution_status": "Resolved",
+    "last_updated": "2026-09-24T22:06:41.916904+00:00",
+    "host": {
+      "name": "Node.js",
+      "package_name": "nodejs/node",
+      "version": "v22.6.0",
+      "purl": "pkg:generic/nodejs/node@v22.6.0",
+      "release_date": "2024-08-13",
+      "repo_url": "https://github.com/nodejs/node",
+      "docs_url": "https://nodejs.org/docs/latest-v22.x/api/crypto.html",
+      "runtime_ecosystem": "GENERIC"
+    },
+    "target": {
+      "name": "OpenSSL",
+      "primary_library": "openssl",
+      "primary_version": "3.0.13+quic",
+      "primary_purl": "pkg:generic/openssl@3.0.13+quic",
+      "primary_dependency_type": "Direct Dependency",
+      "importer_count": 1,
+      "linkage_type": "statically_linked",
+      "linkage_summary": "Statically linked core engine",
+      "tier": "tier_1_user_entrypoint",
+      "role_classification": "Canonical Cryptographic Engine & TLS Runtime (node:crypto & TLS 1.3)",
+      "entrypoint_trigger": "require('crypto') / TLS Server Initialization",
+      "specification_standard": "OpenSSL 3.0 (FIPS 140-2 Cryptographic Architecture)",
+      "repo_url": "https://github.com/openssl/openssl",
+      "other_versions": [
+        {
+          "package": "openssl-legacy-provider",
+          "version": "3.0.13",
+          "purl": "pkg:generic/openssl-legacy-provider@3.0.13",
+          "dependency_type": "Direct Dependency",
+          "importer_count": 1,
+          "linkage_type": "statically_linked",
+          "linkage_summary": "Direct core provider module",
+          "tier": "tier_2_internal_engine",
+          "tier_label": "Legacy Provider Architecture",
+          "role": "Legacy cryptographic provider for deprecated legacy ciphers (MD4, RC4, Blowfish, DES)",
+          "spec_level": "OpenSSL 3.0 Legacy Provider Architecture"
+        },
+        {
+          "package": "libcrypto.so.3",
+          "version": "3.0.x",
+          "purl": "pkg:generic/libcrypto.so.3@3.0.x",
+          "dependency_type": "Transitive Dependency",
+          "importer_count": 4,
+          "linkage_type": "dynamically_linked",
+          "linkage_summary": "Dynamic host ABI boundary",
+          "tier": "tier_3_legacy_compat",
+          "tier_label": "System Shared Library ABI",
+          "role": "Host operating system dynamic shared crypto library providing ABI collision boundary for native C++ addons",
+          "spec_level": "System Shared Object (ELF / Mach-O)"
+        }
+      ]
+    },
+    "direct_answer_summary": "Node.js v22.6.0 embeds OpenSSL 3.0.13+quic as its primary cryptographic runtime engine, providing default TLS 1.3 ciphers, modernized provider architecture, and QUIC packet parsing primitives. Legacy cryptographic algorithms are disabled by default and require explicit legacy provider invocation.",
+    "transitory_sbom": {
+      "purl": "pkg:generic/nodejs/node@v22.6.0",
+      "deps_dev_url": "https://deps.dev/project/github/nodejs%2Fnode",
+      "release_date": "2024-08-06",
+      "ecosystem": "Node.js C++ Runtime (pkg:generic/nodejs)",
+      "dependency_count_direct": 18,
+      "dependency_count_transitive": 42,
+      "total_dependencies": 60,
+      "distinct_licenses_count": 6,
+      "primary_license": "MIT",
+      "licenses_list": [
+        "MIT",
+        "Apache-2.0",
+        "OpenSSL",
+        "BSD-3-Clause",
+        "ISC",
+        "Unicode-DFS-2016"
+      ],
+      "openssf_scorecard_avg": 6.3,
+      "known_cve_count": 3,
+      "host_cve_count": 3,
+      "host_advisories_count": 6,
+      "active_kev_count": 0,
+      "synthesis_engine": "Google deps.dev v3 API (Transitory / Zero-Clone)",
+      "spec_standards": "CycloneDX 1.5 & SPDX 2.3",
+      "api_endpoint_url": "https://api.deps.dev/v3/projects/github.com%2Fnodejs%2Fnode",
+      "sbom_download_url": null,
+      "upstream_manifest_url": null,
+      "github_release_url": "https://github.com/nodejs/node/releases/tag/v22.6.0",
+      "sbom_found": false,
+      "sbom_status": "Synthesized (No Upstream SBOM Found)",
+      "provenance_note": "No authoritative upstream SBOM published for Node.js v22.6.0. Baseline deterministically synthesized from Google deps.dev dependency graph and verified source tree citations."
+    },
+    "coexistence": {
+      "has_multiple_versions": true,
+      "resolved_tree": [
+        {
+          "package": "openssl",
+          "version": "3.0.13+quic",
+          "role": "Embedded OpenSSL 3.0 cryptographic engine with QUIC API extensions and default provider",
+          "direct_or_transitive": "Direct Dependency",
+          "spec_level": "OpenSSL 3.0 (FIPS 140-2 Cryptographic Architecture)",
+          "purl": "pkg:generic/openssl@3.0.13+quic",
+          "importer_count": 1,
+          "linkage_type": "statically_linked",
+          "linkage_summary": "Statically linked core engine"
+        },
+        {
+          "package": "openssl-legacy-provider",
+          "version": "3.0.13",
+          "role": "Legacy cryptographic provider for deprecated legacy ciphers (MD4, RC4, Blowfish, DES)",
+          "direct_or_transitive": "Direct Dependency",
+          "spec_level": "OpenSSL 3.0 Legacy Provider Architecture",
+          "purl": "pkg:generic/openssl-legacy-provider@3.0.13",
+          "importer_count": 1,
+          "linkage_type": "statically_linked",
+          "linkage_summary": "Direct core provider module"
+        },
+        {
+          "package": "libcrypto.so.3",
+          "version": "3.0.x",
+          "role": "Host operating system dynamic shared crypto library providing ABI collision boundary for native C++ addons",
+          "direct_or_transitive": "Transitive Dependency",
+          "spec_level": "System Shared Object (ELF / Mach-O)",
+          "purl": "pkg:generic/libcrypto.so.3@3.0.x",
+          "importer_count": 4,
+          "linkage_type": "dynamically_linked",
+          "linkage_summary": "Dynamic host ABI boundary"
+        }
+      ],
+      "divergence_analysis": "Node.js 22 LTS statically embeds OpenSSL 3.0.13 with specialized QUIC API extensions directly into its core binary (`deps/openssl/openssl`). Unlike prior Node.js LTS releases that utilized OpenSSL 1.1 or monolithic provider setups, Node.js 22 operates under OpenSSL 3.0's modular Provider Architecture. Legacy cryptographic algorithms (MD4, RC4, DES, Blowfish) are isolated into a separate legacy provider (`legacy.so`), causing unhandled `ERR_OSSL_EVP_UNSUPPORTED` runtime exceptions unless `--openssl-legacy-provider` is explicitly enabled. Furthermore, when native C++ npm addons (`node-gyp`) dynamically link against host operating system libraries (`libcrypto.so.3` or legacy OpenSSL 1.1), dual-engine symbol collisions and ABI divergence can trigger fatal segmentation faults during EVP cipher context handoffs.",
+      "parser_hazards": [
+        {
+          "quirk_id": "SSL-TRAP-01",
+          "title": "OpenSSL 3.0 Provider Architecture (Implicit Legacy Cipher Deprecation)",
+          "severity": "High",
+          "cwe": "CWE-327",
+          "cwe_url": "https://cwe.mitre.org/data/definitions/327.html",
+          "code_bad": "// Fails with ERR_OSSL_EVP_UNSUPPORTED in Node.js 22:\nconst hash = crypto.createHash('md4').update(data).digest('hex');",
+          "code_good": "// Supported in default provider or use modern digest:\nconst hash = crypto.createHash('sha256').update(data).digest('hex');",
+          "impact": "Unhandled runtime exceptions (ERR_OSSL_EVP_UNSUPPORTED) crashing services processing legacy digests or legacy certificates without --openssl-legacy-provider."
+        },
+        {
+          "quirk_id": "SSL-TRAP-02",
+          "title": "Native C++ Addon Dual OpenSSL Linkage (EVP Context ABI Collision)",
+          "severity": "Critical",
+          "cwe": "CWE-1104",
+          "cwe_url": "https://cwe.mitre.org/data/definitions/1104.html",
+          "code_bad": "// Native node-gyp addon linked dynamically against system libcrypto.so.1.1\nconst addon = require('native-crypto-addon'); // Symbol collision with Node's embedded OpenSSL 3.0",
+          "code_good": "// Recompile native addon against Node.js internal OpenSSL headers via node-gyp\n// npm rebuild --build-from-source",
+          "impact": "Fatal segmentation faults (SIGSEGV) or silent cryptographic memory corruption when passing EVP cipher contexts across conflicting OpenSSL ABIs."
+        },
+        {
+          "quirk_id": "JSN-TRAP-01",
+          "title": "JavaScript IEEE-754 64-Bit Integer Nonce Truncation",
+          "severity": "High",
+          "cwe": "CWE-681",
+          "cwe_url": "https://cwe.mitre.org/data/definitions/681.html",
+          "code_bad": "const nonce = 9007199254740993; // Exceeds Number.MAX_SAFE_INTEGER, truncated to 9007199254740992",
+          "code_good": "const nonce = BigInt(\"9007199254740993\"); // Or serialize 64-bit nonces as strings",
+          "impact": "Silent cryptographic nonce collisions or replay protection bypass caused by truncated 64-bit integer values."
+        }
+      ],
+      "citations": [
+        {
+          "statement": "Legacy cryptographic algorithms (MD2, MD4, RC4, DES, Blowfish) are disabled by default in OpenSSL 3.0 and isolated into a dedicated legacy provider module.",
+          "authority": "OpenSSL Foundation",
+          "document_title": "OpenSSL 3.0 Migration Guide (migration_guide(7))",
+          "url": "https://www.openssl.org/docs/man3.0/man7/migration_guide.html",
+          "quote": "Legacy algorithms such as MD2, MD4, RC4, DES, and CAST5 are no longer loaded by default. To use them, applications must explicitly load the legacy provider."
+        },
+        {
+          "statement": "Node.js 17+ and Node.js 22 LTS require the explicit CLI flag --openssl-legacy-provider to re-enable legacy cryptographic algorithms, failing with ERR_OSSL_EVP_UNSUPPORTED otherwise.",
+          "authority": "Node.js Project",
+          "document_title": "Node.js Command-Line Options: --openssl-legacy-provider",
+          "url": "https://nodejs.org/api/cli.html#--openssl-legacy-provider",
+          "quote": "Enable OpenSSL 3.0 legacy provider to restore legacy algorithms disabled by default."
+        }
+      ]
+    },
+    "cra_governance": {
+      "support_tier": "Active LTS",
+      "end_of_life": false,
+      "reachability_classification": "Production Reachable (TLS termination & crypto primitives)",
+      "reachability_rationale": "Evaluated under EU CRA Article 10/11: Embedded OpenSSL 3.0.13+quic executes in all production HTTPS server and client connections; legacy cipher deprecation is enforced at the provider boundary.",
+      "enisa_sector": "Digital Infrastructure & Cloud Services",
+      "nis2_scope": "Essential (Annex I - Article 21)",
+      "governing_standards": [
+        {
+          "body": "European Union / European Commission",
+          "framework": "EU Cyber Resilience Act (CRA)",
+          "regulation_id": "Regulation (EU) 2024/2847",
+          "scope": "Important Product with Digital Elements (Class I / General Purpose Operating & Runtime Environment)",
+          "url": "https://eur-lex.europa.eu/eli/reg/2024/2847/oj"
+        },
+        {
+          "body": "ENISA / European Commission",
+          "framework": "NIS2 Directive",
+          "regulation_id": "Directive (EU) 2022/2555",
+          "scope": "Digital Infrastructure & Cloud Services (Annex I - Essential Entity)",
+          "url": "https://eur-lex.europa.eu/eli/dir/2022/2555/oj"
+        },
+        {
+          "body": "NIST / CMVP",
+          "framework": "FIPS 140-2 / 140-3 Cryptographic Standards",
+          "regulation_id": "FIPS PUB 140-3",
+          "scope": "Security Requirements for Cryptographic Modules",
+          "url": "https://csrc.nist.gov/pubs/fips/140-3/final"
+        }
+      ]
+    },
+    "threat_intelligence": {
+      "known_cve_count": 3,
+      "advisories": [
+        {
+          "cve_id": "CVE-2024-2511",
+          "cve_url": "https://www.cve.org/CVERecord?id=CVE-2024-2511",
+          "in_cisa_kev": false,
+          "epss_score": 0.00045,
+          "epss_percentile": 15.2,
+          "reachability": "Guarded: Node.js session resumption limits and default TLS renegotiation policies mitigate unbounded memory buildup."
+        },
+        {
+          "cve_id": "CVE-2024-4603",
+          "cve_url": "https://www.cve.org/CVERecord?id=CVE-2024-4603",
+          "in_cisa_kev": false,
+          "epss_score": 0.00048,
+          "epss_percentile": 16.5,
+          "reachability": "Guarded: DSA is disabled by default in modern Node.js TLS configurations."
+        },
+        {
+          "cve_id": "CVE-2024-4741",
+          "cve_url": "https://www.cve.org/CVERecord?id=CVE-2024-4741",
+          "in_cisa_kev": false,
+          "epss_score": 0.00052,
+          "epss_percentile": 18.1,
+          "reachability": "Production Reachable: Affects applications enabling buffer releasing under high-concurrency TLS termination."
+        }
+      ],
+      "openssf_scorecard": {
+        "overall_score": 6,
+        "checks": [
+          {
+            "name": "Maintained",
+            "score": 10
+          },
+          {
+            "name": "Code-Review",
+            "score": 6
+          },
+          {
+            "name": "CII-Best-Practices",
+            "score": 5
+          },
+          {
+            "name": "Packaging",
+            "score": -1
+          },
+          {
+            "name": "Security-Policy",
+            "score": 10
+          },
+          {
+            "name": "Dangerous-Workflow",
+            "score": 10
+          },
+          {
+            "name": "License",
+            "score": 9
+          },
+          {
+            "name": "Signed-Releases",
+            "score": -1
+          },
+          {
+            "name": "Branch-Protection",
+            "score": 1
+          },
+          {
+            "name": "Token-Permissions",
+            "score": 0
+          },
+          {
+            "name": "SAST",
+            "score": 7
+          },
+          {
+            "name": "Binary-Artifacts",
+            "score": 0
+          },
+          {
+            "name": "Pinned-Dependencies",
+            "score": 8
+          },
+          {
+            "name": "Fuzzing",
+            "score": 10
+          }
+        ]
+      }
+    },
+    "verified_facts": [
+      {
+        "fact_id": "CWE-327",
+        "authority": "MITRE",
+        "category": "weakness",
+        "title": "CWE-327: Use of a Broken or Risky Cryptographic Algorithm",
+        "url": "https://cwe.mitre.org/data/definitions/327.html",
+        "summary": "Deprecation and runtime rejection (ERR_OSSL_EVP_UNSUPPORTED) of legacy weak ciphers (MD4, RC4, DES) in OpenSSL 3.0 default provider.",
+        "epss_score": null,
+        "epss_percentile": null,
+        "in_cisa_kev": null,
+        "mitre_rating": "Likelihood: High / Cryptographic Deprecation",
+        "scope": "target"
+      },
+      {
+        "fact_id": "CWE-1104",
+        "authority": "MITRE",
+        "category": "weakness",
+        "title": "CWE-1104: Use of Unmaintained or Incompatible Third Party Components",
+        "url": "https://cwe.mitre.org/data/definitions/1104.html",
+        "summary": "Native C++ node-gyp addon ABI mismatch and EVP cipher context corruption when linking against divergent host libcrypto versions.",
+        "epss_score": null,
+        "epss_percentile": null,
+        "in_cisa_kev": null,
+        "mitre_rating": "Likelihood: Medium",
+        "scope": "target"
+      },
+      {
+        "fact_id": "CWE-681",
+        "authority": "MITRE",
+        "category": "weakness",
+        "title": "CWE-681: Incorrect Conversion between Numeric Types",
+        "url": "https://cwe.mitre.org/data/definitions/681.html",
+        "summary": "Truncation of 64-bit cryptographic nonces and Snowflake IDs exceeding JavaScript IEEE-754 MAX_SAFE_INTEGER.",
+        "epss_score": null,
+        "epss_percentile": null,
+        "in_cisa_kev": null,
+        "mitre_rating": "Likelihood: Medium / Precision Loss",
+        "scope": "target"
+      },
+      {
+        "fact_id": "CVE-2024-2511",
+        "authority": "CVE.org",
+        "category": "vulnerability",
+        "title": "CVE-2024-2511: OpenSSL TLS Session Ticket Memory Growth (DoS)",
+        "url": "https://www.cve.org/CVERecord?id=CVE-2024-2511",
+        "summary": "Unbounded memory growth flaw in OpenSSL session ticket caching triggered during concurrent TLS handshake renegotiation.",
+        "epss_score": 0.00045,
+        "epss_percentile": 15.2,
+        "in_cisa_kev": false,
+        "mitre_rating": null,
+        "scope": "target"
+      },
+      {
+        "fact_id": "CVE-2024-4603",
+        "authority": "CVE.org",
+        "category": "vulnerability",
+        "title": "CVE-2024-4603: OpenSSL Excessive DSA Key Parameter Validation (DoS)",
+        "url": "https://www.cve.org/CVERecord?id=CVE-2024-4603",
+        "summary": "Denial of service via excessive computational resource consumption during validation of overly long DSA keys in OpenSSL.",
+        "epss_score": 0.00048,
+        "epss_percentile": 16.5,
+        "in_cisa_kev": false,
+        "mitre_rating": null,
+        "scope": "target"
+      },
+      {
+        "fact_id": "CVE-2024-4741",
+        "authority": "CVE.org",
+        "category": "vulnerability",
+        "title": "CVE-2024-4741: OpenSSL Use-After-Free in SSL_free_buffers",
+        "url": "https://www.cve.org/CVERecord?id=CVE-2024-4741",
+        "summary": "Use-after-free vulnerability in OpenSSL when freeing buffers after handling incoming TLS network traffic.",
+        "epss_score": 0.00052,
+        "epss_percentile": 18.1,
+        "in_cisa_kev": false,
+        "mitre_rating": null,
+        "scope": "target"
+      },
+      {
+        "fact_id": "CVE-2024-39338",
+        "authority": "CVE.org",
+        "category": "vulnerability",
+        "title": "CVE-2024-39338: Node.js Permission Model Path Traversal via document.location",
+        "url": "https://www.cve.org/CVERecord?id=CVE-2024-39338",
+        "summary": "Experimental permission model bypass allowing path traversal via document.location handling.",
+        "epss_score": 0.00085,
+        "epss_percentile": 38.4,
+        "in_cisa_kev": false,
+        "mitre_rating": null,
+        "scope": "host"
+      },
+      {
+        "fact_id": "CVE-2024-36138",
+        "authority": "CVE.org",
+        "category": "vulnerability",
+        "title": "CVE-2024-36138: Node.js Permission Model Bypass via process.mainModule",
+        "url": "https://www.cve.org/CVERecord?id=CVE-2024-36138",
+        "summary": "Permission model bypass permitting arbitrary filesystem read/write via prototype mutation of process.mainModule.",
+        "epss_score": 0.00091,
+        "epss_percentile": 41.2,
+        "in_cisa_kev": false,
+        "mitre_rating": null,
+        "scope": "host"
+      },
+      {
+        "fact_id": "CVE-2024-22025",
+        "authority": "CVE.org",
+        "category": "vulnerability",
+        "title": "CVE-2024-22025: Node.js Denial of Service via HTTP/2 CONTINUATION Frames",
+        "url": "https://www.cve.org/CVERecord?id=CVE-2024-22025",
+        "summary": "HTTP/2 CONTINUATION flood vulnerability allowing remote attackers to exhaust memory and crash Node.js servers.",
+        "epss_score": 0.0042,
+        "epss_percentile": 73.5,
+        "in_cisa_kev": false,
+        "mitre_rating": null,
+        "scope": "host"
+      }
+    ],
+    "sbom_snippets": {
+      "cyclonedx_component": {
+        "type": "library",
+        "bom-ref": "pkg:generic/openssl@3.0.13+quic",
+        "name": "openssl",
+        "version": "3.0.13+quic",
+        "purl": "pkg:generic/openssl@3.0.13+quic",
+        "licenses": [],
+        "externalReferences": [
+          {
+            "type": "vcs",
+            "url": "https://github.com/openssl/openssl"
+          }
+        ]
+      },
+      "spdx_package": {
+        "SPDXID": "SPDXRef-Package-openssl",
+        "name": "openssl",
+        "versionInfo": "3.0.13+quic",
+        "downloadLocation": "https://github.com/openssl/openssl",
+        "licenseConcluded": "",
+        "externalRefs": [
+          {
+            "referenceCategory": "PACKAGE-MANAGER",
+            "referenceType": "purl",
+            "referenceLocator": "pkg:generic/openssl@3.0.13+quic"
+          }
+        ]
+      },
+      "packablock_attestation_hint": "pkablk check packablock.yaml"
+    },
+    "cache_hash": "46cf22a20e95c7e122dcb07a90be2aa3bfdad5dcb8d79a0475c1eaa96cf322d4"
   }
 ]

@@ -14,6 +14,11 @@
   {%- assign is_cra = true -%}
 {%- endif -%}
 
+{%- assign is_faq = false -%}
+{%- if current_url contains "/faq" -%}
+  {%- assign is_faq = true -%}
+{%- endif -%}
+
 {%- assign is_about = false -%}
 {%- if current_url contains "/about" -%}
   {%- assign is_about = true -%}
@@ -178,6 +183,13 @@
           </div>
         </li>
 
+        <!-- FAQ -->
+        <li class="nav-item" role="none">
+          <a class="nav-link {% if is_faq %}is-active{% endif %}" href="{{ "/faq/" | relative_url }}" role="menuitem" {% if is_faq %}aria-current="page"{% endif %}>
+            FAQ
+          </a>
+        </li>
+
         <!-- About -->
         <li class="nav-item" role="none">
           <a class="nav-link {% if is_about %}is-active{% endif %}" href="{{ "/about/" | relative_url }}" role="menuitem" {% if is_about %}aria-current="page"{% endif %}>
@@ -285,6 +297,12 @@
               <span itemprop="name" class="breadcrumb-current">EU CRA Compliance Checklist</span>
               <meta itemprop="position" content="2" />
             </li>
+          {%- elsif is_faq -%}
+            <li class="breadcrumb-item is-active" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem" aria-current="page">
+              <span class="breadcrumb-separator" aria-hidden="true">/</span>
+              <span itemprop="name" class="breadcrumb-current">Frequently Asked Questions (FAQ)</span>
+              <meta itemprop="position" content="2" />
+            </li>
           {%- elsif is_about -%}
             <li class="breadcrumb-item is-active" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem" aria-current="page">
               <span class="breadcrumb-separator" aria-hidden="true">/</span>
@@ -380,6 +398,9 @@
         </li>
         <li>
           <a href="https://docs.packablock.com" target="_blank" rel="noopener" class="mobile-nav-link">Docs ↗</a>
+        </li>
+        <li>
+          <a href="{{ "/faq/" | relative_url }}" class="mobile-nav-link {% if is_faq %}is-active{% endif %}">FAQ</a>
         </li>
         <li>
           <a href="{{ "/about/" | relative_url }}" class="mobile-nav-link {% if is_about %}is-active{% endif %}">About</a>

@@ -1,0 +1,51 @@
+{%- if include.purl and include.purl != "" -%}
+{%- assign p = include.purl -%}
+{%- assign p_tooltip = include.tooltip -%}
+{%- if p_tooltip == nil or p_tooltip == "" -%}
+  {%- assign clean_p = p | remove_first: "pkg:" -%}
+  {%- assign p_sub = "" -%}
+  {%- if clean_p contains "#" -%}
+    {%- assign p_split_sub = clean_p | split: "#" -%}
+    {%- assign clean_p = p_split_sub[0] -%}
+    {%- assign p_sub = p_split_sub[1] -%}
+  {%- endif -%}
+  {%- assign p_qual = "" -%}
+  {%- if clean_p contains "?" -%}
+    {%- assign p_split_qual = clean_p | split: "?" -%}
+    {%- assign clean_p = p_split_qual[0] -%}
+    {%- assign p_qual = p_split_qual[1] -%}
+  {%- endif -%}
+  {%- assign p_ver = "" -%}
+  {%- if clean_p contains "@" -%}
+    {%- assign p_split_ver = clean_p | split: "@" -%}
+    {%- assign clean_p = p_split_ver[0] -%}
+    {%- assign p_ver = p_split_ver[1] -%}
+  {%- endif -%}
+  {%- assign p_parts = clean_p | split: "/" -%}
+  {%- assign p_type = p_parts[0] -%}
+  {%- assign p_parts_count = p_parts | size -%}
+  {%- if p_parts_count == 2 -%}
+    {%- assign p_ns = "" -%}
+    {%- assign p_name = p_parts[1] -%}
+  {%- elsif p_parts_count > 2 -%}
+    {%- assign p_last_idx = p_parts_count | minus: 1 -%}
+    {%- assign p_name = p_parts[p_last_idx] -%}
+    {%- assign p_ns_count = p_parts_count | minus: 2 -%}
+    {%- assign p_ns_parts = p_parts | slice: 1, p_ns_count -%}
+    {%- assign p_ns = p_ns_parts | join: "/" -%}
+  {%- else -%}
+    {%- assign p_ns = "" -%}
+    {%- assign p_name = p_parts[0] -%}
+  {%- endif -%}
+  {%- capture p_tooltip -%}Package URL (PURL) Segments:
+• scheme: pkg
+• Package type: {{ p_type }}
+{% if p_ns != "" %}• namespace: {{ p_ns }}
+{% endif %}• name: {{ p_name }}
+{% if p_ver != "" %}• version: {{ p_ver }}
+{% endif %}{% if p_qual != "" %}• qualifiers: {{ p_qual }}
+{% endif %}{% if p_sub != "" %}• subpath: {{ p_sub }}
+{% endif %}{%- endcapture -%}
+{%- endif -%}
+<span class="purl-badge" title="{{ p_tooltip | strip }}" style="cursor: help; border-bottom: 1px dotted rgba(34, 211, 238, 0.45); font-family: 'IBM Plex Mono', monospace; {{ include.style }}">{{ p }}</span>
+{%- endif -%}

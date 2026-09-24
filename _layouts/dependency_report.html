@@ -49,17 +49,15 @@ layout: default
 
     <!-- Host Component Metadata Bar -->
     <div style="display: flex; gap: 0.75rem; align-items: center; margin-bottom: 2rem; flex-wrap: wrap; font-size: 0.85rem;">
-      <span style="font-weight: 800; color: #ffffff; display: inline-flex; align-items: center; gap: 0.35rem;">
-        <span>☸️</span> {{ report.host.name }} {{ report.host.version }}
+      <span style="font-weight: 800; color: #ffffff; display: inline-flex; align-items: center;">
+        {{ report.host.name }} {{ report.host.version }}
       </span>
       <span style="color: rgba(255, 255, 255, 0.2);">•</span>
       <span style="color: #cbd5e1; font-weight: 500;">
-        Ecosystem: <strong style="color: #22D3EE;">{{ report.host.runtime_ecosystem | default: report.transitory_sbom.ecosystem }}</strong>
+        Package type: <strong style="color: #22D3EE;">{{ report.host.runtime_ecosystem | default: report.transitory_sbom.ecosystem }}</strong>
       </span>
       <span style="color: rgba(255, 255, 255, 0.2);">•</span>
-      <span style="font-family: 'IBM Plex Mono', monospace; font-size: 0.78rem; color: #94a3b8;">
-        {{ report.host.purl }}
-      </span>
+      {% include purl_badge.html purl=report.host.purl style="font-size: 0.78rem; color: #94a3b8;" %}
     </div>
 
     <!-- Executive Summary Callout Box -->
@@ -138,7 +136,9 @@ layout: default
               </td>
               <td style="padding: 0.85rem 1.15rem; font-size: 0.84rem; color: #cbd5e1;">
                 {% if is_primary %}
-                  <span style="color: #38bdf8; font-weight: 600;">↳ Direct root manifest dependency</span>
+                  <span style="color: #38bdf8; font-weight: 600;">↳ {{ dep.linkage_summary | default: "Direct root manifest dependency" }}</span>
+                {% elsif dep.linkage_summary %}
+                  ↳ {{ dep.linkage_summary }}
                 {% elsif d_type contains "Transitive" %}
                   {% if dep.importer_count %}
                   ↳ Imported transitively by <strong style="color: #ffffff;">{{ dep.importer_count }}</strong> sub-dependencies
@@ -153,8 +153,8 @@ layout: default
                   {% endif %}
                 {% endif %}
               </td>
-              <td style="padding: 0.85rem 1.15rem; font-family: 'IBM Plex Mono', monospace; font-size: 0.76rem; color: #94a3b8;">
-                {{ dep.purl }}
+              <td style="padding: 0.85rem 1.15rem;">
+                {% include purl_badge.html purl=dep.purl style="font-size: 0.76rem; color: #94a3b8;" %}
               </td>
             </tr>
             {% endfor %}
@@ -171,21 +171,40 @@ layout: default
         </div>
         <p style="font-size: 0.95rem; line-height: 1.65; color: #e2e8f0; margin: 0;">
           {{ report.coexistence.divergence_analysis }}
+          {% if report.coexistence.citations and report.coexistence.citations.size > 0 %}
+          <span style="display: inline-flex; gap: 0.4rem; flex-wrap: wrap; margin-left: 0.45rem; vertical-align: middle;">
+            {% for cite in report.coexistence.citations %}
+            <a href="{{ cite.url }}" target="_blank" rel="noopener" title="{{ cite.authority }} — {{ cite.document_title }}: {{ cite.statement }}{% if cite.quote %} &#10;&#10;&ldquo;{{ cite.quote }}&rdquo;{% endif %}" style="display: inline-flex; align-items: center; gap: 0.25rem; font-size: 0.72rem; font-weight: 600; padding: 0.15rem 0.55rem; border-radius: 9999px; background: rgba(34, 211, 238, 0.12); color: #22D3EE; border: 1px solid rgba(34, 211, 238, 0.35); text-decoration: none; vertical-align: middle; white-space: nowrap; line-height: 1.3;" onmouseover="this.style.background='rgba(34,211,238,0.22)';this.style.borderColor='rgba(34,211,238,0.6)';" onmouseout="this.style.background='rgba(34,211,238,0.12)';this.style.borderColor='rgba(34,211,238,0.35)';">
+              (source: {{ cite.authority }}) ↗
+            </a>
+            {% endfor %}
+          </span>
+          {% endif %}
         </p>
       </div>
       {% endif %}
     </div>
 
-    <!-- 2. Transitory SBOM Baseline -->
+    <!-- 2. SBOM Insights -->
     {% if report.transitory_sbom %}
     <div style="margin-bottom: 2.75rem;">
       <div style="display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1px solid rgba(255, 255, 255, 0.1); padding-bottom: 0.5rem; margin-bottom: 0.75rem; flex-wrap: wrap; gap: 0.5rem;">
-        <h2 style="font-size: 1.35rem; font-weight: 800; color: #ffffff; margin: 0; display: flex; align-items: center; gap: 0.5rem;">
-          <span>📦</span> Transitory SBOM Baseline (deps.dev)
+        <h2 style="font-size: 1.35rem; font-weight: 800; color: #ffffff; margin: 0; display: flex; align-items: center;">
+          SBOM Insights
         </h2>
-        <span style="font-size: 0.8rem; font-family: 'IBM Plex Mono', monospace; color: #94a3b8;">
-          {{ report.transitory_sbom.purl }}
+        {% if report.transitory_sbom.sbom_found == true and report.transitory_sbom.sbom_download_url %}
+        <a href="{{ report.transitory_sbom.sbom_download_url }}" target="_blank" rel="noopener" style="display: inline-flex; align-items: center; gap: 0.35rem; font-size: 0.76rem; font-weight: 700; color: #34d399; background: rgba(16, 185, 129, 0.15); border: 1px solid rgba(16, 185, 129, 0.4); padding: 0.25rem 0.65rem; border-radius: 9999px; text-decoration: none;" title="Download authoritative upstream SBOM">
+          <span>✓</span> Upstream SBOM ↗
+        </a>
+        {% elsif report.transitory_sbom.sbom_found == true %}
+        <span style="display: inline-flex; align-items: center; gap: 0.35rem; font-size: 0.76rem; font-weight: 700; color: #34d399; background: rgba(16, 185, 129, 0.15); border: 1px solid rgba(16, 185, 129, 0.4); padding: 0.25rem 0.65rem; border-radius: 9999px;">
+          <span>✓</span> Upstream SBOM
         </span>
+        {% else %}
+        <span style="display: inline-flex; align-items: center; gap: 0.35rem; font-size: 0.76rem; font-weight: 700; color: #fbbf24; background: rgba(245, 158, 11, 0.15); border: 1px solid rgba(245, 158, 11, 0.45); padding: 0.25rem 0.65rem; border-radius: 9999px;" title="No upstream SBOM published for this version; synthesized from dependency graph">
+          <span>⚡</span> Synthesized SBOM
+        </span>
+        {% endif %}
       </div>
 
       <p style="font-size: 0.95rem; line-height: 1.6; color: #cbd5e1; margin-bottom: 1.25rem;">
@@ -212,9 +231,123 @@ layout: default
         </div>
 
         <div>
-          <div style="font-size: 0.72rem; color: #94a3b8; text-transform: uppercase; font-weight: 800; letter-spacing: 0.05em;">Release Date</div>
+          {% assign rel_url = report.transitory_sbom.github_release_url %}
+          {% assign rel_label = "Release ↗" %}
+          {% assign rel_title = "View official release" %}
+
+          {% if rel_url == nil or rel_url == "" %}
+            {% assign p_raw = report.transitory_sbom.purl | default: report.host.purl %}
+            {% assign clean_p = p_raw | remove_first: "pkg:" %}
+            
+            {% if clean_p contains "@" %}
+              {% assign p_split_v = clean_p | split: "@" %}
+              {% assign p_target = p_split_v[0] %}
+              {% assign p_ver = p_split_v[1] | split: "?" | first | split: "#" | first %}
+            {% else %}
+              {% assign p_target = clean_p | split: "?" | first | split: "#" | first %}
+              {% assign p_ver = report.host.version %}
+            {% endif %}
+
+            {% assign p_parts = p_target | split: "/" %}
+            {% assign p_type = p_parts[0] %}
+            
+            {% if p_type == "golang" or p_type == "go" %}
+              {% assign p_mod_parts = p_parts | slice: 1, 99 %}
+              {% assign p_mod = p_mod_parts | join: "/" %}
+              {% assign rel_url = "https://pkg.go.dev/" | append: p_mod | append: "@" | append: p_ver %}
+              {% assign rel_label = "pkg.go.dev ↗" %}
+              {% assign rel_title = "View package on pkg.go.dev" %}
+            {% elsif p_type == "npm" %}
+              {% assign p_mod_parts = p_parts | slice: 1, 99 %}
+              {% assign p_mod = p_mod_parts | join: "/" %}
+              {% assign rel_url = "https://www.npmjs.com/package/" | append: p_mod | append: "/v/" | append: p_ver %}
+              {% assign rel_label = "npm ↗" %}
+              {% assign rel_title = "View package on npmjs.com" %}
+            {% elsif p_type == "pypi" %}
+              {% assign p_mod = p_parts[1] %}
+              {% assign rel_url = "https://pypi.org/project/" | append: p_mod | append: "/" | append: p_ver | append: "/" %}
+              {% assign rel_label = "PyPI ↗" %}
+              {% assign rel_title = "View package on pypi.org" %}
+            {% elsif p_type == "cargo" %}
+              {% assign p_mod = p_parts[1] %}
+              {% assign rel_url = "https://crates.io/crates/" | append: p_mod | append: "/" | append: p_ver %}
+              {% assign rel_label = "crates.io ↗" %}
+              {% assign rel_title = "View crate on crates.io" %}
+            {% elsif p_type == "maven" %}
+              {% assign p_mod_parts = p_parts | slice: 1, 99 %}
+              {% assign p_mod = p_mod_parts | join: "/" %}
+              {% assign rel_url = "https://central.sonatype.com/artifact/" | append: p_mod | append: "/" | append: p_ver %}
+              {% assign rel_label = "Maven Central ↗" %}
+              {% assign rel_title = "View artifact on Maven Central" %}
+            {% elsif p_type == "nuget" %}
+              {% assign p_mod = p_parts[1] %}
+              {% assign rel_url = "https://www.nuget.org/packages/" | append: p_mod | append: "/" | append: p_ver %}
+              {% assign rel_label = "NuGet ↗" %}
+              {% assign rel_title = "View package on nuget.org" %}
+            {% elsif p_type == "gem" %}
+              {% assign p_mod = p_parts[1] %}
+              {% assign rel_url = "https://rubygems.org/gems/" | append: p_mod | append: "/versions/" | append: p_ver %}
+              {% assign rel_label = "RubyGems ↗" %}
+              {% assign rel_title = "View gem on rubygems.org" %}
+            {% elsif p_type == "composer" %}
+              {% assign p_mod_parts = p_parts | slice: 1, 99 %}
+              {% assign p_mod = p_mod_parts | join: "/" %}
+              {% assign rel_url = "https://packagist.org/packages/" | append: p_mod | append: "#" | append: p_ver %}
+              {% assign rel_label = "Packagist ↗" %}
+              {% assign rel_title = "View package on packagist.org" %}
+            {% elsif p_type == "pub" %}
+              {% assign p_mod = p_parts[1] %}
+              {% assign rel_url = "https://pub.dev/packages/" | append: p_mod | append: "/versions/" | append: p_ver %}
+              {% assign rel_label = "pub.dev ↗" %}
+              {% assign rel_title = "View package on pub.dev" %}
+            {% elsif p_type == "deb" %}
+              {% assign p_distro = "stable" %}
+              {% if p_raw contains "distro=" %}
+                {% assign p_distro = p_raw | split: "distro=" | last | split: "&" | first %}
+              {% endif %}
+              {% assign p_pkg = p_parts | last %}
+              {% assign rel_url = "https://packages.debian.org/" | append: p_distro | append: "/" | append: p_pkg %}
+              {% assign rel_label = "Debian ↗" %}
+              {% assign rel_title = "View package on packages.debian.org" %}
+            {% elsif p_type == "apk" %}
+              {% assign p_pkg = p_parts | last %}
+              {% assign rel_url = "https://pkgs.alpinelinux.org/packages?name=" | append: p_pkg %}
+              {% assign rel_label = "Alpine ↗" %}
+              {% assign rel_title = "View package on pkgs.alpinelinux.org" %}
+            {% elsif p_type == "rpm" %}
+              {% assign p_pkg = p_parts | last %}
+              {% assign rel_url = "https://packages.fedoraproject.org/pkgs/" | append: p_pkg | append: "/" | append: p_pkg | append: "/" %}
+              {% assign rel_label = "RPM / Fedora ↗" %}
+              {% assign rel_title = "View package on Fedora packages" %}
+            {% elsif report.transitory_sbom.api_endpoint_url contains "projects/github.com" or report.transitory_sbom.deps_dev_url contains "/github/" or report.host.repo_url contains "github.com" %}
+              {% if report.host.repo_url contains "github.com" %}
+                {% assign gh_tag = report.host.version %}
+                {% assign rel_url = report.host.repo_url | append: "/releases/tag/" | append: gh_tag %}
+                {% assign rel_label = "GitHub ↗" %}
+                {% assign rel_title = "View official release on GitHub" %}
+              {% endif %}
+            {% endif %}
+          {% else %}
+            {% assign rel_label = "GitHub ↗" %}
+            {% assign rel_title = "View official release on GitHub" %}
+          {% endif %}
+
+          <div style="font-size: 0.72rem; color: #94a3b8; text-transform: uppercase; font-weight: 800; letter-spacing: 0.05em; display: flex; align-items: center; justify-content: space-between;">
+            <span>Release Date</span>
+            {% if rel_url %}
+            <a href="{{ rel_url }}" target="_blank" rel="noopener" style="color: #22D3EE; text-decoration: none; font-size: 0.7rem; font-weight: 700; display: inline-flex; align-items: center; gap: 0.2rem;" title="{{ rel_title }}">
+              {{ rel_label }}
+            </a>
+            {% endif %}
+          </div>
           <div style="font-size: 1.25rem; font-weight: 800; color: #ffffff; font-family: 'IBM Plex Mono', monospace; margin-top: 0.2rem;">
+            {% if rel_url %}
+            <a href="{{ rel_url }}" target="_blank" rel="noopener" style="color: #ffffff; text-decoration: none; border-bottom: 1px dotted rgba(34, 211, 238, 0.4);" title="{{ rel_title }}">
+              {{ report.transitory_sbom.release_date }}
+            </a>
+            {% else %}
             {{ report.transitory_sbom.release_date }}
+            {% endif %}
           </div>
           <div style="font-size: 0.78rem; color: #cbd5e1; margin-top: 0.15rem;">
             {{ report.transitory_sbom.ecosystem }}
@@ -250,6 +383,32 @@ layout: default
             {{ report.transitory_sbom.active_kev_count | default: 0 }} Active CISA KEV
           </div>
         </div>
+        <!-- Host Package Type & Ecosystem Card -->
+        <div>
+          <div style="font-size: 0.72rem; color: #94a3b8; text-transform: uppercase; font-weight: 800; letter-spacing: 0.05em; display: flex; align-items: center; justify-content: space-between;">
+            <span>Package Type</span>
+            <a href="/faq/#supported-ecosystems" style="color: #22D3EE; text-decoration: none; font-size: 0.7rem; font-weight: 700; display: inline-flex; align-items: center; gap: 0.2rem;" title="View all supported ecosystems in FAQ">
+              FAQ ↗
+            </a>
+          </div>
+          <div style="font-size: 1.15rem; font-weight: 800; color: #ffffff; font-family: 'IBM Plex Mono', monospace; margin-top: 0.2rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+            {% if rel_url %}
+            <a href="{{ rel_url }}" target="_blank" rel="noopener" style="color: #ffffff; text-decoration: none; border-bottom: 1px dotted rgba(34, 211, 238, 0.4);" title="{{ rel_title }}">
+              {{ report.transitory_sbom.ecosystem | default: report.host.runtime_ecosystem }}
+            </a>
+            {% else %}
+            {{ report.transitory_sbom.ecosystem | default: report.host.runtime_ecosystem }}
+            {% endif %}
+          </div>
+          <div style="font-size: 0.78rem; color: #10B981; font-weight: 600; margin-top: 0.15rem; display: flex; align-items: center; gap: 0.35rem;">
+            <span>●</span>
+            {% if p_type %}
+              <span style="font-family: 'IBM Plex Mono', monospace;">pkg:{{ p_type }}</span>
+            {% else %}
+              <span>Ingested Graph</span>
+            {% endif %}
+          </div>
+        </div>
       </div>
     </div>
     {% endif %}
@@ -258,8 +417,8 @@ layout: default
     {% if report.cra_governance %}
     <div style="margin-bottom: 2.75rem;">
       <div style="border-bottom: 1px solid rgba(255, 255, 255, 0.1); padding-bottom: 0.5rem; margin-bottom: 0.75rem;">
-        <h2 style="font-size: 1.35rem; font-weight: 800; color: #ffffff; margin: 0; display: flex; align-items: center; gap: 0.5rem;">
-          <span>🏛️</span> Supply Chain Governance
+        <h2 style="font-size: 1.35rem; font-weight: 800; color: #ffffff; margin: 0; display: flex; align-items: center;">
+          Supply Chain Governance
         </h2>
       </div>
       <p style="font-size: 0.95rem; color: #cbd5e1; margin-bottom: 1.25rem; line-height: 1.5;">
@@ -320,8 +479,8 @@ layout: default
 
     <div style="margin-bottom: 2.75rem;">
       <div style="border-bottom: 1px solid rgba(255, 255, 255, 0.1); padding-bottom: 0.5rem; margin-bottom: 0.75rem;">
-        <h2 style="font-size: 1.35rem; font-weight: 800; color: #ffffff; margin: 0; display: flex; align-items: center; gap: 0.5rem;">
-          <span>📑</span> Authoritative Verified Facts & Advisories
+        <h2 style="font-size: 1.35rem; font-weight: 800; color: #ffffff; margin: 0; display: flex; align-items: center;">
+          Authoritative Verified Facts & Advisories
         </h2>
       </div>
       <p style="font-size: 0.95rem; color: #cbd5e1; margin-bottom: 1.5rem; line-height: 1.5;">
@@ -331,8 +490,8 @@ layout: default
       <!-- 4A. Target Dependency Facts & Advisories -->
       <div style="margin-bottom: 2.25rem;">
         <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.85rem; flex-wrap: wrap; gap: 0.5rem; border-bottom: 1px solid rgba(255, 255, 255, 0.1); padding-bottom: 0.5rem;">
-          <h3 style="font-size: 1.05rem; font-weight: 800; color: #22D3EE; margin: 0; display: flex; align-items: center; gap: 0.5rem;">
-            <span>📦</span> Target Package Advisories & Weaknesses: {{ report.target.primary_library }}
+          <h3 style="font-size: 1.05rem; font-weight: 800; color: #22D3EE; margin: 0;">
+            Target Package Advisories & Weaknesses: {{ report.target.primary_library }}
           </h3>
           <span style="font-size: 0.72rem; font-weight: 700; color: #cbd5e1; background: rgba(0, 0, 0, 0.35); padding: 0.2rem 0.55rem; border-radius: 4px; border: 1px solid rgba(255, 255, 255, 0.08); font-family: 'IBM Plex Mono', monospace;">
             {{ target_facts.size }} Verified Records
@@ -393,8 +552,8 @@ layout: default
       <div style="margin-top: 2rem;">
         <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.85rem; flex-wrap: wrap; gap: 0.5rem; border-bottom: 1px solid rgba(255, 255, 255, 0.1); padding-bottom: 0.5rem;">
           <div>
-            <h3 style="font-size: 1.05rem; font-weight: 800; color: #ffffff; margin: 0; display: flex; align-items: center; gap: 0.5rem;">
-              <span>☸️</span> Host Application Advisories: {{ report.host.name }} {{ report.host.version }}
+            <h3 style="font-size: 1.05rem; font-weight: 800; color: #ffffff; margin: 0;">
+              Host Application Advisories: {{ report.host.name }} {{ report.host.version }}
             </h3>
             <div style="font-size: 0.78rem; color: #94a3b8; margin-top: 0.2rem;">
               Deduplicated from {{ report.transitory_sbom.host_advisories_count | default: host_facts.size }} advisory records indexed by Google deps.dev and OSV · {{ report.transitory_sbom.active_kev_count | default: 0 }} Active CISA KEV
