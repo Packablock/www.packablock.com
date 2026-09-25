@@ -269,6 +269,17 @@ permalink: /reports/
           Download JSON <span>↗</span>
         </a>
       </div>
+
+      <!-- Feed 15: Micro-Enterprise CRA Cost Model -->
+      <div class="datalake-card">
+        <span class="feed-badge">REGULATORY / CRA</span>
+        <h3>Micro-Enterprise CRA Cost Model</h3>
+        <p>Empirical cost-of-action vs. inaction benchmarks across 5 micro-enterprise archetypes modeling sweat equity compliance vs platform delisting and border seizures.</p>
+        <div class="feed-endpoint">regulatory/micro-enterprise-cra-cost-model.csv</div>
+        <a href="https://data.packablock.com/regulatory/micro-enterprise-cra-cost-model.csv" class="feed-action" target="_blank" rel="noopener">
+          Download CSV <span>↗</span>
+        </a>
+      </div>
     </div>
 
     <div style="text-align: center; margin-top: 1.5rem;">
@@ -407,6 +418,15 @@ permalink: /reports/
             <div class="item-title">European Cyber Insurance Renewal Benchmark</div>
             <p class="item-desc">Underwriting loss-ratio and risk-loading calculator calibrated against ENISA 2026 claims telemetry with multi-carrier broker renewal defense cards.</p>
           </div>
+
+          <div class="product-item">
+            <div class="item-top">
+              <span class="item-id">CRA-05</span>
+              <span class="item-price">$9.00</span>
+            </div>
+            <div class="item-title">Micro-Enterprise CRA Exposure &amp; Inaction Cost Index</div>
+            <p class="item-desc">Interactive living Google Sheet modeling baseline sweat equity compliance costs ($1.6k–$3.3k) vs. platform delisting and border seizure risks with deterministic breakeven decision engine.</p>
+          </div>
         </div>
       </div>
 
@@ -480,6 +500,15 @@ permalink: /reports/
             </div>
             <div class="item-title">European Cyber Insurance Actuarial Model &amp; Board Deck</div>
             <p class="item-desc">Actuarial renewal model, 12-slide executive presentation, and parametric loss accumulation sizer for CFOs, risk committees, and brokers.</p>
+          </div>
+
+          <div class="product-item">
+            <div class="item-top">
+              <span class="item-id">CRA-05</span>
+              <span class="item-price">$97.00</span>
+            </div>
+            <div class="item-title">Micro-Enterprise CRA Exposure &amp; Inaction Model &amp; Deck</div>
+            <p class="item-desc">Turnkey SME consulting package with 4-tab unlocked actuarial model, 12-slide 16:9 executive presentation, and Annex II Module A internal self-assessment blueprint.</p>
           </div>
 
           <div class="product-item">

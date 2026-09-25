@@ -254,6 +254,7 @@ permalink: /cra-compliance-checklist/
       <ul class="article-list">
         <li><strong>Install the CLI Engine:</strong> Run <code>bun add -g @packablock/client</code> or <code>npm install -g packablock</code> to initialize local attestation tracking.</li>
         <li><strong>Explore Regulatory Datalake Datasets:</strong> Query statutory penalty models and EU CRA benchmark crosswalks at <a href="https://data.packablock.com" target="_blank" rel="noopener">data.packablock.com ↗</a>.</li>
+        <li><strong>Micro-Enterprise Exposure &amp; Inaction Index:</strong> Model sweat equity compliance costs vs. platform delisting and customs impoundment using our <a href="{{ '/reports/#commercial' | relative_url }}">CRA-05 Actuarial Model</a>.</li>
         <li><strong>Automate Your Pipeline:</strong> Integrate the GitHub Actions runner above to establish deterministic CI/CD guardrails with zero developer friction.</li>
         <li><strong>Enterprise Consultation:</strong> Schedule an architecture review for private trust registries at <a href="{{ '/reports/#consultation' | relative_url }}">Enterprise Consultation</a>.</li>
       </ul>
