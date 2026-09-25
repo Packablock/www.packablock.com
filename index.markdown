@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Deterministic Supply Chain Policy Control
-description: Defend against software supply chain attacks and package tampering with cryptographically secure attestation logs and parallel lockfile tracking.
+description: Your automated deployments run continuously. Packablock turns your build logs into actionable insights and protects your pipeline from supply chain attacks.
 permalink: /
 callout_banner: true
 ---
@@ -17,7 +17,7 @@ callout_banner: true
   </div>
   <h1 class="hero-title">Deterministic Supply Chain Policy Control</h1>
   <p class="hero-subtitle">
-    Cryptographically secure attestation logs and parallel lockfile tracking to defend against software supply chain attacks and package tampering.
+    Your automated deployments run continuously. Packablock turns your build logs into actionable insights and protects your pipeline from supply chain attacks.
   </p>
   <div class="hero-buttons">
     <a href="https://github.com/Packablock/packablock-client" class="btn-primary" target="_blank" rel="noopener">
