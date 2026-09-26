@@ -24,6 +24,7 @@ description: >-
   The Deterministic Supply Chain Policy Control.
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "https://www.packablock.com" # the base hostname & protocol for your site, e.g. http://example.com
+google_analytics: G-SVPWG5QHH0
 twitter_username: packablock
 github_username:  Packablock
 

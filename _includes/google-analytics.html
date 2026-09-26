@@ -1,0 +1,31 @@
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id={{ site.google_analytics }}"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', '{{ site.google_analytics }}', {
+    send_page_view: true
+  });
+
+  // Track Stripe checkout CTA clicks as begin_checkout conversion events in GA4
+  document.addEventListener('DOMContentLoaded', function() {
+    document.querySelectorAll('a[href*="buy.stripe.com"]').forEach(function(btn) {
+      btn.addEventListener('click', function(e) {
+        if (typeof gtag === 'function') {
+          gtag('event', 'begin_checkout', {
+            currency: 'USD',
+            value: 9.00,
+            items: [{
+              item_id: 'CRA-05',
+              item_name: 'Micro-Enterprise CRA Cost & Inaction Model (Google Sheet)',
+              price: 9.00,
+              quantity: 1
+            }]
+          });
+        }
+      });
+    });
+  });
+</script>
