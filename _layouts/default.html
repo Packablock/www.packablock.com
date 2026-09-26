@@ -7,7 +7,9 @@
     <div id="top-anchor" tabindex="-1" style="position: absolute; top: 0; left: 0; width: 0; height: 0; pointer-events: none; outline: none;" aria-hidden="true"></div>
     <a href="#main-content" class="skip-link">Skip to main content</a>
 
-    {%- include header.html -%}
+    {%- unless page.suppress_header -%}
+      {%- include header.html -%}
+    {%- endunless -%}
 
     <main class="page-content" aria-label="Content" id="main-content" tabindex="-1">
       {%- if page.callout_banner or page.url == "/" or page.url == "/index.html" -%}

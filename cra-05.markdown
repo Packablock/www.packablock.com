@@ -4,10 +4,25 @@ title: "Micro-Enterprise EU CRA Cost & Inaction Model (CRA-05) | Instant Google 
 description: "Instant, unlocked Google Sheet model for bootstrapped founders and micro-enterprises to calculate compliance vs. EU market exit costs under the EU Cyber Resilience Act."
 permalink: /cra-05/
 suppress_cookie_banner: true
+suppress_header: true
 ---
 
 <!-- Micro-Landing Hero Banner / Minimal Mobile Header -->
 <div class="cra05-lp-container">
+  
+  <!-- Minimalist Clean Brand Header (Zero Nav Outlinks) -->
+  <div class="cra05-top-brand">
+    <div class="cra05-brand-mark">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" class="cra05-candlestick-svg" width="28" height="28" aria-hidden="true">
+        <line x1="60" y1="24" x2="60" y2="96" stroke="#22D3EE" stroke-width="8" stroke-linecap="round"/>
+        <rect x="37" y="42" width="46" height="36" rx="9" fill="#22D3EE"/>
+        <circle cx="60" cy="24" r="9" fill="#22D3EE"/>
+        <circle cx="60" cy="96" r="9" fill="#22D3EE"/>
+      </svg>
+      <span class="cra05-brand-text">Packablock</span>
+    </div>
+    <span class="cra05-brand-tag">Regulatory &amp; Legal Intelligence</span>
+  </div>
   
   <!-- Urgency / Badge -->
   <div class="cra05-badge-wrap">
@@ -177,9 +192,39 @@ suppress_cookie_banner: true
 .cra05-lp-container {
   max-width: 760px;
   margin: 0 auto;
-  padding: 24px 16px 60px 16px;
+  padding: 20px 16px 60px 16px;
   font-family: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   color: #e5e7eb;
+}
+
+.cra05-top-brand {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid rgba(34, 211, 238, 0.2);
+  padding-bottom: 16px;
+  margin-bottom: 24px;
+}
+
+.cra05-brand-mark {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.cra05-brand-text {
+  font-size: 1.15rem;
+  font-weight: 900;
+  color: #ffffff;
+  letter-spacing: -0.02em;
+}
+
+.cra05-brand-tag {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #94A3B8;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
 }
 
 .cra05-badge-wrap {
