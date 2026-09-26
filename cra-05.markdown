@@ -201,8 +201,10 @@ suppress_header: true
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
   border-bottom: 1px solid rgba(34, 211, 238, 0.2);
-  padding-bottom: 16px;
+  padding-bottom: 14px;
   margin-bottom: 24px;
 }
 
@@ -210,21 +212,27 @@ suppress_header: true
   display: flex;
   align-items: center;
   gap: 10px;
+  flex-shrink: 0;
 }
 
 .cra05-brand-text {
-  font-size: 1.15rem;
+  font-size: 1.2rem;
   font-weight: 900;
   color: #ffffff;
   letter-spacing: -0.02em;
 }
 
 .cra05-brand-tag {
-  font-size: 0.75rem;
-  font-weight: 600;
-  color: #94A3B8;
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: #22D3EE;
+  background: rgba(14, 154, 168, 0.15);
+  border: 1px solid rgba(34, 211, 238, 0.3);
+  padding: 4px 10px;
+  border-radius: 6px;
   text-transform: uppercase;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.06em;
+  white-space: nowrap;
 }
 
 .cra05-badge-wrap {
@@ -583,6 +591,11 @@ suppress_header: true
 }
 
 @media (max-width: 600px) {
+  .cra05-top-brand {
+    justify-content: center;
+    gap: 10px;
+    padding-bottom: 12px;
+  }
   .cra05-hero-title {
     font-size: 1.7rem;
   }
