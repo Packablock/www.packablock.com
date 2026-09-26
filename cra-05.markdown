@@ -19,7 +19,7 @@ permalink: /cra-05/
   </h1>
 
   <p class="cra05-hero-sub">
-    Calculate your exact statutory Annex II Module A compliance cost vs. delisting, border impoundment, and statutory fine exposure in under 60 seconds.
+    Calculate your exact statutory Module A (Internal Production Control) compliance cost vs. delisting, border impoundment, and statutory fine exposure in under 60 seconds.
   </p>
 
   <!-- Value Pill Matrix -->
@@ -85,7 +85,7 @@ permalink: /cra-05/
         <div class="cra05-versus-card good">
           <div class="card-tag alert-green">🛡️ Compliance Cost</div>
           <ul>
-            <li>14–35 hours self-assessment sweat equity (Annex II Module A)</li>
+            <li>14–35 hours self-assessment sweat equity (Module A Internal Control)</li>
             <li>Zero requirement for $15k–$40k third-party auditing firms</li>
             <li>Retain 100% of European MRR &amp; global customer credibility</li>
           </ul>
@@ -120,7 +120,7 @@ permalink: /cra-05/
         <div class="feature-num">03</div>
         <div class="feature-text">
           <h3>Statutory Knowledge Base &amp; Checklist</h3>
-          <p>12-Step Annex II Module A Self-Assessment Checklist, statutory article crosswalk (Articles 3, 10, 13, 14, 18, 32-34, 53), and product liability mapping.</p>
+          <p>12-Step Module A Internal Control Self-Assessment Checklist, Annex V Technical Documentation blueprint, and statutory article crosswalk (Articles 3, 10, 13, 14, 18, 32-34, 53).</p>
         </div>
       </div>
 
