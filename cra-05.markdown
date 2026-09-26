@@ -3,6 +3,7 @@ layout: default
 title: "Micro-Enterprise EU CRA Cost & Inaction Model (CRA-05) | Instant Google Sheet"
 description: "Instant, unlocked Google Sheet model for bootstrapped founders and micro-enterprises to calculate compliance vs. EU market exit costs under the EU Cyber Resilience Act."
 permalink: /cra-05/
+suppress_cookie_banner: true
 ---
 
 <!-- Micro-Landing Hero Banner / Minimal Mobile Header -->

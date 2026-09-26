@@ -20,7 +20,9 @@
 
     {%- include footer.html -%}
 
-    {%- include cookie-consent.html -%}
+    {%- unless page.suppress_cookie_banner -%}
+      {%- include cookie-consent.html -%}
+    {%- endunless -%}
 
   </body>
 

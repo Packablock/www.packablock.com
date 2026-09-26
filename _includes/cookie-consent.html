@@ -123,7 +123,11 @@
 
   // Check if consent has already been chosen
   var saved = localStorage.getItem(consentKey);
-  if (!saved && banner) {
+
+  // Check if user arrived via ad/campaign parameters (Mode 2 cookieless modeling, no banner clutter)
+  var isAdTraffic = /utm_|fbclid|gclid|threads/i.test(window.location.search);
+
+  if (!saved && !isAdTraffic && banner) {
     banner.style.display = 'block';
   }
 
