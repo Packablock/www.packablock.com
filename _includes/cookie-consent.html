@@ -20,24 +20,28 @@
   bottom: 0;
   left: 0;
   right: 0;
+  width: 100%;
+  box-sizing: border-box;
   z-index: 999999;
-  background: rgba(9, 18, 31, 0.97);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  background: rgba(9, 18, 31, 0.98);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
   border-top: 1px solid rgba(34, 211, 238, 0.35);
-  box-shadow: 0 -4px 25px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 -8px 30px rgba(0, 0, 0, 0.6);
   padding: 14px 20px;
+  padding-bottom: max(14px, env(safe-area-inset-bottom));
   font-family: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
 }
 
 .cookie-banner-inner {
   max-width: 1200px;
+  width: 100%;
   margin: 0 auto;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 20px;
-  flex-wrap: wrap;
+  gap: 16px;
+  box-sizing: border-box;
 }
 
 .cookie-banner-text {
@@ -45,31 +49,43 @@
   color: #E2E8F0;
   line-height: 1.45;
   display: flex;
-  align-items: center;
-  gap: 10px;
-  flex: 1 1 300px;
+  align-items: flex-start;
+  gap: 12px;
+  flex: 1 1 auto;
+  min-width: 0;
+  box-sizing: border-box;
+}
+
+.cookie-banner-text span:not(.cookie-icon) {
+  word-break: break-word;
+  overflow-wrap: break-word;
 }
 
 .cookie-icon {
   font-size: 1.25rem;
+  line-height: 1.2;
   flex-shrink: 0;
 }
 
 .cookie-banner-actions {
   display: flex;
+  align-items: center;
   gap: 10px;
   flex-shrink: 0;
+  box-sizing: border-box;
 }
 
 .cookie-btn {
   font-family: inherit;
   font-size: 0.82rem;
   font-weight: 700;
-  padding: 8px 18px;
+  padding: 9px 20px;
   border-radius: 6px;
   cursor: pointer;
   transition: all 0.15s ease-in-out;
   border: 1px solid transparent;
+  box-sizing: border-box;
+  white-space: nowrap;
 }
 
 .cookie-btn-accept {
@@ -96,20 +112,23 @@
 
 @media (max-width: 640px) {
   .cookie-banner {
-    padding: 16px;
+    padding: 16px 16px max(16px, env(safe-area-inset-bottom)) 16px;
   }
   .cookie-banner-inner {
     flex-direction: column;
     align-items: stretch;
-    gap: 12px;
+    gap: 14px;
+    width: 100%;
   }
   .cookie-banner-actions {
-    justify-content: flex-end;
+    display: flex;
+    width: 100%;
+    gap: 10px;
   }
   .cookie-btn {
-    flex: 1;
+    flex: 1 1 50%;
     text-align: center;
-    padding: 10px;
+    padding: 11px 12px;
   }
 }
 </style>
